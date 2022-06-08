@@ -58,6 +58,8 @@ model projects {
   name String @db.VarChar(50)
   longitude String @db.VarChar(50)
   latitude String @db.VarChar(50)
+  baselines baselines[]
+  reports reports[]
 }
 
 model project_states {
@@ -68,40 +70,50 @@ model project_states {
 
 model aux_portfolios {
   id Int @id @default(autoincrement())
-  id_clasification Int
-  id_type Int
+  id_clasification clasification @relation(fields: [clasificationId], references: [id])
+  clasificationId Int
+  id_type type @relation(fields: [typeId], references: [id])
+  typeId Int
+  porfolio portfolios[]
 }
 
 model clasification {
   id Int @id @default(autoincrement())
   name String @db.VarChar(50)
+  auxPorfolio aux_portfolios[]
 }
 
 model type {
   id Int @id @default(autoincrement())
   name String @db.VarChar(50)
+  auxPorfolio aux_portfolios[]
 }
 
 model portfolios {
   id Int @id @default(autoincrement())
   name String @db.VarChar(50)
-  id_aux_portfolios Int
+  id_aux_portfolios aux_portfolios @relation(fields: [auxId], references: [id])
+  auxId Int
   project projects?
 }
 
 model baselines {
   id Int @id @default(autoincrement())
-  id_projects Int
+  id_projects projects @relation(fields: [projectId], references: [id])
+  projectId Int
   baseline Int
   start_date DateTime @db.Date()
   end_date DateTime @db.Date()
   real_start_date DateTime @db.Date()
+  reports reports[]
 }
 
 model reports {
   id Int @id @default(autoincrement())
-  id_projects Int
-  id_baseline Int
+  id_projects projects @relation(fields: [projectId], references: [id])
+  projectId Int
+  id_baseline baselines @relation(fields: [baselineId], references: [id])
+  baselineId Int
   state_date DateTime @db.Date()
   planned_time Int
   current_time Int
@@ -115,34 +127,42 @@ model reports {
   projected_end_date DateTime @db.Date()
   request_made Int
   request_accepted Int
+  achievements archievements[]
+  difficulties difficulties[]
 }
 
 model archievements {
   id Int @id @default(autoincrement())
   archiebement String @db.VarChar(50)
-  id_reports Int
+  id_reports reports @relation(fields: [reportId], references: [id])
+  reportId Int
 }
 
 model difficulties {
   id Int @id @default(autoincrement())
   difficulty String @db.VarChar(50)
-  id_reports Int
+  id_reports reports @relation(fields: [reportId], references: [id])
+  reportId Int
 }
 
 model perspective {
   id Int @id @default(autoincrement())
   name String @db.VarChar(50)
+  objectives objetives[]
 }
 
 model objetives {
   id Int @id @default(autoincrement())
-  id_perspective Int
+  id_perspective perspective @relation(fields: [prespectiveId], references: [id])
+  prespectiveId Int
   name String @db.VarChar(50)
   description String @db.VarChar(250)
+  indicators objetive_indicators[]
 }
 
 model objetive_indicators {
   id Int @id @default(autoincrement())
-  id_objetives Int
+  id_objetives objetives @relation(fields: [objectiveId], references: [id])
+  objectiveId Int
   name String @db.VarChar(50)
 }

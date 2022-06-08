@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { LoginContext } from '../../context/LoginContext'
 
 const IMenu = () => {
-  return (
-    <div>IMenu</div>
-  )
+
+    const { login } = useContext(LoginContext)
+    return (
+      <div>IMenu {login}</div>
+    )
 }
 
 export default IMenu

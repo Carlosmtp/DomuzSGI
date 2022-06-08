@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -8,9 +8,8 @@ import logo from '../../assets/logodomuz.png';
 
 
 import FormLogin from './FormLogin';
-import Darkmode from '../../components/Darkmode';
-
 export default function Login() {
+
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />

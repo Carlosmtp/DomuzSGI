@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox, Stack} from '@mui/material';
 import { useNavigate } from 'react-router-dom'
+import { LoginContext } from '../../context/LoginContext';
 
 function Copyright(props) { 
     return (
@@ -16,6 +17,8 @@ function Copyright(props) {
   }
 
 const FormLogin = () => {
+
+    const { setLogin } = useContext(LoginContext)
 
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -40,8 +43,9 @@ const FormLogin = () => {
         e.preventDefault()
         console.log(username, password)
         //TODO buscar la variable global
-        if(username == "admin" && password == "admin"){
-          navigate("test")
+        if(username === "admin" && password === "admin"){
+          setLogin('entro')
+          navigate("menu")
         }      
       }
   
@@ -85,7 +89,6 @@ const FormLogin = () => {
               </Button>
               <Grid container>
                   <Link href="#" variant="body2">
-                    Forgot password?
                   </Link>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

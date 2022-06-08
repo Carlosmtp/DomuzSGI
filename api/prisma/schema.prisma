@@ -9,3 +9,140 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model roles {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  users users[] 
+}
+
+model people {
+  id Int @id @default(autoincrement())
+  person_id String @db.VarChar(50)
+  name String @db.VarChar(50)
+  lastname String @db.VarChar(50)
+  mail String @db.VarChar(50)
+  phone String @db.VarChar(50)
+  user users?
+}
+
+model users {
+  id Int @id @default(autoincrement())
+  password String @db.VarChar(50)
+  id_people people @relation(fields: [personId], references: [id])
+  personId Int
+  id_roles roles @relation(fields: [rolId], references: [id])
+  rolId Int
+  projects projects[]
+  
+}
+
+model companies {
+  id Int @id @default(autoincrement())
+  nit String @db.VarChar(50)
+  name String @db.VarChar(50)
+  projects projects[]
+}
+
+model projects {
+  id Int @id @default(autoincrement())
+  front_proyect_id String @db.VarChar(50)
+  id_users users @relation(fields: [userId], references: [id])
+  userId Int
+  id_companies companies @relation(fields: [companieId], references: [id])
+  companieId Int
+  id_project_states project_states @relation(fields: [stateId], references: [id])
+  stateId Int
+  id_portfolios portfolios @relation(fields: [portfolioId], references: [id])
+  portfolioId Int
+  name String @db.VarChar(50)
+  longitude String @db.VarChar(50)
+  latitude String @db.VarChar(50)
+}
+
+model project_states {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  projects projects[]
+}
+
+model aux_portfolios {
+  id Int @id @default(autoincrement())
+  id_clasification Int
+  id_type Int
+}
+
+model clasification {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+}
+
+model type {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+}
+
+model portfolios {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  id_aux_portfolios Int
+  project projects?
+}
+
+model baselines {
+  id Int @id @default(autoincrement())
+  id_projects Int
+  baseline Int
+  start_date DateTime @db.Date()
+  end_date DateTime @db.Date()
+  real_start_date DateTime @db.Date()
+}
+
+model reports {
+  id Int @id @default(autoincrement())
+  id_projects Int
+  id_baseline Int
+  state_date DateTime @db.Date()
+  planned_time Int
+  current_time Int
+  planned_cost Int
+  current_cost Int
+  planned_reach Int
+  current_reach Int
+  end_variation Int
+  total_budget_abl Int
+  total_budnet_projected Int
+  projected_end_date DateTime @db.Date()
+  request_made Int
+  request_accepted Int
+}
+
+model archievements {
+  id Int @id @default(autoincrement())
+  archiebement String @db.VarChar(50)
+  id_reports Int
+}
+
+model difficulties {
+  id Int @id @default(autoincrement())
+  difficulty String @db.VarChar(50)
+  id_reports Int
+}
+
+model perspective {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+}
+
+model objetives {
+  id Int @id @default(autoincrement())
+  id_perspective Int
+  name String @db.VarChar(50)
+  description String @db.VarChar(250)
+}
+
+model objetive_indicators {
+  id Int @id @default(autoincrement())
+  id_objetives Int
+  name String @db.VarChar(50)
+}

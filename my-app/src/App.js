@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createContext } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,8 +6,9 @@ import {
 } from "react-router-dom"
 import { createTheme,ThemeProvider } from '@mui/material';
 
-import Test1 from './components/Test1';
-import Login from './pages/Login';
+import Menu from './pages/Menu/IMenu';
+import Login from './pages/Login/ILogin';
+import ModeContext from './context/ModeContext';
 
 const App = () => {
 
@@ -30,15 +31,17 @@ const darkTheme = createTheme({
 })
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/test" element={<Test1 />} />
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <ModeContext.Provider value={mode}>
+      <ThemeProvider theme={darkTheme}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/test" element={<Menu />} />
+            <Route path="*" element={<Login />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </ModeContext.Provider>
   )
 }
 

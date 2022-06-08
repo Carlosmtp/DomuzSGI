@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox} from '@mui/material';
+import { Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox, Stack} from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 
 function Copyright(props) { 
@@ -47,7 +47,8 @@ const FormLogin = () => {
   
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+    <Stack component="form" direction="column" spacing={2} justifyContent="space-between" onSubmit={handleSubmit} sx={{ mt: 1 }}> 
+    {/*</Stack><Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>*/}
               <TextField
                 required
                 fullWidth
@@ -78,6 +79,7 @@ const FormLogin = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                color='secondary'
               >
                 Sign In
               </Button>
@@ -87,7 +89,7 @@ const FormLogin = () => {
                   </Link>
               </Grid>
               <Copyright sx={{ mt: 5 }} />
-            </Box>
+            </Stack>
   )
 }
 

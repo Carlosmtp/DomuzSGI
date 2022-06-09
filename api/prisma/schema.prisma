@@ -27,13 +27,15 @@ model people {
 }
 
 model users {
-  id        Int        @id @default(autoincrement())
-  password  String     @db.VarChar(50)
-  id_people people     @relation(fields: [personId], references: [id])
-  personId  Int        @unique
-  id_roles  roles      @relation(fields: [rolId], references: [id])
+  id        Int            @id @default(autoincrement())
+  password  String         @db.VarChar(50)
+  id_people people         @relation(fields: [personId], references: [id])
+  personId  Int            @unique
+  id_roles  roles          @relation(fields: [rolId], references: [id])
   rolId     Int
   projects  projects[]
+  plans     action_plans[]
+  indicator process_indicators?
 
 }
 
@@ -158,6 +160,7 @@ model objetives {
   name           String                @db.VarChar(50)
   description    String                @db.VarChar(250)
   indicators     objetive_indicators[]
+  initiatives    initiatives[]
 }
 
 model objetive_indicators {
@@ -171,24 +174,30 @@ model objetive_indicators {
 
 //the following models are missing the relationships
 model initiatives {
-  id           Int    @id @default(autoincrement())
-  id_objetives Int
-  name         String @db.VarChar(50)
-  description  String @db.VarChar(250)
+  id           Int            @id @default(autoincrement())
+  id_objetives objetives      @relation(fields: [objectiveId], references: [id])
+  objectiveId  Int
+  name         String         @db.VarChar(50)
+  description  String         @db.VarChar(250)
+  plans        action_plans[]
 }
 
 model action_plans {
-  id             Int    @id @default(autoincrement())
-  name           String @db.VarChar(50)
-  description    String @db.VarChar(250)
-  id_initiatives Int
-  id_users       Int
-  id_plan_states Int
+  id             Int         @id @default(autoincrement())
+  name           String      @db.VarChar(50)
+  description    String      @db.VarChar(250)
+  id_initiatives initiatives @relation(fields: [initiativeId], references: [id])
+  initiativeId   Int
+  id_users       users       @relation(fields: [userId], references: [id])
+  userId         Int
+  id_plan_states plan_states @relation(fields: [stateId], references: [id])
+  stateId        Int
 }
 
 model plan_states {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(50)
+  id    Int            @id @default(autoincrement())
+  name  String         @db.VarChar(50)
+  plans action_plans[]
 }
 
 model processes {
@@ -196,6 +205,7 @@ model processes {
   name        String @db.VarChar(50)
   description String @db.VarChar(250)
   efficiency  Float
+  indicators process_indicators[]
 }
 
 model process_indicators {
@@ -205,14 +215,18 @@ model process_indicators {
   periodicity  String @db.VarChar(50)
   in_charge    String @db.VarChar(50)
   weight       String @db.VarChar(50)
-  id_processes Int
-  id_users     Int
+  id_processes processes @relation(fields: [processId], references: [id])
+  processId Int
+  id_users     users @relation(fields: [userId], references: [id])
+  userId Int
+  records periodic_records[]
 }
 
 model periodic_records {
   id                    Int    @id @default(autoincrement())
-  id_process_indicators Int
+  id_process_indicators process_indicators @relation(fields: [indicatorId], references: [id])
+  indicatorId Int
   record_date           String @db.VarChar(50)
-  expected_value Int
-  archieved_value Int
+  expected_value        Int
+  archieved_value       Int
 }

@@ -44,7 +44,7 @@ const FormLogin = () => {
         console.log(username, password)
         //TODO buscar la variable global
         if(username === "admin" && password === "admin"){
-          setLogin('entro')
+          setLogin('Usuario identificado. Bienvenido '+username)
           navigate("menu")
         }      
       }

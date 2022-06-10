@@ -11,6 +11,7 @@ import Link from '@mui/material/Link';
 import Deposits from '../Deposits';
 import Orders from '../Orders';
 import { Navbar } from './Navbar.jsx';
+import { Outlet } from 'react-router';
 
 function Copyright(props) {
   return (
@@ -26,7 +27,6 @@ function Copyright(props) {
 }
 
 const AppBar = () => {
-  const [children,setChildren] = useState(<Typography>Sara</Typography>)
 
   return (
       <Box sx={{ display: 'flex' }}>
@@ -46,7 +46,7 @@ const AppBar = () => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            {children}
+            <Outlet />
           </Container>
         </Box>
       </Box>

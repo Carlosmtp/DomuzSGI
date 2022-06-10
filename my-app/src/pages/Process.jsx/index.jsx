@@ -3,17 +3,16 @@ import { Stack, Box } from '@mui/material';
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router';
 import Post from '../../a-components/Post'
-import Dashboard from '../../components/Dashboard';
+import Dashboard from '../../components/AppBar';
 import { LoginContext } from '../../context/LoginContext'
 
-const IMenu = () => {
+const Process = () => {
 
     let navigate = useNavigate();
 
     const { login } = useContext(LoginContext)
     return (
       <Box bgcolor="white" p={3}>
-        <Dashboard></Dashboard>
         <Typography color='primary' variant='h6' align='center'>
         Interfaz de Menu: {login}
         </Typography>
@@ -33,4 +32,4 @@ const IMenu = () => {
     )
 }
 
-export default IMenu
+export default Process

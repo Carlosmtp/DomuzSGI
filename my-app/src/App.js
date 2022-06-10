@@ -6,10 +6,9 @@ import {
 } from "react-router-dom"
 import { createTheme,ThemeProvider } from '@mui/material';
 
-import Menu from './pages/Menu/IMenu';
-import Login from './pages/Login/ILogin';
+import Login from './pages/Login';
 import { LoginProvider } from './context/LoginContext';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/AppBar';
 
 const App = () => {
 
@@ -37,6 +36,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/menu" element={<Dashboard />} />
+
               <Route path="*" element={<Login />} />
             </Routes>
           </Router>

@@ -8,7 +8,7 @@ import logo from '../../assets/logodomuz.png';
 
 
 import FormLogin from './FormLogin';
-export default function Login() {
+const Login = () => {
 
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -55,3 +55,5 @@ export default function Login() {
       </Grid>
   );
 }
+
+export default Login

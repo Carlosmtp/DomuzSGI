@@ -1,15 +1,18 @@
-import React from 'react'
-import { ModeNight } from '@mui/icons-material'
-import { ListItemButton, ListItemIcon, Switch } from '@mui/material'
+import { DarkMode } from '@mui/icons-material'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import React, { useContext } from 'react'
+import { AppContext } from '../context/AppContext'
 
-
-export const Darkmode = () => {
-    return (
-    <ListItemButton>
-              <ListItemIcon>
-                    <ModeNight/>
-              </ListItemIcon>
-              <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
-    </ListItemButton> 
+const Darkmode = () => {
+  const { mode, setMode } = useContext(AppContext)
+  return (
+    <ListItemButton onClick={e=>setMode(mode === "light" ? "dark" : "light")}>
+      <ListItemIcon>
+        <DarkMode />
+      </ListItemIcon>
+      <ListItemText primary="Cambiar modo" />
+    </ListItemButton>
   )
 }
+
+export default Darkmode

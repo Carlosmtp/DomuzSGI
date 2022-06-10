@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 
-import { Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox, Stack} from '@mui/material';
+import { Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox, Stack, InputAdornment} from '@mui/material';
 import { useNavigate } from 'react-router-dom'
-import { LoginContext } from '../../context/LoginContext';
+import { AppContext } from '../../context/AppContext';
+import { AccountCircle, Security } from '@mui/icons-material';
 
 function Copyright(props) { 
     return (
@@ -18,7 +19,7 @@ function Copyright(props) {
 
 const FormLogin = () => {
 
-    const { setLogin } = useContext(LoginContext)
+    const { setLogin } = useContext(AppContext)
 
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -45,7 +46,7 @@ const FormLogin = () => {
         //TODO buscar la variable global
         if(username === "admin" && password === "admin"){
           setLogin('Usuario identificado. Bienvenido '+username)
-          navigate("menu")
+          navigate("app/procesos")
         }      
       }
   
@@ -62,10 +63,16 @@ const FormLogin = () => {
                 autoComplete="username"
                 value={username}
                 onChange={handleInputChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
                 required
-                fullWidth
                 name="password"
                 label="Password"
                 type="password"
@@ -73,6 +80,13 @@ const FormLogin = () => {
                 autoComplete="current-password"                
                 value={password}
                 onChange={handleInputChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Security />
+                    </InputAdornment>
+                  ),
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

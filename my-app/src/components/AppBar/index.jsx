@@ -1,30 +1,10 @@
-import React, { useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
-import Deposits from '../Deposits';
-import Orders from '../Orders';
 import { Navbar } from './Navbar.jsx';
 import { Outlet } from 'react-router';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const AppBar = () => {
 

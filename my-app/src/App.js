@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,15 +7,18 @@ import {
 import { createTheme,ThemeProvider } from '@mui/material';
 
 import Login from './pages/Login';
-import { LoginProvider } from './context/LoginContext';
+
 import AppBar from './components/AppBar';
 import Process from './pages/Process.jsx'
+import { AppContext } from './context/AppContext';
 
 const App = () => {
 
+  const { mode } = useContext(AppContext)
+
   const darkTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: mode,
       primary: {
         main: '#000000',
       },
@@ -30,8 +33,7 @@ const App = () => {
   })
 
   return (
-    <LoginProvider>
-      
+     
         <ThemeProvider theme={darkTheme}>
           <Router>
             <Routes>
@@ -43,7 +45,6 @@ const App = () => {
             </Routes>
           </Router>
         </ThemeProvider>
-    </LoginProvider>
   )
 }
 

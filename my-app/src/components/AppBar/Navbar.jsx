@@ -14,6 +14,7 @@ import { mainListItems, secondaryListItems } from './ListItems.jsx';
 import Box from '@mui/material/Box';
 
 import { styled } from '@mui/material/styles';
+import Darkmode from '../Darkmode.jsx';
 
 
 const drawerWidth = 240;
@@ -64,7 +65,7 @@ const AppBar = styled(MuiAppBar, {
 
 export const Navbar = () => {
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -120,6 +121,8 @@ export const Navbar = () => {
         </Toolbar>
         <Divider />
         <List component="nav">
+          <Darkmode />
+          <Divider sx={{ my: 1 }} />
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}

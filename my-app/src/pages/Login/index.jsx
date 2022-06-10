@@ -1,13 +1,10 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import logo from '../../assets/logodomuz.png';
 
 
 import FormLogin from './FormLogin';
+import { Paper, Box, Grid, Typography } from '@mui/material';
 const Login = () => {
 
   return (
@@ -28,15 +25,16 @@ const Login = () => {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#272727'} }>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
           <Box
             sx={{
-              my: 8,
-              mx: 4,
+              py: 8,
+              px: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
+            bgcolor="background.default"
           >
             <Box
               component="img"
@@ -48,7 +46,7 @@ const Login = () => {
                 alt='Domuz'
                 src={logo}
             />
-            <Typography variant='h5' color='info'>Sistema de Gestión Integral</Typography>
+            <Typography variant='h5' pb ={4} color='info'>Sistema de Gestión Integral</Typography>
             <FormLogin />
           </Box>
         </Grid>

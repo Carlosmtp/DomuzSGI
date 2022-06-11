@@ -3,6 +3,7 @@
 Table roles as R {
   id int [pk, increment]
   name varchar
+  description varchar
 }
 
 Table people as P {

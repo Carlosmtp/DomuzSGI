@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import AppBar from './components/AppBar';
 import Process from './pages/Process.jsx'
 import { AppContext } from './context/AppContext';
+import Create from './pages/Create';
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/" element={<Login />} />
               <Route path="app" element={<AppBar />} >
                   <Route path="procesos" element={<Process />} />
+                  <Route path="crear" element={<Create />} />
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

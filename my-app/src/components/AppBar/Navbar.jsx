@@ -97,7 +97,7 @@ export const Navbar = () => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            Sistema de Gestión Integral: DOMUZ
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

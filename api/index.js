@@ -10,6 +10,7 @@ app.set("port", 6464);
 
 // Routes
 app.use(require("./routes/users"));
+app.use(require("./routes/roles"));
 
 app.listen(app.get("port"), () => {
   console.log(app.get("appName"));

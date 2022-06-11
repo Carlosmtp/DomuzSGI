@@ -184,7 +184,7 @@ Ref: PT.id < PJ.id_portfolios
 Ref: APT.id < PT.id_aux_portfolios
 Ref: CL.id < APT.id_clasification
 Ref: TP.id < APT.id_type
-Ref: PJ.id_companies < C.id
+Ref: C.id < PJ.id_companies
 Ref: U.id < PJ.id_users
 Ref: PJ.id < BL.id_projects
 Ref: PJ.id < RP.id_projects

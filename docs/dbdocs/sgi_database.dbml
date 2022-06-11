@@ -8,7 +8,7 @@ Table roles as R {
 
 Table people as P {
   id int [pk, increment]
-  person_id varchar [not null]
+  person_id varchar [unique, not null]
   name varchar [not null]
   lastname varchar [not null]
   mail varchar [not null]

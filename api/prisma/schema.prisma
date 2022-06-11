@@ -19,7 +19,7 @@ model roles {
 
 model people {
   id        Int    @id @default(autoincrement())
-  person_id String @db.VarChar(50)
+  person_id String @db.VarChar(50) @unique
   name      String @db.VarChar(50)
   lastname  String @db.VarChar(50)
   mail      String @db.VarChar(50)

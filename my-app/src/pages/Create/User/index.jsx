@@ -20,6 +20,7 @@ const User = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    //CONEXIÓN CON LA BD.
     console.log(name,lastname)
   }
 

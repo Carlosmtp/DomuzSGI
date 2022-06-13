@@ -12,6 +12,8 @@ import AppBar from './components/AppBar';
 import Process from './pages/Process.jsx'
 import { AppContext } from './context/AppContext';
 import Create from './pages/Create';
+import User from './pages/Create/User';
+import CreateProcess from './pages/Create/Process';
 
 const App = () => {
 
@@ -41,7 +43,10 @@ const App = () => {
               <Route path="/" element={<Login />} />
               <Route path="app" element={<AppBar />} >
                   <Route path="procesos" element={<Process />} />
-                  <Route path="crear" element={<Create />} />
+                  <Route path="crear" element={<Create />}>
+                    <Route path="usuario" element={<User />} />
+                    <Route path="proceso" element={<CreateProcess />} />
+                  </Route>
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

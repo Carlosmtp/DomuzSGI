@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import User from './User'
+import { Outlet } from 'react-router'
 
 const Create = () => {
   return (
@@ -8,7 +8,7 @@ const Create = () => {
       <Typography variant="h4">
         Crear {"<Lo que sea>"}
       </ Typography>
-      <User />
+      <Outlet />
 
     </Box>
   )

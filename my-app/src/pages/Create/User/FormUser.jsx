@@ -30,7 +30,7 @@ const FormUser = ({ name, setName,
                     setPhone(target.value)
                 break;
           default:
-            console.log("Necesitas crear el espectivo handleInput")
+            console.log("Necesitas crear el respectivo handleInput")
             break;
         }      
       }

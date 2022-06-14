@@ -14,6 +14,7 @@ import { AppContext } from './context/AppContext';
 import Create from './pages/Create';
 import User from './pages/Create/User';
 import CreateProcess from './pages/Create/Process';
+import CreateProyect from './pages/Create/Proyect';
 
 const App = () => {
 
@@ -46,6 +47,7 @@ const App = () => {
                   <Route path="crear" element={<Create />}>
                     <Route path="usuario" element={<User />} />
                     <Route path="proceso" element={<CreateProcess />} />
+                    <Route path="proyecto" element={<CreateProyect />} />
                   </Route>
               </Route>
               <Route path="*" element={<Login />} />

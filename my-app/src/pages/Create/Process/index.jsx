@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from '../Indicator/FormIndicator'
 
-const User = () => {
+const Process = () => {
 
   const [nameProcess,setNameProcess] = useState('')
   const [descriptionProcess,setDescriptionProcess] = useState('')
@@ -52,4 +52,4 @@ const User = () => {
   )
 }
 
-export default User
+export default Process

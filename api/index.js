@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 // Midle
 app.use(express.json()); //Permite a express leer json

@@ -8,8 +8,9 @@ const Create = () => {
       <Typography variant="h4">
         Crear {"<Lo que sea>"}
       </ Typography>
-      <Outlet />
-
+      <Box pt={3} pl={3} pr={3} >
+        <Outlet />
+      </Box>
     </Box>
   )
 }

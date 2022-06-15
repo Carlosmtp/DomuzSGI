@@ -1,10 +1,11 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { Box, Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { FormControl, Grid, InputAdornment, InputLabel, Select, Stack, TextField } from '@mui/material'
 import React from 'react'
+import { Selector } from '../../../components/Forms/Selector'
 
 const FormProyect = ({ name, setName,
                         proyectId, setProyectId,
-                        users, setUsers,
+                        leader, setLeader,
                         companies, setCompanies,
                         projectStates, setProjectStates,
                         portfolios, setPortfolios,
@@ -20,8 +21,8 @@ const handleInputChange = ({target}) => {
         case "proyectId":
             setProyectId(target.value)
             break;
-        case "users":
-            setUsers(target.value)
+        case "leader":
+            setLeader(target.value)
             break;
         case "companies":
             setCompanies(target.value)
@@ -45,13 +46,11 @@ const handleInputChange = ({target}) => {
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} pl={3}>
             <Grid item xs={12} sm={6}>
-                <Box p={4}>
-                    <Grid item xs={12} sm={12}>
+                <Stack spacing={2}>
                         <TextField
                             required
-                            fullWidth
                             id="name"
                             label="Nombre"
                             name="name"                
@@ -62,11 +61,8 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <AccountCircle />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
                         <TextField
-                            required
-                            fullWidth
+                            disabled
                             id="proyectId"
                             label="Identificación del Proyecto"
                             name="proyectId"                
@@ -77,45 +73,27 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <DriveFileRenameOutline />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="users"
-                            label="Usuarios"
-                            name="users"                
-                            value={users}
-                            onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="companies"
-                            label="Empresas"
-                            name="companies"                
-                            value={companies}
-                            onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                <InputAdornment position="start">
-                                    <DriveFileRenameOutline />
-                                </InputAdornment>)}}/>
-                    </Grid>
-                </Box>
+
+                        <Selector idSelector="select-leader" labelSelector="Líder" id="leader" hook={leader} setHook={setLeader}/>
+                        
+                        <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="select-company">Empresas</InputLabel>
+                            <Select
+                                required
+                                labelId="select-company"
+                                id="companies"
+                                label="Empresas"
+                                name="companies"                
+                                value={companies}
+                                onChange={handleInputChange}
+                                />
+                        </FormControl>
+                </Stack>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Box p={4}>
-                    <Grid item xs={12} sm={12}>
-                        <TextField
+                <Stack spacing={2}>
+                       <TextField
                             required
-                            fullWidth
                             id="projectStates"
                             label="Estados del Proyecto"
                             name="projectStates"                
@@ -126,11 +104,8 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <AccountCircle />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
                         <TextField
                             required
-                            fullWidth
                             id="portfolios"
                             label="Portafolios"
                             name="portfolios"                
@@ -141,11 +116,8 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <DriveFileRenameOutline />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
                         <TextField
                             required
-                            fullWidth
                             id="longitude"
                             label="Longitud"
                             name="longitude"                
@@ -156,11 +128,8 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <AccountCircle />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
                         <TextField
                             required
-                            fullWidth
                             id="latitude"
                             label="Latitud"
                             name="latitude"                
@@ -171,8 +140,7 @@ const handleInputChange = ({target}) => {
                                 <InputAdornment position="start">
                                     <DriveFileRenameOutline />
                                 </InputAdornment>)}}/>
-                    </Grid>
-                </Box>   
+                    </Stack>   
             </Grid>                      
         </Grid>
     )

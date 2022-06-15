@@ -7,7 +7,7 @@ const Proyect = () => {
 
   const [name,setName] = useState('')
   const [proyectId,setProyectId] = useState('')
-  const [users,setUsers] = useState('')
+  const [leader,setLeader] = useState('')
   const [companies,setCompanies] = useState('')
   const [projectStates,setProjectStates] = useState('')
   const [portfolios,setPortfolios] = useState('')
@@ -17,32 +17,34 @@ const Proyect = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     //CONEXIÓN CON LA BD.
-                   {/*portfolios={setPortfolios} */}
-                   console.log( name,proyectId,users,companies,projectStates,portfolios,longitude,latitude )
+      console.log( name,proyectId,leader,companies,projectStates,portfolios,longitude,latitude )
   }
 
   return (
-    <Grid container  component="form" spacing={4} p={3} onSubmit={handleSubmit}>
-      <Grid item xs={12}><Typography variant="h6" color='secondary'>Datos del Proyecto</Typography>
-      <FormProyect name={name}
-                    setName={setName}
-                    proyectId={proyectId}
-                    setProyectId={setProyectId}
-                    users={users}
-                    setUsers={setUsers}
-                    companies={companies}
-                    setCompanies={setCompanies}
-                    projectStates={projectStates}
-                    setProjectStates={setProjectStates}
-                    portfolios={portfolios}
-                    setPortfolios={setPortfolios}
-                    longitude={longitude}
-                    setLongitude={setLongitude}
-                    latitude={latitude}
-                    setLatitude={setLatitude}
-                                  />
-      </Grid>          
-      <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
+    <Grid container  component="form" spacing={4} onSubmit={handleSubmit}>
+      <Grid item xs={12}>
+      <Typography variant="h6" pb={3} color='secondary'>Datos del Proyecto</Typography>  
+        <FormProyect name={name}
+                      setName={setName}
+                      proyectId={proyectId}
+                      setProyectId={setProyectId}
+                      leader={leader}
+                      setLeader={setLeader}
+                      companies={companies}
+                      setCompanies={setCompanies}
+                      projectStates={projectStates}
+                      setProjectStates={setProjectStates}
+                      portfolios={portfolios}
+                      setPortfolios={setPortfolios}
+                      longitude={longitude}
+                      setLongitude={setLongitude}
+                      latitude={latitude}
+                      setLatitude={setLatitude}
+                                    />
+      </Grid>  
+      <Grid item justify="center" align="right" xs={12}>       
+        <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
+      </Grid>
     </Grid>
   )
 }

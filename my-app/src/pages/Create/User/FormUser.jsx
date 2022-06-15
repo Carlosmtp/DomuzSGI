@@ -55,26 +55,28 @@ const FormUser = ({ name, setName,
                         ),
                     }}
                     />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    fullWidth
-                    id="password"
-                    label="Contraseña"
-                    name="password"                
-                    value={password}
-                    onChange={handleInputChange}
-                    InputProps={{
-                        startAdornment: (
-                        <InputAdornment position="start">
-                            <Security />
-                        </InputAdornment>
-                        ),
-                    }}
-                    />
-                    </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            <TextField
+                required
+                fullWidth
+                id="password"
+                label="Contraseña"
+                name="password"                
+                value={password}
+                onChange={handleInputChange}
+                InputProps={{
+                    startAdornment: (
+                    <InputAdornment position="start">
+                    <Security />
+                    </InputAdornment>
+                    ),
+                }}
+                />
+            </Grid>
+
             <Grid item xs={12}><Typography variant="h6" color='secondary'>Datos personales</Typography></Grid>
+            
             <Grid item xs={12} sm={6}>
                 <TextField
                     required
@@ -110,44 +112,44 @@ const FormUser = ({ name, setName,
                         ),
                     }}
                     />
-                </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="mail"
-                            label="Correo"
-                            name="mail"                
-                            value={mail}
-                            onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                <InputAdornment position="start">
-                                    <Mail />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <TextField
+                        required
+                        fullWidth
+                        id="mail"
+                        label="Correo"
+                        name="mail"                
+                        value={mail}
+                        onChange={handleInputChange}
+                        InputProps={{
+                            startAdornment: (
+                            <InputAdornment position="start">
+                                <Mail />
                                 </InputAdornment>
-                                ),
-                            }}
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="phone"
-                            label="Telefono"
-                            name="phone"                
-                            value={phone}
-                            onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                <InputAdornment position="start">
-                                    <PhoneAndroid />
-                                </InputAdornment>
-                                ),
-                            }}
-                            />
-                    </Grid>
-                </Grid>
+                            ),
+                        }}
+                />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <TextField
+                    required
+                    fullWidth
+                    id="phone"
+                    label="Telefono"
+                    name="phone"                
+                    value={phone}
+                    onChange={handleInputChange}
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                        <PhoneAndroid />
+                        </InputAdornment>
+                        ),
+                    }}
+                />
+            </Grid>
+        </Grid>
     )
 }
 

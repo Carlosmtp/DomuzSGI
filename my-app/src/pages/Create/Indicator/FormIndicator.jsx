@@ -1,5 +1,5 @@
 import { AccountCircle, DriveFileRenameOutline, Mail, PhoneAndroid } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { Grid, InputAdornment, TextField } from '@mui/material'
 import React from 'react'
 
 const FormIndicator = ({ name, setName,
@@ -28,8 +28,7 @@ const FormIndicator = ({ name, setName,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}><Typography variant="h6" color='secondary'>Indicador</Typography></Grid>
+        <Grid container spacing={2} pl={3}>
             <Grid item xs={12} sm={12}>
                 <TextField
                     required

@@ -5,7 +5,7 @@ import React, { useContext } from 'react'
 import Post from '../../a-components/Post'
 import { AppContext } from '../../context/AppContext'
 
-const Process = () => {
+const Administration = () => {
 
     //let navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const Process = () => {
         <Typography color='default' variant='h6' align='center'>
         Interfaz de Menu: {login}
         </Typography>
-
+          asasasa
         <Grid container spacing={4} p={3}>
           <Grid item xs={12} sm={3}>
             <Post />
@@ -41,4 +41,4 @@ const Process = () => {
     )
 }
 
-export default Process
+export default Administration

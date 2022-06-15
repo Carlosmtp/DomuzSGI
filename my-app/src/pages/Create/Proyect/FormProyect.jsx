@@ -46,7 +46,7 @@ const handleInputChange = ({target}) => {
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={2} pl={3}>
+        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
             <Grid item xs={12} sm={6}>
                 <Stack spacing={2}>
                         <TextField

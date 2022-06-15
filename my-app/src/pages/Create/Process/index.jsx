@@ -1,5 +1,5 @@
 
-import { Box, Button, Grid } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from '../Indicator/FormIndicator'
@@ -21,18 +21,18 @@ const Process = () => {
   }
 
   return (
-    <Grid container  component="form" spacing={4} p={3} onSubmit={handleSubmit}>
+    <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
       <Grid item xs={12} sm={6}>
-        <Box p={4}>
+        <Typography variant="h6" pb={3} color='secondary'>Datos del Proceso</Typography>
         <FormProcess name={nameProcess}
                      setName={setNameProcess}
                      description={descriptionProcess}
                      setDescription={setDescriptionProcess}
                        />
-        </Box>            
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Box bgcolor='gray' p={4} sx={{ borderRadius: '16px' }}>
+        <Box bgcolor='gray' p={4} sx={{ borderRadius: '16px' }}>          
+        <Typography variant="h6" pb={3} color='secondary'>Indicador</Typography>            
           <FormIndicator
                         name={nameIndicator}
                         setName={setNameIndicator}
@@ -43,11 +43,11 @@ const Process = () => {
                         weight={weight}                         
                         setWeight={setWeight}                                        
                         />
-        </Box> 
-        <Box p={4} display="flex" justifyContent="center" alignItems="center">
-          <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>   
-        </Box> 
-        </Grid>
+        </Box>
+      </Grid>
+      <Grid item justify="center" align="right" xs={12}>         
+            <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
+      </Grid>
     </Grid>
   )
 }

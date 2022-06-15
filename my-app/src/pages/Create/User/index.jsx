@@ -1,12 +1,10 @@
-import { Engineering } from '@mui/icons-material'
-import { Avatar, Box, Button, Divider, Grid, Pagination, Stack, Typography } from '@mui/material'
-import { deepPurple } from '@mui/material/colors'
+import { Button, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormUser from './FormUser'
+import FormPersonal from './FormPersonal'
+import FormRole from './FormRole'
 
-const rol = 'El colaborador es el encargado de llenar las iniciativas para tener la información actualizada de los procesos, únicamente puede ver los procesos que se le han sido asignados.'
-
-const roles = ["acmin","si","lencio"]
+/*const roles = ["acmin","si","lencio"]*/
 
 const User = () => {
 
@@ -16,7 +14,7 @@ const User = () => {
   const [password,setPassword] = useState('')
   const [mail,setMail] = useState('')
   const [phone,setPhone] = useState('')
-  const [typeUser,setTypeUser] = useState(1)  
+  /*const [typeUser,setTypeUser] = useState(1)  */
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -24,51 +22,43 @@ const User = () => {
     console.log(name,lastname)
   }
 
-  const handleChangePage = (e, value) => {
+  /*const handleChangePage = (e, value) => {
     e.preventDefault()    
     console.log("A")
     console.log("value",roles[value-1]) 
     setTypeUser(value)
     console.log("hook",roles[typeUser-1])
-  }
+  }*/
 
   return (
-    <Grid container  component="form" spacing={4} p={3} onSubmit={handleSubmit}>
+    <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
       <Grid item xs={12} sm={6}>
-            <FormUser name={name}
-                      setName={setName}
-                      lastname={lastname}
-                      setLastname={setLastname}
-                      idPerson={idPerson}
-                      setIdPerson={setIdPerson}
-                      password={password}
-                      setPassword={setPassword}
-                      mail={mail}
-                      setMail={setMail}
-                      phone={phone}
-                      setPhone={setPhone} />
+        
+        <Typography variant="h6" pb={3} color='secondary'>Datos de Usuario</Typography>
+              <FormUser idPerson={idPerson}
+                        setIdPerson={setIdPerson}
+                        password={password}
+                        setPassword={setPassword}/>
+        
+        <Typography variant="h6" pt={3} pb={3} color='secondary'>Datos personales</Typography>
+              <FormPersonal name={name}
+                            setName={setName}
+                            lastname={lastname}
+                            setLastname={setLastname}
+                            mail={mail}
+                            setMail={setMail}
+                            phone={phone}
+                            setPhone={setPhone}/>
+        
       </Grid>
+
       <Grid item xs={12} sm={6} align="center" justify="center">
-        <Box bgcolor='background.default' p={4} sx={{ borderRadius: '16px' }}>
-          <Stack spacing={2} direction="column" justifyContent="center" alignItems="center">
-            <Avatar
-              alt="Colaborador"
-              sx={{ width: { xs: 78, sm: 128}, height: { xs: 78, sm: 128}, bgcolor:deepPurple[500] }}
-            >
-              <Engineering sx={{ width: { xs: 56, sm: 80}, height: { xs: 56, sm: 80} }}/>
-            </Avatar>
-            <Divider sx={{ my: 1 }}>
-              <Typography variant='h5'>
-                Colaborador
-              </Typography>
-            </Divider>
-              {rol}            
-              <Pagination  count={3} onChange={handleChangePage} color="secondary" />
-            <Button variant="contained" color='secondary' type="submit">Crear Usuario</Button>
-          </Stack>
-        </Box> 
+        <FormRole />
       </Grid>
-    </Grid>
+      <Grid item justify="center" align="right" xs={12}>         
+        <Button variant="contained" color='secondary' type="submit">Crear Usuario</Button>
+      </Grid>
+   </Grid>
   )
 }
 

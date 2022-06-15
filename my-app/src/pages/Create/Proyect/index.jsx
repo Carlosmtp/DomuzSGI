@@ -21,7 +21,7 @@ const Proyect = () => {
   }
 
   return (
-    <Grid container  component="form" spacing={4} onSubmit={handleSubmit}>
+    <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
       <Grid item xs={12}>
       <Typography variant="h6" pb={3} color='secondary'>Datos del Proyecto</Typography>  
         <FormProyect name={name}
@@ -43,7 +43,7 @@ const Proyect = () => {
                                     />
       </Grid>  
       <Grid item justify="center" align="right" xs={12}>       
-        <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
+        <Button variant="contained" color='secondary' type="submit">Crear Proyecto</Button>
       </Grid>
     </Grid>
   )

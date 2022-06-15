@@ -1,5 +1,5 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import { Grid, InputAdornment, TextField } from '@mui/material'
 import React from 'react'
 
 const FormProcess = ({ name, setName,
@@ -21,8 +21,7 @@ const FormProcess = ({ name, setName,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}><Typography variant="h6" color='secondary'>Datos del Proceso</Typography></Grid>
+        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
             <Grid item xs={12} sm={12}>
                 <TextField
                     required

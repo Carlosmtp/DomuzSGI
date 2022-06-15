@@ -9,7 +9,8 @@ import { createTheme,ThemeProvider } from '@mui/material';
 import Login from './pages/Login';
 
 import AppBar from './components/AppBar';
-import Process from './pages/Process.jsx'
+import Process from './pages/Process';
+import Administration from './pages/Administration';
 import { AppContext } from './context/AppContext';
 import Create from './pages/Create';
 import User from './pages/Create/User';
@@ -44,6 +45,7 @@ const App = () => {
               <Route path="/" element={<Login />} />
               <Route path="app" element={<AppBar />} >
                   <Route path="procesos" element={<Process />} />
+                  <Route path="administracion" element={<Administration />} />
                   <Route path="crear" element={<Create />}>
                     <Route path="usuario" element={<User />} />
                     <Route path="proceso" element={<CreateProcess />} />

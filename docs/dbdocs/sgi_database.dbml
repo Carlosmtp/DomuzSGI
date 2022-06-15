@@ -3,11 +3,12 @@
 Table roles as R {
   id int [pk, increment]
   name varchar
+  description varchar
 }
 
 Table people as P {
   id int [pk, increment]
-  person_id varchar [not null]
+  person_id varchar [unique, not null]
   name varchar [not null]
   lastname varchar [not null]
   mail varchar [not null]
@@ -184,7 +185,7 @@ Ref: PT.id < PJ.id_portfolios
 Ref: APT.id < PT.id_aux_portfolios
 Ref: CL.id < APT.id_clasification
 Ref: TP.id < APT.id_type
-Ref: PJ.id_companies < C.id
+Ref: C.id < PJ.id_companies
 Ref: U.id < PJ.id_users
 Ref: PJ.id < BL.id_projects
 Ref: PJ.id < RP.id_projects

@@ -1,14 +1,14 @@
+const NUMERIC = 0
+const EMAIL = 1
+const NIT = 2
 /**
- * @function validateRegex()
+ * @function validate()
  * @description Function to validate a string with the defined regular expressions:
  * @param {String} type : of regular expressions defined: 'numeric', ...
  * @param {String} theString : string to validate
  * @returns {Boolean} : true if is a valid expression, false if not
  * 
  */
-const NUMERIC = 0
-const EMAIL = 1
-const NIT = 2
 function validate(type, theString) {
     try {
         var regex;

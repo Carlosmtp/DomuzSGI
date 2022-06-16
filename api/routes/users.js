@@ -23,7 +23,7 @@ api.post("/create/user", async (req, res) => {
   res.json(person);
 });
 
-api.get("/get/login", async (req, res) => {
+api.post("/login", async (req, res) => {
   const data = req.body
   const person_id = data.person_id
   const pass = data.password

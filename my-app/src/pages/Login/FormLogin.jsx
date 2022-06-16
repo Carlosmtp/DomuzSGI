@@ -47,7 +47,7 @@ const FormLogin = () => {
       const handleSubmit = (e) => {
         e.preventDefault()
         console.log(username, password)
-        axios.get("http://localhost:6464/get/login", {
+        axios.post("http://localhost:6464/login", {
           person_id : username,
           password : password
         }).then((res) => {if(Object.keys(res.data).includes("error"))

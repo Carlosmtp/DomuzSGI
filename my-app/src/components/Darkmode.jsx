@@ -4,9 +4,9 @@ import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 
 const Darkmode = () => {
-  const { mode, setMode } = useContext(AppContext)
+  const { isDarkTheme, setIsDarkTheme } = useContext(AppContext)
   return (
-    <ListItemButton onClick={e=>setMode(mode === "light" ? "dark" : "light")}>
+    <ListItemButton onClick={e=>setIsDarkTheme(!isDarkTheme)}>
       <ListItemIcon>
         <DarkMode />
       </ListItemIcon>

@@ -1,6 +1,8 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
 import React from 'react'
+import FormContainer from '../../../components/Forms/FormContainer'
+import FormItem from '../../../components/Forms/FormItem'
 
 const FormProcess = ({ name, setName,
                         description, setDescription,
@@ -21,11 +23,12 @@ const FormProcess = ({ name, setName,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
-            <Grid item xs={12} sm={12}>
+        <FormContainer>
+            <FormItem phone={12} computer={12}>
                 <TextField
                     required
                     fullWidth
+                    color="secondary"
                     id="name"
                     label="Nombre"
                     name="name"                
@@ -39,12 +42,13 @@ const FormProcess = ({ name, setName,
                         ),
                     }}
                     />
-            </Grid>
-            <Grid item xs={12} sm={12}>
+            </FormItem>
+            <FormItem phone={12} computer={12}>
                 <TextField
                     required
                     fullWidth
                     id="description"
+                    color="secondary"
                     label="Descripción"
                     name="description"                
                     value={description}
@@ -57,8 +61,8 @@ const FormProcess = ({ name, setName,
                         ),
                     }}
                     />
-            </Grid>
-        </Grid>
+            </FormItem>
+        </FormContainer>
     )
 }
 

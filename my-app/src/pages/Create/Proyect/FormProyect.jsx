@@ -1,6 +1,8 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { FormControl, Grid, InputAdornment, InputLabel, Select, Stack, TextField } from '@mui/material'
+import { FormControl, InputAdornment, InputLabel, Select, Stack, TextField } from '@mui/material'
 import React from 'react'
+import FormContainer from '../../../components/Forms/FormContainer'
+import FormItem from '../../../components/Forms/FormItem'
 import { Selector } from '../../../components/Forms/Selector'
 
 const FormProyect = ({ name, setName,
@@ -46,8 +48,8 @@ const handleInputChange = ({target}) => {
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
-            <Grid item xs={12} sm={6}>
+        <FormContainer>
+            <FormItem phone={12} computer={6}>
                 <Stack spacing={2}>
                         <TextField
                             required
@@ -89,8 +91,8 @@ const handleInputChange = ({target}) => {
                                 />
                         </FormControl>
                 </Stack>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </FormItem>
+            <FormItem phone={12} computer={6}>
                 <Stack spacing={2}>
                        <TextField
                             required
@@ -141,8 +143,8 @@ const handleInputChange = ({target}) => {
                                     <DriveFileRenameOutline />
                                 </InputAdornment>)}}/>
                     </Stack>   
-            </Grid>                      
-        </Grid>
+                </FormItem>                     
+        </FormContainer>
     )
 }
 

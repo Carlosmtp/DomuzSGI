@@ -5,13 +5,13 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
 
     const [login, setLogin] = useState('Usuario no identificado, volver a login')
-    const [mode, setMode] = useState('dark')
+    const [isDarkTheme, setIsDarkTheme] = useState(true)
     return (
         <AppContext.Provider value={{ 
             login,
             setLogin,
-            mode,
-            setMode }}>
+            isDarkTheme,
+            setIsDarkTheme }}>
             { children }
         </AppContext.Provider>
     )

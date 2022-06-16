@@ -24,7 +24,7 @@ Table users as U {
 
 Table companies as C{
   id int [pk, increment]
-  nit varchar [not null]
+  nit varchar [unique, not null]
   name varchar [not null]
   
 }

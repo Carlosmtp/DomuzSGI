@@ -19,27 +19,56 @@ import CreateProyect from './pages/Create/Proyect';
 
 const App = () => {
 
-  const { mode } = useContext(AppContext)
+  const { isDarkTheme } = useContext(AppContext)
 
   const darkTheme = createTheme({
     palette: {
-      mode: mode,
+      mode: 'dark',
       primary: {
-        main: '#000000',
+        main: '#000000'
       },
       secondary: {
         main: '#0095ff',
+        light: '#64c1ff',
+        dark: '#0064b7'
       },
       info: {
-        main: '#f50057',
+        main: '#F3216B',
+      },
+      background: {
+        default: '#272727',
+        paper: '#424242',
+        light: '#6e6e6e'
       },
     },
-
   })
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#ffffff',
+      },
+      secondary: {
+        main: '#0095ff',
+        light: '#64c1ff',
+        dark: '#0064b7'
+      },
+      info: {
+        main: '#F3216B',
+      },
+      background: {
+        default: '#fff',
+        paper: '#fafafa',
+        light: '#c1c1c1'
+      },
+    },
+  })
+  
 
   return (
      
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
           <Router>
             <Routes>
               <Route path="/" element={<Login />} />

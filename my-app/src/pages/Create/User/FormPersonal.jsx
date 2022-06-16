@@ -1,6 +1,8 @@
 import { AccountCircle, DriveFileRenameOutline, Mail, PhoneAndroid } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
 import React from 'react'
+import FormContainer from '../../../components/Forms/FormContainer'
+import FormItem from '../../../components/Forms/FormItem'
 
 const FormPersonal = ({ name, setName,
                     lastname, setLastname,
@@ -28,12 +30,13 @@ const FormPersonal = ({ name, setName,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
-            <Grid item xs={12} sm={6}>
+        <FormContainer>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="name"
+                    color='secondary'
                     label="Nombre"
                     name="name"                
                     value={name}
@@ -46,12 +49,13 @@ const FormPersonal = ({ name, setName,
                         ),
                     }}
                     />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </FormItem>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="lastname"
+                    color='secondary'
                     label="Apellido"
                     name="lastname"                
                     value={lastname}
@@ -64,12 +68,13 @@ const FormPersonal = ({ name, setName,
                         ),
                     }}
                     />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </FormItem>
+            <FormItem phone={12} computer={6}>
                 <TextField
                         required
                         fullWidth
                         id="mail"
+                        color='secondary'
                         label="Correo"
                         name="mail"                
                         value={mail}
@@ -82,12 +87,13 @@ const FormPersonal = ({ name, setName,
                             ),
                         }}
                 />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </FormItem>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="phone"
+                    color='secondary'
                     label="Telefono"
                     name="phone"                
                     value={phone}
@@ -100,8 +106,8 @@ const FormPersonal = ({ name, setName,
                         ),
                     }}
                 />
-            </Grid>
-        </Grid>
+            </FormItem>
+        </FormContainer>
     )
 }
 

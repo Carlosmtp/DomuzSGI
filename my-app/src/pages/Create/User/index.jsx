@@ -29,14 +29,6 @@ const User = () => {
     console.log(name,lastname)
   }
 
-  /*const handleChangePage = (e, value) => {
-    e.preventDefault()    
-    console.log("A")
-    console.log("value",roles[value-1]) 
-    setTypeUser(value)
-    console.log("hook",roles[typeUser-1])
-  }*/
-
   return (
     <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
       <Grid item xs={12} sm={6}>

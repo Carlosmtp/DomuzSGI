@@ -10,7 +10,7 @@ const Process = () => {
 
     const { login } = useContext(AppContext)
     return (
-      <Box bgcolor="background.default" p={3}>
+      <Box>
         <Typography color='default' variant='h6' align='center' pb={{xs:3, sm:0}}>
         Interfaz de Menu: {login}
         </Typography>

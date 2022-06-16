@@ -15,6 +15,7 @@ import Box from '@mui/material/Box';
 
 import { styled } from '@mui/material/styles';
 import Darkmode from '../Darkmode.jsx';
+import Processes from './Processes.jsx';
 
 
 const drawerWidth = 240;
@@ -73,40 +74,44 @@ export const Navbar = () => {
   return (
     <Box sx={{ display: 'flex' }}>   
       <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: '24px', // keep right padding when drawer closed
-          }}
-        >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
+        <Box bgcolor="primary.main">
+          <Toolbar
             sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
+              pr: '24px', // keep right padding when drawer closed
             }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            Sistema de Gestión Integral: DOMUZ
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Sistema de Gestión Integral: DOMUZ
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="info">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            
+          </Toolbar>
+        </Box>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} >
+        <Box bgcolor="primary.light">
         <Toolbar
           sx={{
             display: 'flex',
@@ -119,14 +124,17 @@ export const Navbar = () => {
           <ChevronLeftIcon />
         </IconButton>
         </Toolbar>
+        
         <Divider />
         <List component="nav">
           <Darkmode />
+          <Processes />
           <Divider sx={{ my: 1 }} />
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}
         </List>
+        </Box>
       </Drawer>
     </Box>
   )

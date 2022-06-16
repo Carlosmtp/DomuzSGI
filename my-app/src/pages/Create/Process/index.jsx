@@ -31,7 +31,7 @@ const Process = () => {
                        />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Box bgcolor='gray' p={4} sx={{ borderRadius: '16px' }}>          
+        <Box p={4} sx={{ border: 2, borderRadius: '16px', borderColor: 'secondary.main' }}>          
         <Typography variant="h6" pb={3} color='secondary'>Indicador</Typography>            
           <FormIndicator
                         name={nameIndicator}

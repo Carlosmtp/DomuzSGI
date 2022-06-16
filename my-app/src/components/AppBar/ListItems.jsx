@@ -9,15 +9,10 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Divider } from '@mui/material';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
@@ -48,8 +43,9 @@ export const mainListItems = (
 export const secondaryListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
-      Saved reports
+      Administración
     </ListSubheader>
+    <Divider sx={{ my: 1 }} />
     <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />

@@ -1,6 +1,8 @@
 import { Badge, Security } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
 import React from 'react'
+import FormContainer from '../../../components/Forms/FormContainer'
+import FormItem from '../../../components/Forms/FormItem'
 
 const FormUser = ({ idPerson, setIdPerson,
                     password, setPassword }) => {
@@ -20,12 +22,13 @@ const FormUser = ({ idPerson, setIdPerson,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={{xs:2,sm:3}} pl={{xs:1,sm:3}}>
-            <Grid item xs={12} sm={6}>
+        <FormContainer>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="idPerson"
+                    color='secondary'
                     label="Identificación"
                     name="idPerson"                
                     value={idPerson}
@@ -38,26 +41,27 @@ const FormUser = ({ idPerson, setIdPerson,
                         ),
                     }}
                     />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <TextField
-                required
-                fullWidth
-                id="password"
-                label="Contraseña"
-                name="password"                
-                value={password}
-                onChange={handleInputChange}
-                InputProps={{
-                    startAdornment: (
-                    <InputAdornment position="start">
-                    <Security />
-                    </InputAdornment>
-                    ),
-                }}
-                />
-            </Grid>
-        </Grid>
+            </FormItem>
+            <FormItem phone={12} computer={6}>
+                <TextField
+                    required
+                    fullWidth
+                    id="password"
+                    color='secondary'
+                    label="Contraseña"
+                    name="password"                
+                    value={password}
+                    onChange={handleInputChange}
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                        <Security />
+                        </InputAdornment>
+                        ),
+                    }}
+                    />
+            </FormItem>
+        </FormContainer>
     )
 }
 

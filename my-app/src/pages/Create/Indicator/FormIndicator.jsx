@@ -1,6 +1,8 @@
 import { AccountCircle, DriveFileRenameOutline, Mail, PhoneAndroid } from '@mui/icons-material'
-import { Grid, InputAdornment, TextField } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
 import React from 'react'
+import FormContainer from '../../../components/Forms/FormContainer'
+import FormItem from '../../../components/Forms/FormItem'
 
 const FormIndicator = ({ name, setName,
                          description, setDescription, 
@@ -28,13 +30,14 @@ const FormIndicator = ({ name, setName,
       }
       //<Stack spacing={2}>
     return (
-        <Grid container spacing={2} pl={3}>
-            <Grid item xs={12} sm={12}>
+        <FormContainer>
+            <FormItem phone={12} computer={12}>
                 <TextField
                     required
                     fullWidth
                     id="name"
                     label="Nombre"
+                    color="secondary"
                     name="name"                
                     value={name}
                     onChange={handleInputChange}
@@ -46,12 +49,13 @@ const FormIndicator = ({ name, setName,
                         ),
                     }}
                     />
-            </Grid>
-            <Grid item xs={12} sm={12}>
+            </FormItem>
+            <FormItem phone={12} computer={12}>
                 <TextField
                         required
                         fullWidth
                         id="description"
+                        color="secondary"
                         label="Descripción"
                         name="description"                
                         value={description}
@@ -64,13 +68,14 @@ const FormIndicator = ({ name, setName,
                             ),
                         }}
                         />
-            </Grid>
+            </FormItem>
                     
-            <Grid item xs={12} sm={6}>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="periodicity"
+                    color="secondary"
                     label="Periodicidad"
                     name="periodicity"                
                     value={periodicity}
@@ -83,13 +88,14 @@ const FormIndicator = ({ name, setName,
                                         ),
                                 }}
                 />
-            </Grid>
+            </FormItem>
         
-            <Grid item xs={12} sm={6}>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
                     id="weight"
+                    color="secondary"
                     label="Peso"
                     name="weight"                
                     value={weight}
@@ -102,9 +108,8 @@ const FormIndicator = ({ name, setName,
                                         ),
                                         }}
                 />
-            </Grid>
-
-        </Grid>
+            </FormItem>
+        </FormContainer>
     )
 }
 

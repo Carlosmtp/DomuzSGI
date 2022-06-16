@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/AppContext';
 import { AccountCircle, Security } from '@mui/icons-material';
 
+const axios = require('axios').default;
+
+axios.get("http://localhost:6464/get/roles").then(function(res){console.log(res.data)})
+
 function Copyright(props) { 
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -43,11 +47,17 @@ const FormLogin = () => {
       const handleSubmit = (e) => {
         e.preventDefault()
         console.log(username, password)
+        axios.get("http://localhost:6464/get/login", {
+          person_id : username,
+          password : password
+        }).then((res) => {if(Object.keys(res.data).includes("error"))
+                          {console.log("Error:", res.data.error)}
+                          else {console.log(res.data)}})
         //TODO buscar la variable global
-        if(username === "admin" && password === "admin"){
+        {/*if(username === "admin" && password === "admin"){
           setLogin('Usuario identificado. Bienvenido '+username)
           navigate("app/procesos")
-        }      
+        }*/}
       }
   
 
@@ -63,6 +73,7 @@ const FormLogin = () => {
                 autoComplete="username"
                 value={username}
                 onChange={handleInputChange}
+                color="secondary"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -80,6 +91,7 @@ const FormLogin = () => {
                 autoComplete="current-password"                
                 value={password}
                 onChange={handleInputChange}
+                color="secondary"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

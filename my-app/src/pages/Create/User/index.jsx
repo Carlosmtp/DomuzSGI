@@ -4,8 +4,11 @@ import FormUser from './FormUser'
 import FormPersonal from './FormPersonal'
 import FormRole from './FormRole'
 
-/*const roles = ["acmin","si","lencio"]*/
-
+const roles = ['Colaborador','Líder','Gerente','Administrador']
+const descriptions = ['El colaborador es el encargado de llenar las iniciativas para tener la información actualizada de los procesos, únicamente puede ver los procesos que se le han sido asignados.',
+                      'El Líder es capaz de llenar el informe de avance detallado así como sus respectivas iniciativas para mantener actualizados los procesos que se le han asignado.',
+                      'El gerente tiene acceso a funciones de creación de usuarios, procesos, iniciativas, proyectos. Además puede visualizar los informes generados por la plataforma.',
+                      'El administrador tiene acceso a toda la plataforma.']
 const User = () => {
 
   const [name,setName] = useState('')
@@ -14,6 +17,10 @@ const User = () => {
   const [password,setPassword] = useState('')
   const [mail,setMail] = useState('')
   const [phone,setPhone] = useState('')
+  
+  const [role,setRole] = useState(roles[0])
+  const [description,setDescription] = useState(descriptions[0])
+
   /*const [typeUser,setTypeUser] = useState(1)  */
 
   const handleSubmit = (e) => {
@@ -52,8 +59,9 @@ const User = () => {
         
       </Grid>
 
-      <Grid item xs={12} sm={6} align="center" justify="center">
-        <FormRole />
+      <Grid item xs={12} sm={6}>
+        <FormRole role={role} setRole={setRole} roles={roles}
+                  description={description} setDescription={setDescription} descriptions={descriptions} />
       </Grid>
       <Grid item justify="center" align="right" xs={12}>         
         <Button variant="contained" color='secondary' type="submit">Crear Usuario</Button>

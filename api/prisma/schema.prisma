@@ -42,7 +42,7 @@ model users {
 
 model companies {
   id       Int        @id @default(autoincrement())
-  nit      String     @db.VarChar(50)
+  nit      String     @db.VarChar(50) @unique
   name     String     @db.VarChar(50)
   projects projects[]
 }

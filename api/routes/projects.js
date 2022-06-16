@@ -1,0 +1,150 @@
+const { PrismaClient } = require("@prisma/client");
+const express = require("express");
+const prisma = new PrismaClient();
+const api = express.Router();
+
+api.post("/create/project", async (req, res) => {
+  const data = req.body;
+  const project = await prisma.projects.create({
+    data: {
+      front_proyect_id: data.front_proyect_id,
+      userId: data.id_users,
+      companieId: data.id_companies,
+      stateId: data.id_project_states,
+      portfolioId: data.id_portfolios,
+      name: data.name,
+      longitude: data.longitude,
+      latitude: data.latitude,
+    },
+  });
+  res.json(project);
+});
+
+/////////////////////////// States Projects /////////////////////////////
+
+api.post("/create/project/state", async (req, res) => {
+  const data = req.body;
+  try {
+    const state = await prisma.project_states.create({
+      data: data,
+    });
+    console.log("Se agrego un nuevo estado");
+    res.json(state);
+  } catch (error) {
+    console.log("!! ERROR ¡¡\n", error);
+    res.json({ err: error });
+  }
+});
+
+api.post("/get/project/state", async (req, res) => {
+  const states = await prisma.project_states.findMany();
+  res.json(states);
+});
+
+/////////////////////////// Porfolio Projects /////////////////////////////
+// Preguntas aqui
+
+api.post("/create/project/portfolio", async (req, res) => {
+  const data = req.body;
+  let aux = await prisma.aux_portfolios.findFirst({
+    where: {
+      AND: [
+        { clasificationId: { equals: data.id_clasification } },
+        { typeId: { equals: data.id_type } },
+      ],
+    },
+  });
+
+  if (aux != null) {
+    createPortfolio(data, aux);
+  } else {
+    aux = await prisma.aux_portfolios.create({
+      data: {
+        clasificationId: data.id_clasification,
+        typeId: data.id_type,
+      },
+    });
+    createPortfolio(data, aux);
+  }
+});
+
+/////////////////////////// Aux-Porfolio Projects /////////////////////////////
+
+api.post("/create/project/aux", async (req, res) => {
+  const data = req.body;
+  try {
+    const aux = await prisma.aux_portfolios.create({
+      data: {
+        clasificationId: data.id_clasification,
+        typeId: data.id_type,
+      },
+    });
+    console.log("Se agrego un nuevo Aux-Protfolio");
+    res.json(aux);
+  } catch (error) {
+    console.log("!! ERROR ¡¡\n", error);
+    res.json({ err: error });
+  }
+});
+
+/////////////////////////// Clasification Projects /////////////////////////////
+
+api.post("/create/project/clasification", async (req, res) => {
+  const data = req.body;
+  try {
+    const clasification = await prisma.clasification.create({
+      data: data,
+    });
+    console.log("Se agrego un nuevo estado");
+    res.json(clasification);
+  } catch (error) {
+    console.log("!! ERROR ¡¡\n", error);
+    res.json({ err: error });
+  }
+});
+
+api.post("/get/project/clasification", async (req, res) => {
+  const clasifications = await prisma.clasification.findMany();
+  res.json(clasifications);
+});
+
+/////////////////////////// Type Projects /////////////////////////////
+
+api.post("/create/project/type", async (req, res) => {
+  const data = req.body;
+  try {
+    const type = await prisma.type.create({
+      data: data,
+    });
+    console.log("Se agrego un nuevo estado");
+    res.json(type);
+  } catch (error) {
+    console.log("!! ERROR ¡¡\n", error);
+    res.json({ err: error });
+  }
+});
+
+api.post("/get/project/type", async (req, res) => {
+  const types = await prisma.type.findMany();
+  res.json(types);
+});
+
+//////////////////////////////////////////// XD ////////////////////////
+
+async function createPortfolio(data, aux) {
+  try {
+    const portfolio = await prisma.portfolios.create({
+      data: {
+        name: data.name,
+        auxId: aux.id,
+      },
+    });
+    console.log("Se agrego un nuevo estado");
+    return portfolio;
+  } catch (error) {
+    console.log("!! ERROR ¡¡\n", error);
+    return error;
+  }
+}
+
+module.exports = api;

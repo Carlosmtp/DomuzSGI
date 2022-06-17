@@ -4,7 +4,7 @@ const NIT = 2
 /**
  * @function validate()
  * @description Function to validate a string with the defined regular expressions:
- * @param {String} type : of regular expressions defined: 'numeric', ...
+ * @param {Number} type : of regular expressions defined
  * @param {String} theString : string to validate
  * @returns {Boolean} : true if is a valid expression, false if not
  * 

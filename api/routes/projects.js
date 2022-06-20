@@ -42,7 +42,6 @@ api.post("/get/project/state", async (req, res) => {
 });
 
 /////////////////////////// Porfolio Projects /////////////////////////////
-// Preguntas aqui
 
 api.post("/create/project/portfolio", async (req, res) => {
   const data = req.body;
@@ -56,7 +55,9 @@ api.post("/create/project/portfolio", async (req, res) => {
   });
 
   if (aux != null) {
-    createPortfolio(data, aux);
+    createPortfolio(data, aux).then((portf) => {
+      res.json(portf);
+    });
   } else {
     aux = await prisma.aux_portfolios.create({
       data: {
@@ -64,7 +65,9 @@ api.post("/create/project/portfolio", async (req, res) => {
         typeId: data.id_type,
       },
     });
-    createPortfolio(data, aux);
+    createPortfolio(data, aux).then((portf) => {
+      res.json(portf);
+    });
   }
 });
 
@@ -95,7 +98,7 @@ api.post("/create/project/clasification", async (req, res) => {
     const clasification = await prisma.clasification.create({
       data: data,
     });
-    console.log("Se agrego un nuevo estado");
+    console.log("Se agrego una nueva clasificacion");
     res.json(clasification);
   } catch (error) {
     console.log("!! ERROR ¡¡\n", error);
@@ -116,7 +119,7 @@ api.post("/create/project/type", async (req, res) => {
     const type = await prisma.type.create({
       data: data,
     });
-    console.log("Se agrego un nuevo estado");
+    console.log("Se agrego un nuevo Tipo");
     res.json(type);
   } catch (error) {
     console.log("!! ERROR ¡¡\n", error);
@@ -139,11 +142,11 @@ async function createPortfolio(data, aux) {
         auxId: aux.id,
       },
     });
-    console.log("Se agrego un nuevo estado");
+    console.log("Se creo un nuev portafolio");
     return portfolio;
   } catch (error) {
     console.log("!! ERROR ¡¡\n", error);
-    return error;
+    return { err: error };
   }
 }
 

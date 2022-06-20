@@ -78,6 +78,7 @@ model aux_portfolios {
   id_type          type          @relation(fields: [typeId], references: [id])
   typeId           Int
   porfolio         portfolios[]
+  @@unique([clasificationId,typeId])
 }
 
 model clasification {
@@ -97,7 +98,7 @@ model portfolios {
   name              String         @db.VarChar(50)
   id_aux_portfolios aux_portfolios @relation(fields: [auxId], references: [id])
   auxId             Int
-  project           projects?
+  project           projects[]
 }
 
 model baselines {

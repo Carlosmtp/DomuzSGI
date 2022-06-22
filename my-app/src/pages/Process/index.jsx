@@ -7,7 +7,7 @@ import { AppContext } from '../../context/AppContext'
 const Process = () => {
 
     //let navigate = useNavigate();
-
+    const arr = [1,2,3,4]
     const { login } = useContext(AppContext)
     return (
       <Box>
@@ -15,12 +15,10 @@ const Process = () => {
         Interfaz de Menu: {login}
         </Typography>
         <Grid container spacing={3} p={{xs:0, sm:3}}>
-          <Processes />
-          <Processes />
-          <Processes />
-          <Processes />
-          <Processes />
-          <Processes />
+        
+          {arr.map((e) =>
+            <Processes key={e} />)}
+
         </Grid> 
       </Box>
     )

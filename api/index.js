@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
 
 // Midle
@@ -14,8 +14,9 @@ app.set("port", 6464);
 app.use(require("./routes/users"));
 app.use(require("./routes/roles"));
 app.use(require("./routes/companies"));
-app.use(require("./routes/projects"))
-app.use(require("./routes/processes"))
+app.use(require("./routes/projects"));
+app.use(require("./routes/processes"));
+app.use(require("./routes/objectives"));
 
 app.listen(app.get("port"), () => {
   console.log(app.get("appName"));

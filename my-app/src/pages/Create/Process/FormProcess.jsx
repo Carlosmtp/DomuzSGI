@@ -6,6 +6,7 @@ import FormItem from '../../../components/Forms/FormItem'
 
 const FormProcess = ({ name, setName,
                         description, setDescription,
+                        efficiency, setEfficiency,
                     }) => {
 
     const handleInputChange = ({target}) => {
@@ -15,6 +16,9 @@ const FormProcess = ({ name, setName,
                 break;
             case "description":
                     setDescription(target.value)
+                break;
+            case "efficiency":
+                    setEfficiency(target.value)
                 break;
           default:
             console.log("Necesitas crear el respectivo handleInput")
@@ -52,6 +56,25 @@ const FormProcess = ({ name, setName,
                     label="Descripción"
                     name="description"                
                     value={description}
+                    onChange={handleInputChange}
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                            <DriveFileRenameOutline />
+                        </InputAdornment>
+                        ),
+                    }}
+                    />
+            </FormItem>
+            <FormItem phone={12} computer={12}>
+                <TextField
+                    required
+                    fullWidth
+                    id="efficiency"
+                    color="secondary"
+                    label="Eficiencia"
+                    name="efficiency"                
+                    value={efficiency}
                     onChange={handleInputChange}
                     InputProps={{
                         startAdornment: (

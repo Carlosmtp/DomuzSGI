@@ -30,4 +30,19 @@ api.get("/get/processes", async (req, res) => {
   res.json(processes);
 });
 
+///////////////////////////// Indicator ///////////////////////////
+
+api.post("/create/process/indicators", async (req, res) => {
+  const data = req.body;
+  const count = await prisma.process_indicators.createMany({
+    data: data,
+  });
+  res.json(count);
+});
+
+api.get("/get/process/indicators", async (req, res) => {
+  const indicators = await prisma.process_indicators.findMany();
+  res.json(indicators);
+});
+
 module.exports = api;

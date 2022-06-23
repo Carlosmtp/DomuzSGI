@@ -12,7 +12,8 @@ export const Selector = ({ idSelector, labelSelector,
     <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id={idSelector}>{labelSelector}</InputLabel>
         <Select
-            required
+            required            
+            fullWidth
             labelId={idSelector}
             id={id}            
             name={id}                

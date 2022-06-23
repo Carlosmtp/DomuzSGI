@@ -16,6 +16,8 @@ import Create from './pages/Create';
 import User from './pages/Create/User';
 import CreateProcess from './pages/Create/Process';
 import CreateProyect from './pages/Create/Proyect';
+import CreateCompany from './pages/Create/Companies';
+import CreateObjective from './pages/Create/Objective';
 
 const App = () => {
 
@@ -78,7 +80,9 @@ const App = () => {
                   <Route path="crear" element={<Create />}>
                     <Route path="usuario" element={<User />} />
                     <Route path="proceso" element={<CreateProcess />} />
-                    <Route path="proyecto" element={<CreateProyect />} />
+                    <Route path="proyecto" element={<CreateProyect />} />                    
+                    <Route path="empresa" element={<CreateCompany />} />
+                    <Route path="objetivo" element={<CreateObjective />} />
                   </Route>
               </Route>
               <Route path="*" element={<Login />} />

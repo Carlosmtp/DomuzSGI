@@ -1,5 +1,5 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import GridViewIcon from '@mui/icons-material/GridView';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ const Processes = () => {
   return (
     <ListItemButton onClick={()=>navigate("/app/procesos")}>
       <ListItemIcon>
-        <DashboardIcon />
+        <GridViewIcon />
       </ListItemIcon>
       <ListItemText primary="Procesos" />
     </ListItemButton>

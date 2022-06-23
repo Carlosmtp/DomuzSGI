@@ -1,15 +1,43 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { Outlet } from 'react-router'
+import { useParams } from 'react-router'
+import Company from './Companies'
+import Objective from './Objective'
+import Process from './Process'
+import Proyect from './Proyect'
+import User from './User'
+
+const routes = (id) => {
+  switch (id) {
+    case "usuario":
+      return <User />
+    case "proceso":
+      return <Process />
+    case "proyecto":
+      return <Proyect />
+    case "empresa":
+      return <Company />
+    case "objetivo":
+      return <Objective />
+    
+  
+    default:
+      break;
+  }
+}
 
 const Create = () => {
+
+  const { id } = useParams();
+
   return (
     <Box>
       <Typography variant="h4">
-        Crear {"<Lo que sea>"}
+        Crear {id}
       </ Typography>
       <Box pt={3} pl={3} pr={3}>
-        <Outlet />
+        {/*<Outlet />*/}
+        {routes(id)}
       </Box>
     </Box>
   )

@@ -18,23 +18,23 @@ const Administration = () => {
           Administración
         </ Typography>
         <Grid container spacing={3} p={{xs:0, sm:3}}>
-          <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={red} title='PERSONAS' created='0' link_create="/app/crear/usuario"/>
+        <Grid item xs={12} sm={4}>
+            <CardAdmin Icon={PersonIcon} color={lightBlue} title='PERSONAS' created='0' link_create="/app/crear/usuario"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={BusinessCenterIcon} color={orange} title='PROYECTOS' created='0'/>
+            <CardAdmin Icon={BusinessCenterIcon} color={orange} title='PROCESOS' created='0' link_create="/app/crear/proceso"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={teal} title='PROYECTOS' created='0'/>
+            <CardAdmin Icon={PersonIcon} color={teal} title='PROYECTOS' created='0' link_create="/app/crear/proyecto"/>
+          </Grid>          
+          <Grid item xs={12} sm={4}>
+            <CardAdmin Icon={PersonIcon} color={red} title='OBJETIVOS' created='0' link_create="/app/crear/objetivo"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={lightBlue} title='PROYECTOS' created='0'/>
+            <CardAdmin Icon={PersonIcon} color={deepPurple} title='EMPRESAS' created='0' link_create="/app/crear/empresa"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={deepPurple} title='PROYECTOS' created='0'/>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={indigo} title='PROYECTOS' created='0'/>
+            <CardAdmin Icon={PersonIcon} color={indigo} title='PLAN DE ACCIÓN' created='0'/>
           </Grid>
         </Grid>        
       </ Box>

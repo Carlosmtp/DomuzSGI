@@ -1,5 +1,6 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
 import { InputAdornment, Stack, TextField } from '@mui/material'
+import { Box } from '@mui/system'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
@@ -50,7 +51,7 @@ const handleInputChange = ({target}) => {
     return (
         <FormContainer>
             <FormItem phone={12} computer={6}>
-                <Stack spacing={2}>
+                <Stack spacing={2} p={2}>
                         <TextField
                             required
                             color="secondary"
@@ -96,6 +97,8 @@ const handleInputChange = ({target}) => {
             </FormItem>
             <FormItem phone={12} computer={6}>
                 <Stack spacing={2}>
+                    <Box> 
+                    </Box>
                     <Selector 
                         idSelector="select-projectStates" 
                         labelSelector="Estados del Proyecto" 

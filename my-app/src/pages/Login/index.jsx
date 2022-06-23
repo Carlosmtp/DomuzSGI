@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 import FormLogin from './FormLogin';
-import { Paper, Box, Grid, Typography } from '@mui/material';
+import { Paper, Box, Grid, Typography, Snackbar, Alert } from '@mui/material';
 
 import { AppContext } from '../../context/AppContext';
 const axios = require('axios').default;
@@ -18,6 +18,8 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const [open, setOpen] = useState(false);
+
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -29,6 +31,7 @@ const Login = () => {
     }).then((res) => {if(Object.keys(res.data).includes("error"))
                       {
                         console.log("Error:", res.data.error)
+                        setOpen(true)
                       }
                       else {
                         //Cuando se loguea
@@ -36,6 +39,14 @@ const Login = () => {
                         navigate("app/procesos")
                         setLogin('Usuario identificado. Bienvenido '+res.data.name)
                       }})
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   }
 
   return (
@@ -76,6 +87,12 @@ const Login = () => {
                 src={logo}
             />
             <Typography variant='h5' pb ={4} color='info'>Sistema de Gestión Integral</Typography>
+
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Datos Inválidos. Por favor, intente nuevamente.
+              </Alert>
+            </Snackbar>
             <Box component="form" onSubmit={handleSubmit}>
               <FormLogin username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
             </Box>

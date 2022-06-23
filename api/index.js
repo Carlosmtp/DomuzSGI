@@ -15,6 +15,7 @@ app.use(require("./routes/users"));
 app.use(require("./routes/roles"));
 app.use(require("./routes/companies"));
 app.use(require("./routes/projects"))
+app.use(require("./routes/processes"))
 
 app.listen(app.get("port"), () => {
   console.log(app.get("appName"));

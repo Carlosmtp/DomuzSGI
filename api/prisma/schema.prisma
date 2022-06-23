@@ -217,7 +217,7 @@ model process_indicators {
   objetive     String             @db.VarChar(50)
   periodicity  String             @db.VarChar(50)
   in_charge    String             @db.VarChar(50)
-  weight       String             @db.VarChar(50)
+  weight       Float              
   id_processes processes          @relation(fields: [processId], references: [id])
   processId    Int
   id_users     users              @relation(fields: [userId], references: [id])

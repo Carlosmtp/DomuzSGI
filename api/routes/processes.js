@@ -11,13 +11,9 @@ api.post("/create/process", async (req, res) => {
       description: data.description,
       efficiency: data.efficiency,
       indicators: {
-        create: {
-          name: data.indicator.name,
-          objetive: data.indicator.objetive,
-          periodicity: data.indicator.periodicity,
-          in_charge: data.indicator.in_charge,
-          weight: data.indicator.weight,
-          userId: data.indicator.id_users,
+        createMany: {
+          data: data.indicators,
+          skipDuplicates: true,
         },
       },
     },
@@ -26,7 +22,11 @@ api.post("/create/process", async (req, res) => {
 });
 
 api.get("/get/processes", async (req, res) => {
-  const processes = await prisma.processes.findMany();
+  const processes = await prisma.processes.findMany({
+    include: {
+      indicators: true,
+    },
+  });
   res.json(processes);
 });
 
@@ -36,6 +36,7 @@ api.post("/create/process/indicators", async (req, res) => {
   const data = req.body;
   const count = await prisma.process_indicators.createMany({
     data: data,
+    skipDuplicates: true,
   });
   res.json(count);
 });

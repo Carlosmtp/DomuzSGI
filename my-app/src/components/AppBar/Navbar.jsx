@@ -10,12 +10,13 @@ import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './ListItems.jsx';
+import { mainListItems } from './ListItems.jsx';
 import Box from '@mui/material/Box';
 
 import { styled } from '@mui/material/styles';
 import Darkmode from '../Darkmode.jsx';
 import Processes from './Processes.jsx';
+import SecondaryListItems from './SecondaryListItems.jsx';
 
 
 const drawerWidth = 240;
@@ -132,7 +133,7 @@ export const Navbar = () => {
           <Divider sx={{ my: 1 }} />
           {mainListItems}
           <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          <SecondaryListItems />
         </List>
         </Box>
       </Drawer>

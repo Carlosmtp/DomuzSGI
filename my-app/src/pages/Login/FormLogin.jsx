@@ -51,13 +51,15 @@ const FormLogin = () => {
           person_id : username,
           password : password
         }).then((res) => {if(Object.keys(res.data).includes("error"))
-                          {console.log("Error:", res.data.error)}
-                          else {console.log(res.data)}})
-        //TODO buscar la variable global
-        {/*if(username === "admin" && password === "admin"){
-          setLogin('Usuario identificado. Bienvenido '+username)
-          navigate("app/procesos")
-        }*/}
+                          {
+                            console.log("Error:", res.data.error)
+                          }
+                          else {
+                            //Cuando se loguea
+                            console.log(res.data)
+                            navigate("app/procesos")
+                            setLogin('Usuario identificado. Bienvenido '+res.data.name)
+                          }})
       }
   
 

@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import { Grid, Typography, Button, Link, TextField, FormControlLabel, Checkbox, Stack, InputAdornment} from '@mui/material';
-import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../../context/AppContext';
 import { AccountCircle, Security } from '@mui/icons-material';
 
-const axios = require('axios').default;
-
-axios.get("http://localhost:6464/get/roles").then(function(res){console.log(res.data)})
 
 function Copyright(props) { 
     return (
@@ -21,14 +16,7 @@ function Copyright(props) {
     );
   }
 
-const FormLogin = () => {
-
-    const { setLogin } = useContext(AppContext)
-
-    const [username, setUsername] = React.useState('')
-    const [password, setPassword] = React.useState('')
-  
-    let navigate = useNavigate();
+const FormLogin = ({username, setUsername, password, setPassword}) => {
      
       const handleInputChange = ({target}) => {
         switch (target.id) {
@@ -44,28 +32,11 @@ const FormLogin = () => {
         }      
       }
     
-      const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(username, password)
-        axios.post("http://localhost:6464/login", {
-          person_id : username,
-          password : password
-        }).then((res) => {if(Object.keys(res.data).includes("error"))
-                          {
-                            console.log("Error:", res.data.error)
-                          }
-                          else {
-                            //Cuando se loguea
-                            console.log(res.data)
-                            navigate("app/procesos")
-                            setLogin('Usuario identificado. Bienvenido '+res.data.name)
-                          }})
-      }
+      
   
 
   return (
-    <Stack component="form" direction="column" spacing={2} justifyContent="space-between" onSubmit={handleSubmit} sx={{ mt: 1 }}> 
-    {/*</Stack><Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>*/}
+    <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ mt: 1 }}> 
               <TextField
                 required
                 fullWidth

@@ -1,11 +1,42 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import logo from '../../assets/logodomuz.png';
+import { useNavigate } from 'react-router-dom'
 
 
 import FormLogin from './FormLogin';
 import { Paper, Box, Grid, Typography } from '@mui/material';
-const Login = () => {
+
+import { AppContext } from '../../context/AppContext';
+const axios = require('axios').default;
+
+axios.get("http://localhost:6464/get/roles").then(function(res){console.log(res.data)})
+
+const Login = () => {  
+  const { setLogin } = useContext(AppContext)
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(username, password)
+    axios.post("http://localhost:6464/login", {
+      person_id : username,
+      password : password
+    }).then((res) => {if(Object.keys(res.data).includes("error"))
+                      {
+                        console.log("Error:", res.data.error)
+                      }
+                      else {
+                        //Cuando se loguea
+                        console.log(res.data)
+                        navigate("app/procesos")
+                        setLogin('Usuario identificado. Bienvenido '+res.data.name)
+                      }})
+  }
 
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -45,7 +76,10 @@ const Login = () => {
                 src={logo}
             />
             <Typography variant='h5' pb ={4} color='info'>Sistema de Gestión Integral</Typography>
-            <FormLogin />
+            <Box component="form" onSubmit={handleSubmit}>
+              <FormLogin username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
+            </Box>
+
           </Box>
         </Grid>
       </Grid>

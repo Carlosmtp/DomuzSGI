@@ -19,8 +19,6 @@ const Login = () => {
             backgroundImage: 'url(https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: 'secondary',
-            /*(t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],*/
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

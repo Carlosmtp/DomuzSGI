@@ -19,7 +19,7 @@ const Administration = () => {
         </ Typography>
         <Grid container spacing={3} p={{xs:0, sm:3}}>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={red} title='PERSONAS' created='0'/>
+            <CardAdmin Icon={PersonIcon} color={red} title='PERSONAS' created='0' link_create="/app/crear/usuario"/>
           </Grid>
           <Grid item xs={12} sm={4}>
             <CardAdmin Icon={BusinessCenterIcon} color={orange} title='PROYECTOS' created='0'/>

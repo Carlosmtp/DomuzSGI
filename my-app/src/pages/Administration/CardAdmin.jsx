@@ -2,8 +2,10 @@ import { Box, Button, Card, Divider, Stack, Typography } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import React from 'react'
+import { useNavigate } from 'react-router';
 
-const CardAdmin = ({Icon, color, title, created}) => {
+const CardAdmin = ({Icon, color, title, created, link_create}) => {
+  let navigate = useNavigate();
   return (    
     <Card>
               <Stack direction='row'>
@@ -18,7 +20,7 @@ const CardAdmin = ({Icon, color, title, created}) => {
                     </Typography>
                     <Divider sx={{background:'white'}}/>
                   </Box>
-                    <Button sx={{color:'white'}}> Crear </Button>
+                    <Button sx={{color:'white'}} onClick={() => navigate(link_create)}> Crear </Button>
                 </Box>
                 <Box flex={1} display="flex" alignItems="center" pr={1} bgcolor={color[500]}>
                   <Button>

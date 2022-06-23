@@ -77,13 +77,7 @@ const App = () => {
               <Route path="app" element={<AppBar />} >
                   <Route path="procesos" element={<Process />} />
                   <Route path="administracion" element={<Administration />} />
-                  <Route path="crear" element={<Create />}>
-                    <Route path="usuario" element={<User />} />
-                    <Route path="proceso" element={<CreateProcess />} />
-                    <Route path="proyecto" element={<CreateProyect />} />                    
-                    <Route path="empresa" element={<CreateCompany />} />
-                    <Route path="objetivo" element={<CreateObjective />} />
-                  </Route>
+                  <Route path="crear/:id" element={<Create />} />
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

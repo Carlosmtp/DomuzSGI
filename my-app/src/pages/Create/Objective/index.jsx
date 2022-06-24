@@ -36,7 +36,6 @@ const Objective = () => {
                         setPerspective={setPerspective}                     
                                     />
       </Grid>
-
       <Grid item xs={12} sm={6}>
         <Box p={2} sx={{ border: 2, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent' }}>  
           <Typography variant="h6" pb={3} color='secondary'>Iniciativas</Typography>  
@@ -50,7 +49,6 @@ const Objective = () => {
           </Grid>
         </Box>
       </Grid>
-
       <Grid item xs={12} sm={6}>
         <Box p={2} sx={{ border: 2, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent' }}>  
           <Typography variant="h6" pb={3} color='secondary'>Indicadores </Typography>  

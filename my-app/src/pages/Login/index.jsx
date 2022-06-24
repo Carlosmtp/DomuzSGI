@@ -10,8 +10,6 @@ import { Paper, Box, Grid, Typography, Snackbar, Alert } from '@mui/material';
 import { AppContext } from '../../context/AppContext';
 const axios = require('axios').default;
 
-axios.get("http://localhost:6464/get/roles").then(function(res){console.log(res.data)})
-
 const Login = () => {  
   const { setLogin } = useContext(AppContext)
 
@@ -36,6 +34,7 @@ const Login = () => {
                       else {
                         //Cuando se loguea
                         console.log(res.data)
+                        //setError(res.data)
                         navigate("app/procesos")
                         setLogin('Usuario identificado. Bienvenido '+res.data.name)
                       }})
@@ -90,7 +89,7 @@ const Login = () => {
 
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                    Datos Inválidos. Por favor, intente nuevamente.
+                  Datos inválidos. Por favor, intente nuevamente.
               </Alert>
             </Snackbar>
             <Box component="form" onSubmit={handleSubmit}>
@@ -102,5 +101,6 @@ const Login = () => {
       </Grid>
   );
 }
+
 
 export default Login

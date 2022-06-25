@@ -1,4 +1,4 @@
-import { AccountCircle, DriveFileRenameOutline, Mail, PhoneAndroid } from '@mui/icons-material'
+import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
 import { Box, InputAdornment, Stack, TextField } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
@@ -28,9 +28,6 @@ const FormIndicator = ({ name, setName,
                 break;
             case "user":
                 setInCharge(target.value)
-                break;
-            case "weight":
-                setUser(target.value)
                 break;
           default:
             console.log("Necesitas crear el respectivo handleInput")

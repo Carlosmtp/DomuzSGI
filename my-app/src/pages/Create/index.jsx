@@ -18,9 +18,7 @@ const routes = (id) => {
     case "empresa":
       return <Company />
     case "objetivo":
-      return <Objective />
-    
-  
+      return <Objective />    
     default:
       break;
   }
@@ -36,7 +34,6 @@ const Create = () => {
         Crear {id}
       </ Typography>
       <Box pt={3} pl={3} pr={3}>
-        {/*<Outlet />*/}
         {routes(id)}
       </Box>
     </Box>

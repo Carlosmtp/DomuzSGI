@@ -38,7 +38,7 @@ const FormIndicator = ({ name, setName,
     return (
         <FormContainer>
             <FormItem phone={12} computer={12}>
-                <Box p={2} sx={{ border: 2, borderRadius: '16px', borderColor: 'secondary.main' }}>
+                <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main' }}>
                     <Stack spacing={2}>
                         <TextField
                             required

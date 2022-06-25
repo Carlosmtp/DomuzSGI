@@ -4,7 +4,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import React from 'react'
 import { useNavigate } from 'react-router';
 
-const CardAdmin = ({Icon, color, title, created, link_create}) => {
+const CardAdmin = ({Icon, color, title, created, link_create, link_show}) => {
   let navigate = useNavigate();
   return (    
     <Card>
@@ -23,7 +23,7 @@ const CardAdmin = ({Icon, color, title, created, link_create}) => {
                     <Button sx={{color:'white'}} onClick={() => navigate(link_create)}> Crear </Button>
                 </Box>
                 <Box flex={1} display="flex" alignItems="center" pr={1} bgcolor={color[500]}>
-                  <Button>
+                  <Button onClick={() => navigate(link_show)}>
                     <VisibilityIcon sx={{color:'white'}}/>
                   </Button>    
                 </Box>

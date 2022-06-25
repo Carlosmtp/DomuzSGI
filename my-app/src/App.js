@@ -22,7 +22,7 @@ const App = () => {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#000000'
+        main: '#000000',
       },
       secondary: {
         main: '#0095ff',

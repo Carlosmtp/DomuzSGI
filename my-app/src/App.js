@@ -13,12 +13,7 @@ import Process from './pages/Process';
 import Administration from './pages/Administration';
 import { AppContext } from './context/AppContext';
 import Create from './pages/Create';
-import User from './pages/Create/User';
-import CreateProcess from './pages/Create/Process';
-import CreateProyect from './pages/Create/Proyect';
-import CreateCompany from './pages/Create/Companies';
-import CreateObjective from './pages/Create/Objective';
-
+import Show from './pages/Show'
 const App = () => {
 
   const { isDarkTheme } = useContext(AppContext)
@@ -27,7 +22,7 @@ const App = () => {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#000000'
+        main: '#000000',
       },
       secondary: {
         main: '#0095ff',
@@ -78,6 +73,7 @@ const App = () => {
                   <Route path="procesos" element={<Process />} />
                   <Route path="administracion" element={<Administration />} />
                   <Route path="crear/:id" element={<Create />} />
+                  <Route path="ver/:id" element={<Show />} />
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

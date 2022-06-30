@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import FormUser from "./FormUser";
 import FormPersonal from "./FormPersonal";
 import FormRole from "./FormRole";
-//const axios = require('axios').default;
+const axios = require("axios").default;
 const bcrypt = require("bcryptjs");
 
 const User = () => {
@@ -33,7 +33,10 @@ const User = () => {
       password: secret,
       id_roles: idRole,
     };
-    console.log(newUser);
+    //console.log(newUser);
+    axios.post("http://localhost:6464/create/user", newUser).then((res) => {
+      console.log(res);
+    });
   };
 
   return (

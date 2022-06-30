@@ -29,7 +29,7 @@ model people {
 
 model users {
   id        Int                  @id @default(autoincrement())
-  password  String               @db.VarChar(50)
+  password  String               @db.VarChar()
   id_people people               @relation(fields: [personId], references: [id])
   personId  Int                  @unique
   id_roles  roles                @relation(fields: [rolId], references: [id])

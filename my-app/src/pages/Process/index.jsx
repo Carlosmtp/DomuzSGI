@@ -1,27 +1,12 @@
 import { Grid } from '@mui/material';
 import { Box, Typography } from '@mui/material';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Processes from './Process'
 import { AppContext } from '../../context/AppContext'
-const axios = require('axios').default;
-
 const Process = () => {
 
     //let navigate = useNavigate();
-    const arr = [1,2,3,4]
-    const { login } = useContext(AppContext)
-
-    useEffect(()=>{
-      axios.get("http://localhost:6464/get/processes")
-      .then((res) => {
-        console.log(res.data)
-        //setName(res.data[0].name)
-        //setDescription(res.data[0].description)
-
-        //setloading(false)
-        //setRoles(res.data)
-      })        
-    },[])
+    const { login, processes } = useContext(AppContext)
 
     return (
       <Box>
@@ -30,8 +15,8 @@ const Process = () => {
         </Typography>
         <Grid container spacing={3} p={{xs:0, sm:3}}>
         
-          {arr.map((e) =>
-            <Processes key={e} />)}
+          {processes.map((e) =>
+            <Processes title={e.name} description={e.description} key={e} />)}
 
         </Grid> 
       </Box>

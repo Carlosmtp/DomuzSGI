@@ -1,106 +1,125 @@
-import React, { useContext, useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import logo from '../../assets/logodomuz.png';
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import logo from "../../assets/logodomuz.png";
+import { useNavigate } from "react-router-dom";
 
+import FormLogin from "./FormLogin";
+import { Paper, Box, Grid, Typography, Snackbar, Alert } from "@mui/material";
 
-import FormLogin from './FormLogin';
-import { Paper, Box, Grid, Typography, Snackbar, Alert } from '@mui/material';
+import { AppContext } from "../../context/AppContext";
+const axios = require("axios").default;
+const bcrypt = require("bcryptjs");
 
-import { AppContext } from '../../context/AppContext';
-const axios = require('axios').default;
+const Login = () => {
+  const { setLogin } = useContext(AppContext);
 
-const Login = () => {  
-  const { setLogin } = useContext(AppContext)
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const [open, setOpen] = useState(false);
 
   let navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(username, password)
-    axios.post("http://localhost:6464/login", {
-      person_id : username,
-      password : password
-    }).then((res) => {if(Object.keys(res.data).includes("error"))
-                      {
-                        console.log("Error:", res.data.error)
-                        setOpen(true)
-                      }
-                      else {
-                        //Cuando se loguea
-                        console.log(res.data)
-                        //setError(res.data)
-                        navigate("app/procesos")
-                        setLogin('Usuario identificado. Bienvenido '+res.data.name)
-                      }})
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //console.log(username, password)
+    axios
+      .post("http://localhost:6464/login", {
+        person_id: username,
+      })
+      .then((res) => {
+        if (Object.keys(res.data).includes("error")) {
+          console.log("Error:", res.data.error);
+          setOpen(true);
+        } else {
+          //Cuando se loguea
+          bcrypt.compare(password, res.data.secret, (err, coinciden) => {
+            if (err) {
+              console.log("Error Comprobando:", err);
+            } else {
+              if (coinciden) {
+                navigate("app/procesos");
+                setLogin("Usuario identificado. Bienvenido " + res.data.name);
+              } else {
+                console.log("Error en contraseña");
+                setOpen(true);
+              }
+            }
+          });
+        }
+      });
+  };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
-  }
+  };
 
   return (
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+    <Grid container component="main" sx={{ height: "100vh" }}>
+      <CssBaseline />
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
+        sx={{
+          backgroundImage:
+            "url(https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundColor: "secondary",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Box
           sx={{
-            backgroundImage: 'url(https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: 'secondary',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            py: 8,
+            px: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
+          bgcolor="background.default"
+        >
           <Box
+            component="img"
             sx={{
-              py: 8,
-              px: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              height: 150,
+              margin: 5,
             }}
-            bgcolor="background.default"
-          >
-            <Box
-              component="img"
-                sx={{
-                   height: 150,
-                   margin: 5
-                   
-                    }}
-                alt='Domuz'
-                src={logo}
+            alt="Domuz"
+            src={logo}
+          />
+          <Typography variant="h5" pb={4} color="info">
+            Sistema de Gestión Integral
+          </Typography>
+
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              Datos inválidos. Por favor, intente nuevamente.
+            </Alert>
+          </Snackbar>
+          <Box component="form" onSubmit={handleSubmit}>
+            <FormLogin
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
             />
-            <Typography variant='h5' pb ={4} color='info'>Sistema de Gestión Integral</Typography>
-
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                  Datos inválidos. Por favor, intente nuevamente.
-              </Alert>
-            </Snackbar>
-            <Box component="form" onSubmit={handleSubmit}>
-              <FormLogin username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
-            </Box>
-
           </Box>
-        </Grid>
+        </Box>
       </Grid>
+    </Grid>
   );
-}
+};
 
-
-export default Login
+export default Login;

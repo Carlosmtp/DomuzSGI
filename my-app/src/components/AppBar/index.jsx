@@ -23,7 +23,7 @@ const AppBar = () => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Box bgcolor='background.paper' p={{xs:2, sm:4}} sx={{ borderRadius: '16px', border: 1, borderColor: 'background.light' }}>
+            <Box bgcolor='background.paper' p={{xs:2, sm:4}} sx={{ borderRadius: '16px', border: 1, borderColor: 'background.light', boxShadow: 4 }}>
               <Outlet />
             </Box>
           </Container>

@@ -9,9 +9,10 @@ export const Selector = ({ idSelector, labelSelector,
   };
 
   return (
-    <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+    <FormControl variant="filled" fullWidth>
         <InputLabel id={idSelector}>{labelSelector}</InputLabel>
         <Select
+            color="secondary"
             required            
             fullWidth
             labelId={idSelector}

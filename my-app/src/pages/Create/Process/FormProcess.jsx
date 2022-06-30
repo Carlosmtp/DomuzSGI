@@ -28,7 +28,7 @@ const FormProcess = ({ name, setName,
       //<Stack spacing={2}>
     return (
         <FormContainer>
-            <FormItem phone={12} computer={12}>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
@@ -47,15 +47,15 @@ const FormProcess = ({ name, setName,
                     }}
                     />
             </FormItem>
-            <FormItem phone={12} computer={12}>
+            <FormItem phone={12} computer={6}>
                 <TextField
                     required
                     fullWidth
-                    id="description"
+                    id="efficiency"
                     color="secondary"
-                    label="Descripción"
-                    name="description"                
-                    value={description}
+                    label="Eficiencia"
+                    name="efficiency"                
+                    value={efficiency}
                     onChange={handleInputChange}
                     InputProps={{
                         startAdornment: (
@@ -70,11 +70,11 @@ const FormProcess = ({ name, setName,
                 <TextField
                     required
                     fullWidth
-                    id="efficiency"
+                    id="description"
                     color="secondary"
-                    label="Eficiencia"
-                    name="efficiency"                
-                    value={efficiency}
+                    label="Descripción"
+                    name="description"                
+                    value={description}
                     onChange={handleInputChange}
                     InputProps={{
                         startAdornment: (

@@ -1,5 +1,5 @@
 import { AccountCircle } from '@mui/icons-material'
-import { Box, InputAdornment, Stack, TextField } from '@mui/material'
+import { Box, InputAdornment, TextField } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
@@ -50,14 +50,12 @@ const handleInputChange = ({target}) => {
             </FormItem> 
 
             <FormItem phone={12} computer={6}>
-                <Stack direction="column" m={-1}>
                     <Selector 
                         idSelector="select-perspective" 
                         labelSelector="Perspectiva" 
                         id="perspective" 
                         hook={perspective} 
                         setHook={setPerspective}/>
-                </Stack>
             </FormItem>
             
             <FormItem phone={12} computer={12}>

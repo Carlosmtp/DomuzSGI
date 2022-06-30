@@ -26,7 +26,6 @@ api.post("/create/user", async (req, res) => {
 api.post("/login", async (req, res) => {
   const data = req.body;
   const person_id = data.person_id;
-  const pass = data.password;
   try {
     const login = await prisma.people.findUnique({
       where: {
@@ -39,7 +38,14 @@ api.post("/login", async (req, res) => {
     if (login == null) {
       throw new Error("La persona no existe en el sistema");
     } else {
-      if (pass == login.user.password) {
+      res.json({
+        person_id: login.person_id,
+        name: login.name,
+        lastname: login.lastname,
+        rol: login.user.rolId,
+        secret: login.user.password,
+      });
+      /* if (pass == login.user.password) {
         res.json({
           person_id: login.person_id,
           name: login.name,
@@ -48,7 +54,7 @@ api.post("/login", async (req, res) => {
         });
       } else {
         throw new Error("Contraseña incorrecta");
-      }
+      } */
     }
   } catch (e) {
     res.json({

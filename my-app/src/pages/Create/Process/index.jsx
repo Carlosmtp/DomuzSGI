@@ -1,10 +1,10 @@
 
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
 //import axios from 'axios'
-import TableIndicator from './TableIndicator'
+import CustomTable from '../../../components/Forms/CustomTable'
 
 const Process = () => {
 
@@ -36,7 +36,7 @@ const Process = () => {
       aux[i].id = i + 1;      
     }
     setIndicators(aux)
-    console.log("Table: ",indicators)
+    //console.log("Table: ",indicators)
   }
 
   const handleSubmit = (e) => {
@@ -66,31 +66,41 @@ const Process = () => {
                        />
       </Grid>
       <Grid item xs={12} sm={12}>
-        <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
-          <Typography variant="h6" pb={3} color='secondary'>Indicador</Typography>            
-            <Grid>         
-              <TableIndicator rows={indicators} />
-            </Grid>
-            <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
-              <FormIndicator
-                          name={nameIndicator}
-                          setName={setNameIndicator}
-                          objective={objective}
-                          setObjective={setObjective}
-                          periodicity={periodicity}                        
-                          setPeriodicity={setPeriodicity}
-                          weight={weight}                         
-                          setWeight={setWeight}
-                          inCharge={inCharge}                         
-                          setInCharge={setInCharge}
-                          user={user}                         
-                          setUser={setUser}                                             
-                          />
+        <Box p={{xs:2,sm:3}} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
+          <Typography variant="h6" pb={3} color='secondary'>Añadir indicadores</Typography>    
+            <Stack spacing={4}>
               
-          </Box>
-            <Grid item justify="center" align="right" xs={12} pt={3}>       
+              <Box p={{xs:2,sm:4}} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
+                <FormIndicator
+                            name={nameIndicator}
+                            setName={setNameIndicator}
+                            objective={objective}
+                            setObjective={setObjective}
+                            periodicity={periodicity}                        
+                            setPeriodicity={setPeriodicity}
+                            weight={weight}                         
+                            setWeight={setWeight}
+                            inCharge={inCharge}                         
+                            setInCharge={setInCharge}
+                            user={user}                         
+                            setUser={setUser}                                             
+                            />                
+            </Box>
+            <Grid item justify="center" align="center" xs={12}>       
               <Button variant="contained" color='secondary'onClick={addRow}>Añadir Indicador</Button>
             </Grid>
+            <CustomTable rows={indicators} setRows={setIndicators} columns={
+                [
+                  { field: 'id', headerName: 'ID', width: 25 },
+                  { field: 'name', headerName: 'Nombre', width: 150 },
+                  { field: 'objective', headerName: 'Objetivo', width: 130 },
+                  { field: 'periodicity', headerName: 'Periodicidad', width: 130 },
+                  { field: 'weight', headerName: 'Peso', width: 50 },
+                  { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
+                  { field: 'user', headerName: 'Usuario', width: 130 }]
+              }/>
+          </Stack>
+            
         </Box>
       </Grid>
       

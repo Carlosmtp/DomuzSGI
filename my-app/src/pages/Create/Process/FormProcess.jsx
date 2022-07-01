@@ -1,6 +1,7 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { InputAdornment, TextField } from '@mui/material'
+import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import React from 'react'
+import CustomSlider from '../../../components/Forms/CustomSlider'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
@@ -47,24 +48,11 @@ const FormProcess = ({ name, setName,
                     }}
                     />
             </FormItem>
-            <FormItem phone={12} computer={6}>
-                <TextField
-                    required
-                    fullWidth
-                    id="efficiency"
-                    color="secondary"
-                    label="Eficiencia"
-                    name="efficiency"                
-                    value={efficiency}
-                    onChange={handleInputChange}
-                    InputProps={{
-                        startAdornment: (
-                        <InputAdornment position="start">
-                            <DriveFileRenameOutline />
-                        </InputAdornment>
-                        ),
-                    }}
-                    />
+            <FormItem phone={12} computer={6}> 
+                <Typography>Eficiencia*</Typography>
+                <Box pl={2} pr={2}>
+                    <CustomSlider id="efficiency" setHook={setEfficiency}/>
+                </Box>    
             </FormItem>
             <FormItem phone={12} computer={12}>
                 <TextField
@@ -76,13 +64,7 @@ const FormProcess = ({ name, setName,
                     name="description"                
                     value={description}
                     onChange={handleInputChange}
-                    InputProps={{
-                        startAdornment: (
-                        <InputAdornment position="start">
-                            <DriveFileRenameOutline />
-                        </InputAdornment>
-                        ),
-                    }}
+                    multiline
                     />
             </FormItem>
         </FormContainer>

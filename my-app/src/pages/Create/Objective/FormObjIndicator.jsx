@@ -5,15 +5,15 @@ import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 import { Selector } from '../../../components/Forms/Selector'
 
-const FormObjIndicator = ({ nameInd, setNameInd,
+const FormObjIndicator = ({ name, setName,
                             goal, setGoal,
                             periodicity, setPeriodicity
                     }) => {
 
 const handleInputChange = ({target}) => {
     switch (target.id) {
-        case "nameInd":
-            setNameInd(target.value)
+        case "name":
+            setName(target.value)
             break;
         case "goal":
             setGoal(target.value)
@@ -35,10 +35,10 @@ const handleInputChange = ({target}) => {
                         <TextField
                             required
                             color="secondary"
-                            id="nameInd"
+                            id="name"
                             label="Nombre"
-                            name="nameInd"                
-                            value={nameInd}
+                            name="name"                
+                            value={name}
                             onChange={handleInputChange}
                             InputProps={{
                                 startAdornment: (

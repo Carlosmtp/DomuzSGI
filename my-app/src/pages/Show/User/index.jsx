@@ -23,7 +23,7 @@ const User = () => {
       let obj = []
       let aux = res.data
       console.log(aux[0])
-      for(let i=0;i<aux.length;i++){        
+      for(let i=0;i<aux.length;i++){
         obj.push({
           id: aux[i].id_people.person_id,
           firstName: aux[i].id_people.name,

@@ -1,12 +1,14 @@
 import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
-import { InputAdornment, TextField, Typography } from '@mui/material'
+import { CircularProgress, InputAdornment, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect } from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 import { Selector } from '../../../components/Forms/Selector'
 import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 import CustomSlider from '../../../components/Forms/CustomSlider'
+import { useState } from 'react'
+import axios from 'axios'
 
 const FormIndicator = ({ name, setName,
                          objective, setObjective, 
@@ -14,6 +16,24 @@ const FormIndicator = ({ name, setName,
                          setWeight,
                          inCharge, setInCharge,
                          user, setUser}) => {
+    
+    const [loadedUsers, setLoadedUsers] = useState([])
+
+    useEffect(()=>{
+        axios.get("http://localhost:6464/get/users")
+        .then((res) => {
+          let obj = []
+          let aux = res.data
+          for(let i=0;i<aux.length;i++){        
+            obj.push({
+              id: aux[i].id_people.person_id,
+              label: aux[i].id_people.name + " " + aux[i].id_people.lastname,
+            })        
+          }
+        setLoadedUsers(obj)
+          //console.log(res.data.length)
+        })        
+      },[])
 
     const handleInputChange = ({target}) => {
         switch (target.id) {
@@ -86,7 +106,7 @@ const FormIndicator = ({ name, setName,
                             id="periodicity" 
                             hook={periodicity} 
                             setHook={setPeriodicity}
-                            array_elements={["semanal","mensual","trimestral","semestral","anual"]}
+                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
                             />
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
@@ -114,14 +134,12 @@ const FormIndicator = ({ name, setName,
                         }}
                     />                 
                 </FormItem> 
-                <FormItem phone={12} computer={6}> 
-                    <CustomAutocomplete label="Usuario" 
-                                        hook={user} 
-                                        setHook={setUser} 
-                                        array_elements={[   { id:1, label:"Juan José" }  ,
-                                                            { id:2, label:"Sara" },
-                                                            { id:3, label:"Alejandro" }]}/>                                 
-                </FormItem>                   
+                <FormItem phone={12} computer={6}>
+                    <CustomAutocomplete label="Usuario"
+                        hook={user}
+                        setHook={setUser}
+                        array_elements={loadedUsers}/>
+                </FormItem>
         </FormContainer>
     )
 }

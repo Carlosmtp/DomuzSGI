@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
 import axios from 'axios'
+import TableIndicator from './TableIndicator'
 
 const Process = () => {
 
@@ -18,6 +19,29 @@ const Process = () => {
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
+  const [table, setTable] = useState([{
+    id:1,
+    name:nameIndicator,
+    objetive: objective,
+    periodicity: "semanalmente",
+    in_charge: inCharge,
+    weight: 0.4,
+    userId:1
+  }])
+
+  const addRow = (e) => { 
+    let aux = table.concat({
+      id:"2",
+      name:nameIndicator,
+      objetive: objective,
+      periodicity: "semanalmente",
+      in_charge: inCharge,
+      weight: 0.4,
+      userId:1
+    } )
+    setTable(aux)
+    console.log("Table: ",table)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -57,6 +81,9 @@ const Process = () => {
       <Grid item xs={12} sm={12}>
         <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
           <Typography variant="h6" pb={3} color='secondary'>Indicador</Typography>            
+            <Grid>         
+              <TableIndicator table={table} />
+            </Grid>
             <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
               <FormIndicator
                           name={nameIndicator}
@@ -72,12 +99,14 @@ const Process = () => {
                           user={user}                         
                           setUser={setUser}                                             
                           />
+              
           </Box>
             <Grid item justify="center" align="right" xs={12} pt={3}>       
-              <Button variant="contained" color='secondary'>Añadir Indicador</Button>
+              <Button variant="contained" color='secondary'onClick={addRow}>Añadir Indicador</Button>
             </Grid>
         </Box>
       </Grid>
+      
       <Grid item justify="center" align="right" xs={12}>         
             <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
       </Grid>

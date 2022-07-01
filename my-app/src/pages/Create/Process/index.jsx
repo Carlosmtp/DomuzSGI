@@ -19,19 +19,11 @@ const Process = () => {
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
-  const [table, setTable] = useState([{
-    id:1,
-    name:nameIndicator,
-    objetive: objective,
-    periodicity: "semanalmente",
-    in_charge: inCharge,
-    weight: 0.4,
-    userId:1
-  }])
+  const [indicators, setIndicators] = useState([])
 
   const addRow = (e) => { 
-    let aux = table.concat({
-      id:"2",
+    let aux = indicators.concat({
+      id:"x",
       name:nameIndicator,
       objetive: objective,
       periodicity: "semanalmente",
@@ -39,8 +31,11 @@ const Process = () => {
       weight: 0.4,
       userId:1
     } )
-    setTable(aux)
-    console.log("Table: ",table)
+    for (let i = 0; i < aux.length; i++) {
+      aux[i].id = i + 1;      
+    }
+    setIndicators(aux)
+    console.log("Table: ",indicators)
   }
 
   const handleSubmit = (e) => {
@@ -82,7 +77,7 @@ const Process = () => {
         <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
           <Typography variant="h6" pb={3} color='secondary'>Indicador</Typography>            
             <Grid>         
-              <TableIndicator table={table} />
+              <TableIndicator rows={indicators} />
             </Grid>
             <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
               <FormIndicator

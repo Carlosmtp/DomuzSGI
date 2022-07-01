@@ -11,11 +11,11 @@ const columns = [
     { field: 'user', headerName: 'Usuario', width: 130 },
   ];
 
-const TableIndicator = ({ table }) => {
+const TableIndicator = ({ rows }) => {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={table}
+        rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

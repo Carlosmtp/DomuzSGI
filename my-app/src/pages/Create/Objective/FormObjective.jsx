@@ -55,7 +55,8 @@ const handleInputChange = ({target}) => {
                         labelSelector="Perspectiva" 
                         id="perspective" 
                         hook={perspective} 
-                        setHook={setPerspective}/>
+                        setHook={setPerspective}
+                        array_elements={["base de datos"]}/>
             </FormItem>
             
             <FormItem phone={12} computer={12}>

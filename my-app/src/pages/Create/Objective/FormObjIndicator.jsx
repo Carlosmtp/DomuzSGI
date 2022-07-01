@@ -64,7 +64,8 @@ const handleInputChange = ({target}) => {
                             labelSelector="Periodicidad" 
                             id="periodicity" 
                             hook={periodicity} 
-                            setHook={setPeriodicity}/>
+                            setHook={setPeriodicity}
+                            array_elements={["semanal","mensual","trimestral","semestral","anual"]}/>
                     </Stack>
                 </Box>
             </FormItem>                     

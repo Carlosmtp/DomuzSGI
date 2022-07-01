@@ -84,14 +84,16 @@ const handleInputChange = ({target}) => {
                             labelSelector="Líder" 
                             id="leader" 
                             hook={leader} 
-                            setHook={setLeader}/>
+                            setHook={setLeader}
+                            array_elements={["base","de","datos"]}/>
                         
                         <Selector 
                             idSelector="select-company" 
                             labelSelector="Empresas" 
                             id="companies" 
                             hook={companies} 
-                            setHook={setCompanies}/>
+                            setHook={setCompanies}
+                            array_elements={["base","de","datos"]}/>
                         
                 </Stack>
             </FormItem>
@@ -104,14 +106,16 @@ const handleInputChange = ({target}) => {
                         labelSelector="Estados del Proyecto" 
                         id="projectStates" 
                         hook={projectStates} 
-                        setHook={setProjectStates}/>
+                        setHook={setProjectStates}
+                        array_elements={["base","de","datos"]}/>
 
                     <Selector 
                         idSelector="select-portfolios" 
                         labelSelector="Portafolios" 
                         id="portfolios" 
                         hook={portfolios} 
-                        setHook={setPortfolios}/>
+                        setHook={setPortfolios}
+                        array_elements={["base","de","datos"]}/>
                             
                     <TextField
                         required

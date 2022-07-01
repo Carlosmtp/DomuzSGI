@@ -4,7 +4,7 @@ import React from 'react'
 const CustomSlider = ({ id, setHook }) => {
 
   const handleChange = (event) => {
-    setHook(event.target.value);
+    setHook(parseInt(event.target.value)/100);
 };
 
   return (

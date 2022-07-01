@@ -5,12 +5,13 @@ import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 import { Selector } from '../../../components/Forms/Selector'
+import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const FormIndicator = ({ name, setName,
                          objective, setObjective, 
                          periodicity, setPeriodicity,
-                         weight, setWeight,
+                         setWeight,
                          inCharge, setInCharge,
                          user, setUser}) => {
 
@@ -84,7 +85,9 @@ const FormIndicator = ({ name, setName,
                             labelSelector="Periodicidad" 
                             id="periodicity" 
                             hook={periodicity} 
-                            setHook={setPeriodicity}/>
+                            setHook={setPeriodicity}
+                            array_elements={["semanal","mensual","trimestral","semestral","anual"]}
+                            />
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
                     <Typography>Peso*</Typography>
@@ -112,12 +115,12 @@ const FormIndicator = ({ name, setName,
                     />                 
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
-                    <Selector
-                        idSelector="select-user" 
-                        labelSelector="Usuario" 
-                        id="user" 
-                        hook={user} 
-                        setHook={setUser}/>                     
+                    <CustomAutocomplete label="Usuario" 
+                                        hook={user} 
+                                        setHook={setUser} 
+                                        array_elements={[   { id:1, label:"Juan José" }  ,
+                                                            { id:2, label:"Sara" },
+                                                            { id:3, label:"Alejandro" }]}/>                                 
                 </FormItem>                   
         </FormContainer>
     )

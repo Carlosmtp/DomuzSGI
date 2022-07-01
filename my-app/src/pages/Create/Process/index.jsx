@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
-import axios from 'axios'
+//import axios from 'axios'
 import TableIndicator from './TableIndicator'
 
 const Process = () => {
@@ -15,7 +15,7 @@ const Process = () => {
   const [nameIndicator,setNameIndicator] = useState('')
   const [objective,setObjective] = useState('')
   const [periodicity,setPeriodicity] = useState('')
-  const [weight,setWeight] = useState('')
+  const [weight,setWeight] = useState('0.5')
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
@@ -25,11 +25,12 @@ const Process = () => {
     let aux = indicators.concat({
       id:"x",
       name:nameIndicator,
-      objetive: objective,
-      periodicity: "semanalmente",
+      objective: objective,
+      periodicity: periodicity,
       in_charge: inCharge,
-      weight: 0.4,
-      userId:1
+      weight: weight,
+      user:user.label,
+      userId:user.id
     } )
     for (let i = 0; i < aux.length; i++) {
       aux[i].id = i + 1;      
@@ -45,17 +46,8 @@ const Process = () => {
     {
       name: nameProcess,
       description: descriptionProcess,
-      efficiency: 0.2,
-      indicators: [
-        {
-          name:nameIndicator,
-          objetive: objective,
-          periodicity: "semanalmente",
-          in_charge: inCharge,
-          weight: 0.4,
-          userId:1
-        }
-      ]
+      efficiency: parseInt(efficiency)/100,
+      indicators: indicators
     }
     )//.then((res) => {console.log(res)})
     

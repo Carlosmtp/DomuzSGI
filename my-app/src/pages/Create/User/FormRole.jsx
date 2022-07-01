@@ -11,15 +11,16 @@ const FormRole = ({
     const[name, setName] = useState()
     const[description, setDescription] = useState()
 
-    const [roles,setRoles] = useState()//Array de Objetos
+    const [roles,setRoles] = useState([])//Array de Objetos
     const [loading,setloading] = useState(true)
 
     useEffect(()=>{
         axios.get("http://localhost:6464/get/roles")
         .then((res) => {
-          console.log(res.data)
+          //console.log(res.data)
           setName(res.data[0].name)
           setDescription(res.data[0].description)
+          setIdRole(res.data[0].id)
 
           setloading(false)
           setRoles(res.data)
@@ -27,7 +28,7 @@ const FormRole = ({
       },[])
 
     const handleChange = (event, page) => {
-        setIdRole(roles[page-1].ids)
+        setIdRole(roles[page-1].id)
         setName(roles[page-1].name)
         setDescription(roles[page-1].description)
   };

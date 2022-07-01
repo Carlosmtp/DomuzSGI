@@ -20,6 +20,11 @@ api.post("/create/project", async (req, res) => {
   res.json(project);
 });
 
+api.get("/get/projects", async (req, res) => {
+  const projects = await prisma.projects.findMany();
+  res.json(projects);
+});
+
 /////////////////////////// States Projects /////////////////////////////
 
 api.post("/create/project/state", async (req, res) => {
@@ -36,7 +41,7 @@ api.post("/create/project/state", async (req, res) => {
   }
 });
 
-api.post("/get/project/state", async (req, res) => {
+api.get("/get/project/state", async (req, res) => {
   const states = await prisma.project_states.findMany();
   res.json(states);
 });
@@ -71,6 +76,11 @@ api.post("/create/project/portfolio", async (req, res) => {
   }
 });
 
+api.get("/get/project/portfolios", async (req, res) => {
+  const portfolios = await prisma.portfolios.findMany();
+  res.json(portfolios);
+});
+
 /////////////////////////// Aux-Porfolio Projects /////////////////////////////
 
 api.post("/create/project/aux", async (req, res) => {
@@ -90,6 +100,11 @@ api.post("/create/project/aux", async (req, res) => {
   }
 });
 
+api.get("/get/project/aux", async (req, res) => {
+  const aux_portfolios = await prisma.aux_portfolios.findMany();
+  res.json(aux_portfolios);
+});
+
 /////////////////////////// Clasification Projects /////////////////////////////
 
 api.post("/create/project/clasification", async (req, res) => {
@@ -106,7 +121,7 @@ api.post("/create/project/clasification", async (req, res) => {
   }
 });
 
-api.post("/get/project/clasification", async (req, res) => {
+api.get("/get/project/clasifications", async (req, res) => {
   const clasifications = await prisma.clasification.findMany();
   res.json(clasifications);
 });
@@ -127,7 +142,7 @@ api.post("/create/project/type", async (req, res) => {
   }
 });
 
-api.post("/get/project/type", async (req, res) => {
+api.get("/get/project/types", async (req, res) => {
   const types = await prisma.type.findMany();
   res.json(types);
 });

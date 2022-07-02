@@ -45,16 +45,6 @@ api.post("/login", async (req, res) => {
         rol: login.user.rolId,
         secret: login.user.password,
       });
-      /* if (pass == login.user.password) {
-        res.json({
-          person_id: login.person_id,
-          name: login.name,
-          lastname: login.lastname,
-          rol: login.user.rolId,
-        });
-      } else {
-        throw new Error("Contraseña incorrecta");
-      } */
     }
   } catch (e) {
     res.json({
@@ -75,7 +65,29 @@ api.get("/get/users", async (req, res) => {
 });
 
 api.get("/", (req, res) => {
-  res.send("Esta Funcionando Correctaente");
+  res.send("Esta Funcionando Correctamente");
+});
+
+api.post("/update/user", async (req, res) => {
+  const data = req.body;
+  const person = await prisma.people.update({
+    where: {
+      person_id: data.person_id,
+    },
+    data: {
+      name: data.name,
+      lastname: data.lastname,
+      mail: data.mail,
+      phone: data.phone,
+      user: {
+        update: {
+          password: data.password,
+          rolId: data.id_roles,
+        },
+      },
+    },
+  });
+  res.json(person);
 });
 
 module.exports = api;

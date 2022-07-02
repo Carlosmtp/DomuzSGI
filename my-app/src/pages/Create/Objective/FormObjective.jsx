@@ -1,15 +1,33 @@
-import { AccountCircle } from '@mui/icons-material'
+import { DriveFileRenameOutline } from '@mui/icons-material'
 import { Box, InputAdornment, TextField } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
-import { Selector } from '../../../components/Forms/Selector'
+import axios from 'axios'
+import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 
 const FormObjective = ({ name, setName,
                         description, setDescription,
                         perspective, setPerspective
 
                     }) => {
+
+const [loadedPerspective, setLoadedPerspective] = useState([])
+
+useEffect(()=>{
+    axios.get("http://localhost:6464/get/objectives/perspectives")
+    .then((res) => {
+      let obj = []
+      let aux = res.data
+      for(let i=0;i<aux.length;i++){        
+        obj.push({
+          id: aux[i].id,
+          label: aux[i].name,
+        })        
+      }
+      setLoadedPerspective(obj)
+    })        
+  },[])
 
 const handleInputChange = ({target}) => {
     switch (target.id) {
@@ -44,19 +62,16 @@ const handleInputChange = ({target}) => {
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                            <AccountCircle />
+                            <DriveFileRenameOutline />
                             </InputAdornment>)}}/>  
                </Box>                       
             </FormItem> 
 
             <FormItem phone={12} computer={6}>
-                    <Selector 
-                        idSelector="select-perspective" 
-                        labelSelector="Perspectiva" 
-                        id="perspective" 
-                        hook={perspective} 
-                        setHook={setPerspective}
-                        array_elements={["base de datos"]}/>
+                <CustomAutocomplete label="Perspectiva"
+                    hook={perspective}
+                    setHook={setPerspective}
+                    array_elements={loadedPerspective}/>
             </FormItem>
             
             <FormItem phone={12} computer={12}>
@@ -69,11 +84,8 @@ const handleInputChange = ({target}) => {
                 name="description"                
                 value={description}
                 onChange={handleInputChange}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                        <AccountCircle />
-                        </InputAdornment>)}}/>
+                multiline
+                rows={5}/>
             </FormItem>                     
         </FormContainer>
     )

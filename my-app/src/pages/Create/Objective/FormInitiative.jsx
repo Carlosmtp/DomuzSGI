@@ -1,4 +1,4 @@
-import { AccountCircle } from '@mui/icons-material'
+import { DriveFileRenameOutline } from '@mui/icons-material'
 import { Box, InputAdornment, Stack, TextField } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
@@ -28,7 +28,6 @@ const handleInputChange = ({target}) => {
                 <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main' }}>          
                     <Stack spacing={2}>
                         <TextField
-                            required
                             color="secondary"
                             id="name"
                             label="Nombre"
@@ -38,21 +37,17 @@ const handleInputChange = ({target}) => {
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <DriveFileRenameOutline />
                                     </InputAdornment>)}}/>
-                        <TextField
-                            required
+                        <TextField                            
                             color="secondary"
                             id="description"
                             label="Descripción"
                             name="description"                
                             value={description}
                             onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <AccountCircle />
-                                    </InputAdornment>)}}/>
+                            multiline
+                            rows={4}/>
                     </Stack>
                 </Box>
             </FormItem>                     

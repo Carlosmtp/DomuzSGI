@@ -65,6 +65,7 @@ const FormProcess = ({ name, setName,
                     value={description}
                     onChange={handleInputChange}
                     multiline
+                    rows={5}
                     />
             </FormItem>
         </FormContainer>

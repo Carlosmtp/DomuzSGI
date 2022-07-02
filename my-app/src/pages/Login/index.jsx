@@ -16,8 +16,6 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [open, setOpen] = useState(false);
-
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -50,11 +48,12 @@ const Login = () => {
       });
   };
 
+  const [open, setOpen] = useState(false);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
@@ -101,6 +100,7 @@ const Login = () => {
 
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert
+              variant="filled"
               onClose={handleClose}
               severity="error"
               sx={{ width: "100%" }}

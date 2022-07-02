@@ -1,5 +1,5 @@
 
-import { Box, Button, Grid, Stack, Typography } from '@mui/material'
+import { Alert, Box, Button, Grid, Snackbar, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
@@ -21,52 +21,92 @@ const Process = () => {
 
   const [indicators, setIndicators] = useState([])
 
-  const addRow = (e) => { 
-    let aux = indicators.concat({
-      id:"x",
-      name:nameIndicator,
-      objetive: objective,
-      periodicity: periodicity,
-      in_charge: inCharge,
-      weight: weight,
-      user:user.label,
-      userId:user.id
-    } )
-    for (let i = 0; i < aux.length; i++) {
-      aux[i].id = i + 1;      
+  const addRow = (e) => {
+    if(nameIndicator=='' || objective=='' || periodicity=='' || inCharge=='' || user==''){
+      setOpen(true)
+      setSeverity("error")
+      setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
+    }else{
+      let aux = indicators.concat({
+          id:"",
+          name:nameIndicator,
+          objetive: objective,
+          periodicity: periodicity,
+          in_charge: inCharge,
+          weight: weight,
+          user:user.label,
+          userId:user.id
+        } )
+        for (let i = 0; i < aux.length; i++) {
+          aux[i].id = i + 1;      
+        }
+        setIndicators(aux)
+        setNameIndicator('')
+        setObjective('')
+        setPeriodicity('')
+        setInCharge('')
+        setUser('')
     }
-    setIndicators(aux)
+    
     //console.log("Table: ",indicators)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let aux = []
-    for (let i = 0; i < indicators.length; i++) {
-      aux = aux.concat({
-          name : indicators[i].name,
-          objetive : indicators[i].objetive,
-          periodicity : indicators[i].periodicity,
-          in_charge : indicators[i].in_charge,
-          weight : indicators[i].weight,
-          userId : indicators[i].userId
-        }
-      )      
-    }
-    //console.log(
-    axios.post("http://localhost:6464/create/proccess",
-    {
-      name: nameProcess,
-      description: descriptionProcess,
-      efficiency: efficiency,
-      indicators: aux
-    }
-    )
-    
+    if(indicators.length==0){
+      setOpen(true)
+      setSeverity("error")
+      setValidationMsg('Debe existir al menos 1 indicador para crear el proceso.')
+    }else{
+      let aux = []
+      for (let i = 0; i < indicators.length; i++) {
+        aux = aux.concat({
+            name : indicators[i].name,
+            objetive : indicators[i].objetive,
+            periodicity : indicators[i].periodicity,
+            in_charge : indicators[i].in_charge,
+            weight : indicators[i].weight,
+            userId : indicators[i].userId
+          }
+        )      
+      }
+      //console.log(
+      axios.post("http://localhost:6464/create/proccess",
+      {
+        name: nameProcess,
+        description: descriptionProcess,
+        efficiency: efficiency,
+        indicators: aux
+      })
+      setOpen(true)
+      setSeverity("success")
+      setValidationMsg(nameProcess+' ha sido creado exitosamente.')
+      setNameProcess('')
+      setDescriptionProcess('')
+    }    
   }
+
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState('error');
+  const [validationMsg, setValidationMsg] = useState('');
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          variant="filled"
+          onClose={handleClose}
+          severity={severity}
+          sx={{ width: "100%" }}>
+              {validationMsg}
+        </Alert>
+      </Snackbar>
       <Grid item xs={12} sm={12}>
         <Typography variant="h6" pb={3} color='secondary'>Datos del Proceso</Typography>
         <FormProcess name={nameProcess}

@@ -64,7 +64,6 @@ const FormIndicator = ({ name, setName,
         <FormContainer>    
                 <FormItem phone={12} computer={6}>
                     <TextField
-                        required
                         fullWidth
                         id="name"
                         label="Nombre"
@@ -83,7 +82,6 @@ const FormIndicator = ({ name, setName,
                 </FormItem> 
                 <FormItem phone={12} computer={6}>               
                     <TextField
-                        required
                         fullWidth
                         id="objective"
                         color="secondary"
@@ -118,7 +116,6 @@ const FormIndicator = ({ name, setName,
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
                     <TextField
-                        required
                         fullWidth
                         id="inCharge"
                         color="secondary"

@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
 export const Selector = ({ idSelector, labelSelector,
-                        id, hook, setHook, array_elements }) => {
+                        id, hook, setHook, array_elements, required }) => {
 
     const handleChange = (event) => {
         setHook(event.target.value);
@@ -13,7 +13,7 @@ export const Selector = ({ idSelector, labelSelector,
         <InputLabel id={idSelector}>{labelSelector}</InputLabel>
         <Select
             color="secondary"
-            required            
+            required={required}
             fullWidth
             labelId={idSelector}
             id={id}            

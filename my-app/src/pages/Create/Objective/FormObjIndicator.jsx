@@ -1,6 +1,7 @@
-import { AccountCircle } from '@mui/icons-material'
-import { Box, InputAdornment, Stack, TextField } from '@mui/material'
+import { DriveFileRenameOutline, Flag } from '@mui/icons-material'
+import { Box, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
+import CustomSlider from '../../../components/Forms/CustomSlider'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 import { Selector } from '../../../components/Forms/Selector'
@@ -18,9 +19,6 @@ const handleInputChange = ({target}) => {
         case "goal":
             setGoal(target.value)
             break;
-        case "periodicity":
-            setPeriodicity(target.value)
-            break;
         default:
             console.log("Necesitas crear el respectivo handleInput")
             break;
@@ -33,7 +31,6 @@ const handleInputChange = ({target}) => {
                 <Box p={2} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main' }}>          
                     <Stack spacing={2}>
                         <TextField
-                            required
                             color="secondary"
                             id="name"
                             label="Nombre"
@@ -43,21 +40,16 @@ const handleInputChange = ({target}) => {
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <DriveFileRenameOutline />
                                     </InputAdornment>)}}/>
-                        <TextField
-                            required
-                            color="secondary"
-                            id="goal"
-                            label="Meta"
-                            name="goal"                
-                            value={goal}
-                            onChange={handleInputChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <AccountCircle />
-                                    </InputAdornment>)}}/>
+                       
+                    <Box>
+                        <Typography>Meta</Typography>
+                        <Box pl={2} pr={2}>
+                            <CustomSlider id="Goal" setHook={setGoal}/>
+                    </Box>    
+
+                    </Box>
                         
                         <Selector
                             idSelector="select-periodicity" 
@@ -65,7 +57,8 @@ const handleInputChange = ({target}) => {
                             id="periodicity" 
                             hook={periodicity} 
                             setHook={setPeriodicity}
-                            array_elements={["semanal","mensual","trimestral","semestral","anual"]}/>
+                            required={false}
+                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}/>
                     </Stack>
                 </Box>
             </FormItem>                     

@@ -11,7 +11,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   },
   "& .MuiAutocomplete-inputRoot": {
     // This matches the specificity of the default styles at https://github.com/mui-org/material-ui/blob/v4.11.3/packages/material-ui-lab/src/Autocomplete/Autocomplete.js#L90
-    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-child': {
+    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
       // Default left padding is 6px
       paddingLeft: 26
     },

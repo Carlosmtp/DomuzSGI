@@ -26,7 +26,8 @@ const FormIndicator = ({ name, setName,
           let aux = res.data
           for(let i=0;i<aux.length;i++){        
             obj.push({
-              id: aux[i].id_people.person_id,
+              //id: aux[i].id_people.person_id,
+              id: aux[i].id,
               label: aux[i].id_people.name + " " + aux[i].id_people.lastname,
             })        
           }

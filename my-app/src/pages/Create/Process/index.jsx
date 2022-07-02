@@ -3,19 +3,19 @@ import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
-//import axios from 'axios'
+import axios from 'axios'
 import CustomTable from '../../../components/Forms/CustomTable'
 
 const Process = () => {
 
   const [nameProcess,setNameProcess] = useState('')
   const [descriptionProcess,setDescriptionProcess] = useState('')
-  const [efficiency,setEfficiency] = useState('')
+  const [efficiency,setEfficiency] = useState(0.5)
 
   const [nameIndicator,setNameIndicator] = useState('')
   const [objective,setObjective] = useState('')
   const [periodicity,setPeriodicity] = useState('')
-  const [weight,setWeight] = useState('0.5')
+  const [weight,setWeight] = useState(0.5)
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
@@ -25,7 +25,7 @@ const Process = () => {
     let aux = indicators.concat({
       id:"x",
       name:nameIndicator,
-      objective: objective,
+      objetive: objective,
       periodicity: periodicity,
       in_charge: inCharge,
       weight: weight,
@@ -41,15 +41,15 @@ const Process = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    //axios.post("http://localhost:6464/create/proccess",
-    console.log(
+    //console.log(
+    axios.post("http://localhost:6464/create/proccess",
     {
       name: nameProcess,
       description: descriptionProcess,
-      efficiency: parseInt(efficiency)/100,
+      efficiency: efficiency,
       indicators: indicators
     }
-    )//.then((res) => {console.log(res)})
+    )
     
   }
 

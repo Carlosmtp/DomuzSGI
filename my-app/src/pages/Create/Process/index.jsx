@@ -22,7 +22,7 @@ const Process = () => {
   const [indicators, setIndicators] = useState([])
 
   const addRow = (e) => {
-    if(nameIndicator=='' || objective=='' || periodicity=='' || inCharge=='' || user==''){
+    if(nameIndicator==='' || objective==='' || periodicity==='' || inCharge==='' || user===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
@@ -53,7 +53,7 @@ const Process = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(indicators.length==0){
+    if(indicators.length===0){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('Debe existir al menos 1 indicador para crear el proceso.')
@@ -85,7 +85,8 @@ const Process = () => {
       setDescriptionProcess('')
     }    
   }
-
+  
+//Validacion
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [validationMsg, setValidationMsg] = useState('');

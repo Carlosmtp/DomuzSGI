@@ -47,12 +47,12 @@ const User = () => {
   else{
   return (
     
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 1200, width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={100}
+        rowsPerPageOptions={[100]}
         checkboxSelection
       />
     </div>

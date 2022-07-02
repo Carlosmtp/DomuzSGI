@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Alert, Button, Grid, Snackbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import FormUser from "./FormUser";
 import FormPersonal from "./FormPersonal";
@@ -36,7 +36,27 @@ const User = () => {
     //console.log(newUser);
     axios.post("http://localhost:6464/create/user", newUser).then((res) => {
       console.log(res);
-    });
+    })
+      setOpen(true)
+      setSeverity("success")
+      setValidationMsg(name+' ha sido creado exitosamente.')
+      setName('')
+      setLastname('')
+      setIdPerson('')
+      setPassword('')
+      setMail('')
+      setPhone('')
+    ;
+  };
+
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState('error');
+  const [validationMsg, setValidationMsg] = useState('');
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -48,6 +68,15 @@ const User = () => {
       pr={{ xs: 0, sm: 3 }}
       onSubmit={handleSubmit}
     >
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          variant="filled"
+          onClose={handleClose}
+          severity={severity}
+          sx={{ width: "100%" }}>
+              {validationMsg}
+        </Alert>
+      </Snackbar>
       <Grid item xs={12} sm={6}>
         <Typography variant="h6" pb={3} color="secondary">
           Datos de Usuario
@@ -75,7 +104,7 @@ const User = () => {
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormRole setIdRole={setIdRole} />
+        <FormRole idRole={idRole} setIdRole={setIdRole} />
       </Grid>
       <Grid item justify="center" align="right" xs={12}>
         <Button variant="contained" color="secondary" type="submit">

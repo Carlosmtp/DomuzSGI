@@ -24,7 +24,7 @@ const Objective = () => {
   const [indicators,setIndicators] = useState([])
 
   const addRowInit = (e) => {
-    if(nameInit=='' || descriptionInit==''){
+    if(nameInit==='' || descriptionInit===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir una iniciativa.')
@@ -45,7 +45,7 @@ const Objective = () => {
   }
 
   const addRowInd = (e) => {
-    if(nameInd=='' || periodicity==''){
+    if(nameInd==='' || periodicity===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
@@ -67,7 +67,7 @@ const Objective = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(initiatives.length==0 || indicators.length==0){
+    if(initiatives.length===0 || indicators.length===0){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('Debe existir al menos 1 iniciativa y 1 indicador para crear el objetivo estratégico.')

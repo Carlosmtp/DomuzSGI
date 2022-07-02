@@ -1,11 +1,10 @@
-import { Engineering } from '@mui/icons-material'
-import { Avatar, Box, Divider, Grid, LinearProgress, Pagination, Typography } from '@mui/material'
-import { deepPurple } from '@mui/material/colors'
+import { Box, Divider, Grid, LinearProgress, Pagination, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react'
+import CustomAvatar from '../../../components/CustomAvatar';
 const axios = require('axios').default;
 
 const FormRole = ({
-                    setIdRole
+          idRole, setIdRole
 }) => {
 
     const[name, setName] = useState()
@@ -17,14 +16,14 @@ const FormRole = ({
     useEffect(()=>{
         axios.get("http://localhost:6464/get/roles")
         .then((res) => {
-          //console.log(res.data)
+          //console.log(res.data)        
+          setloading(false)
+          setRoles(res.data)
+
           setName(res.data[0].name)
           setDescription(res.data[0].description)
           setIdRole(res.data[0].id)
-
-          setloading(false)
-          setRoles(res.data)
-        })        
+        })
       },[])
 
     const handleChange = (event, page) => {
@@ -41,14 +40,8 @@ const FormRole = ({
   return (
     <Box pl={{xs:1,sm:3}} pr={{xs:1,sm:3}} pt={4} pb={4} sx={{ borderRadius: '16px', border: 1, borderColor: 'background.light' }}>
         <Grid container spacing={1} >
-            <Grid item xs={12} sm={6} align="center" justify="center">
-                <Avatar
-                alt={name}
-                sx={{ width: { xs: 78, sm: 128}, height: { xs: 78, sm: 128}, bgcolor:deepPurple[500] }}
-                p={2}
-                >
-                    <Engineering sx={{ width: { xs: 56, sm: 80}, height: { xs: 56, sm: 80} }}/>
-                </Avatar>
+            <Grid item xs={12} sm={6} align="center" justify="center">                
+                <CustomAvatar id={idRole} size={128} />
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Divider sx={{ my: 1 }}>
@@ -62,7 +55,10 @@ const FormRole = ({
                            
                 
             </Grid>
-            <Pagination  count={roles.length} onChange={handleChange} color="secondary" />
+            <Box pt={3}>
+              <Pagination count={roles.length} onChange={handleChange} color="secondary" />
+            </Box>
+            
         </Grid>
         </Box> 
   )

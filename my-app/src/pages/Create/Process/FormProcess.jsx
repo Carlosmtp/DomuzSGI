@@ -1,4 +1,4 @@
-import { AccountCircle, DriveFileRenameOutline } from '@mui/icons-material'
+import { AccountCircle } from '@mui/icons-material'
 import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import React from 'react'
 import CustomSlider from '../../../components/Forms/CustomSlider'

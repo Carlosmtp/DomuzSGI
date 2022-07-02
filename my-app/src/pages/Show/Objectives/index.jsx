@@ -13,7 +13,7 @@ const Objectives = () => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("http://localhost:6464/get/objectives")
+    axios.get("get/objectives")
     .then((res) => {
       let obj = []
       let aux = res.data

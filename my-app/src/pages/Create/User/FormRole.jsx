@@ -14,7 +14,7 @@ const FormRole = ({
     const [loading,setloading] = useState(true)
 
     useEffect(()=>{
-        axios.get("http://localhost:6464/get/roles")
+        axios.get("get/roles")
         .then((res) => {
           //console.log(res.data)        
           setloading(false)

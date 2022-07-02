@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     //console.log(username, password)
     axios
-      .post("http://localhost:6464/login", {
+      .post("login", {
         person_id: username,
       })
       .then((res) => {

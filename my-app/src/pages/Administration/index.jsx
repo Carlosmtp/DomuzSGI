@@ -19,7 +19,7 @@ const Administration = () => {
     })
 
     useEffect(()=>{
-      axios.get("http://localhost:6464/get/counters")
+      axios.get("get/counters")
       .then((res) => {
         console.log(res.data)
         setAdminCount(res.data)

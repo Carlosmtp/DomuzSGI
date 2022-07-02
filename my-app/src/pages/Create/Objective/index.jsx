@@ -90,7 +90,7 @@ const Objective = () => {
       }
       //CONEXIÓN CON LA BD
       //console.log(
-      axios.post("http://localhost:6464/create/objective",      
+      axios.post("create/objective",      
         {
           name:name,
           description:description,

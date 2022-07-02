@@ -71,7 +71,7 @@ const Process = () => {
         )      
       }
       //console.log(
-      axios.post("http://localhost:6464/create/proccess",
+      axios.post("create/proccess",
       {
         name: nameProcess,
         description: descriptionProcess,

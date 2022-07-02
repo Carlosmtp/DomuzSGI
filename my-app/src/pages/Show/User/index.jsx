@@ -19,7 +19,7 @@ const User = () => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("http://localhost:6464/get/users")
+    axios.get("get/users")
     .then((res) => {
       let obj = []
       let aux = res.data

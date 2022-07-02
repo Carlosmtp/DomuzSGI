@@ -213,10 +213,10 @@ model processes {
 
 model process_indicators {
   id           Int                @id @default(autoincrement())
-  name         String             @db.VarChar(50)
-  objetive     String             @db.VarChar(50)
-  periodicity  String             @db.VarChar(50)
-  in_charge    String             @db.VarChar(50)
+  name         String             @db.VarChar()
+  objetive     String             @db.VarChar()
+  periodicity  String             @db.VarChar()
+  in_charge    String             @db.VarChar()
   weight       Float              
   id_processes processes          @relation(fields: [processId], references: [id])
   processId    Int

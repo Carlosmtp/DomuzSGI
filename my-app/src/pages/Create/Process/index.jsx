@@ -41,13 +41,25 @@ const Process = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    let aux = []
+    for (let i = 0; i < indicators.length; i++) {
+      aux = aux.concat({
+          name : indicators[i].name,
+          objetive : indicators[i].objetive,
+          periodicity : indicators[i].periodicity,
+          in_charge : indicators[i].in_charge,
+          weight : indicators[i].weight,
+          userId : indicators[i].userId
+        }
+      )      
+    }
     //console.log(
     axios.post("http://localhost:6464/create/proccess",
     {
       name: nameProcess,
       description: descriptionProcess,
       efficiency: efficiency,
-      indicators: indicators
+      indicators: aux
     }
     )
     

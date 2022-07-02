@@ -146,12 +146,16 @@ const Process = () => {
                 [
                   { field: 'id', headerName: 'ID', width: 25 },
                   { field: 'name', headerName: 'Nombre', width: 150 },
-                  { field: 'objective', headerName: 'Objetivo', width: 130 },
+                  { field: 'objetive', headerName: 'Objetivo', width: 130 },
                   { field: 'periodicity', headerName: 'Periodicidad', width: 130 },
                   { field: 'weight', headerName: 'Peso', width: 50 },
                   { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
-                  { field: 'user', headerName: 'Usuario', width: 130 }]
-              }/>
+                  { field: 'user', headerName: 'Usuario', width: 130 }]}
+                pageSize={5}
+                rowsPerPageOptions={5 }
+                height={400}
+                deleteButton={true}
+              />
           </Stack>
             
         </Box>

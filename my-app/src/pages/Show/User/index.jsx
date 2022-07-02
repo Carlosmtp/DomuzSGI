@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { LinearProgress } from '@mui/material';
+import CustomTable from '../../../components/Forms/CustomTable';
 const axios = require('axios').default;
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'person_id', headerName: 'Identificación', width: 150 },
   { field: 'firstName', headerName: 'First name', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
   { field: 'rol', headerName: 'Rol', width: 130 },
@@ -14,7 +15,7 @@ const columns = [
 
 const User = () => {
 
-  const [rows,setRows] = useState()
+  const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
@@ -25,7 +26,8 @@ const User = () => {
       console.log(aux[0])
       for(let i=0;i<aux.length;i++){
         obj.push({
-          id: aux[i].id_people.person_id,
+          id: i+1,
+          person_id: aux[i].id_people.person_id,
           firstName: aux[i].id_people.name,
           lastName: aux[i].id_people.lastname,
           rol: aux[i].id_roles.name,
@@ -33,31 +35,25 @@ const User = () => {
           phone: aux[i].id_people.phone
         })        
       }
-      console.log(obj)
+      //console.log(obj)
       setRows(obj)
       setloading(false)
       //console.log(res.data.length)
     })        
   },[])
 
-  if(loading){
-    return (
-    <LinearProgress color="secondary" />
-  )}
-  else{
-  return (
-    
-    <div style={{ height: 1200, width: '100%' }}>
-      <DataGrid
-        rows={rows}
+  return ( 
+      <CustomTable
         columns={columns}
-        pageSize={100}
-        rowsPerPageOptions={[100]}
-        checkboxSelection
-      />
-    </div>
+        rows={rows}
+        setRows={setRows}
+        pageSize={5}
+        rowsPerPageOptions={5}
+        height={1200}
+        loading={loading}
+        editButton={true}/>        
   )
-  }
+  
 }
 
 export default User

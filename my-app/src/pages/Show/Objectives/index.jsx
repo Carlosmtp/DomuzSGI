@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid';
-import { LinearProgress } from '@mui/material';
+import CustomTable from '../../../components/Forms/CustomTable';
 const axios = require('axios').default;
 
 const columns = [
@@ -22,34 +21,27 @@ const Objectives = () => {
       for(let i=0;i<aux.length;i++){
         obj.push({
           id: aux[i].id,
-          name: aux[i].name,
+          name: aux[i].name,          
         })        
       }
-      console.log(obj)
       setRows(obj)
       setloading(false)
       //console.log(res.data.length)
     })        
   },[])
 
-  if(loading){
-    return (
-    <LinearProgress color="secondary" />
-  )}
-  else{
-  return (
-    
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
+  return (    
+      <CustomTable
         columns={columns}
+        rows={rows}
+        setRows={setRows}
         pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+        rowsPerPageOptions={5 }
+        height={1200}
+        loading={loading}
+        editButton={true}/>
   )
-  }
+  
 }
 
 export default Objectives

@@ -17,7 +17,7 @@ const Objective = () => {
   const [descriptionInit ,setDescriptionInit] = useState('')
 
   const [nameInd,setNameInd] = useState('')
-  const [goal,setGoal] = useState('0.5')
+  const [goal,setGoal] = useState(0.5)
   const [periodicity,setPeriodicity]= useState('')
 
   const [initiatives,setInitiatives] = useState([])
@@ -156,7 +156,11 @@ const Objective = () => {
                   { field: 'id', headerName: 'ID', width: 25 },
                   { field: 'name', headerName: 'Nombre', width: 140 },
                   { field: 'description', headerName: 'Descripción', width: 130 }]
-              }/>
+              }
+              pageSize={5}
+                rowsPerPageOptions={5 }
+                height={400}
+                deleteButton={true}/>
         </Box>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -178,7 +182,11 @@ const Objective = () => {
                   { field: 'name', headerName: 'Nombre', width: 100 },
                   { field: 'goal', headerName: 'Meta', width: 70 },
                   { field: 'periodicity', headerName: 'Periodicidad', width: 100 }]
-              }/>
+              }
+                pageSize={5}
+                rowsPerPageOptions={5 }
+                height={400}
+                deleteButton={true}/>
         </Box>
       </Grid>
 

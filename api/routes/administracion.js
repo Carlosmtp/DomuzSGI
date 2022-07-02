@@ -5,19 +5,19 @@ const api = express.Router();
 
 api.get("/get/counters", async (req, res) => {
   let counter = {
-    usuarios: 0,
-    procesos: 0,
-    proyectos: 0,
-    objetivos: 0,
-    empresas: 0,
-    planesAccion: 0,
+    users: 0,
+    processes: 0,
+    projects: 0,
+    objetives: 0,
+    companies: 0,
+    action_plans: 0,
   };
-  counter.usuarios = await prisma.users.count();
-  counter.procesos = await prisma.processes.count();
-  counter.proyectos = await prisma.projects.count();
-  counter.objetivos = await prisma.objetives.count();
-  counter.empresas = await prisma.companies.count();
-  counter.planesAccion = await prisma.action_plans.count();
+  counter.users = await prisma.users.count();
+  counter.processes = await prisma.processes.count();
+  counter.projects = await prisma.projects.count();
+  counter.objetives = await prisma.objetives.count();
+  counter.companies = await prisma.companies.count();
+  counter.action_plans = await prisma.action_plans.count();
   res.json(counter);
 });
 

@@ -34,7 +34,7 @@ const User = () => {
       id_roles: idRole,
     };
     //console.log(newUser);
-    axios.post("http://localhost:6464/create/user", newUser).then((res) => {
+    axios.post("create/user", newUser).then((res) => {
       console.log(res);
     })
       setOpen(true)

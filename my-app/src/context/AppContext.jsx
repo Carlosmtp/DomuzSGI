@@ -1,7 +1,8 @@
 import { LinearProgress } from "@mui/material";
 import React, { useState, createContext, useEffect } from "react";
-const axios = require('axios').default;
-
+import axios from 'axios';
+const config = require("./config");
+axios.defaults.baseURL = config.API_URL;
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -13,7 +14,7 @@ export const AppProvider = ({ children }) => {
     const [loading,setloading] = useState(true)
 
     useEffect(()=>{
-        axios.get("http://localhost:6464/get/processes")
+        axios.get("get/processes")
         .then((res) => {
           console.log(res.data)
           //setName(res.data[0].name)

@@ -15,7 +15,7 @@ const FormObjective = ({ name, setName,
 const [loadedPerspective, setLoadedPerspective] = useState([])
 
 useEffect(()=>{
-    axios.get("http://localhost:6464/get/objectives/perspectives")
+    axios.get("get/objectives/perspectives")
     .then((res) => {
       let obj = []
       let aux = res.data

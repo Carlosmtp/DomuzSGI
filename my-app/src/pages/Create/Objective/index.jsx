@@ -158,9 +158,9 @@ const Objective = () => {
                   { field: 'description', headerName: 'Descripción', width: 130 }]
               }
               pageSize={5}
-                rowsPerPageOptions={5 }
-                height={400}
-                deleteButton={true}/>
+                rowsPerPageOptions={25}
+                deleteButton={true}
+                checkboxSelection={true}/>
         </Box>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -184,9 +184,9 @@ const Objective = () => {
                   { field: 'periodicity', headerName: 'Periodicidad', width: 100 }]
               }
                 pageSize={5}
-                rowsPerPageOptions={5 }
-                height={400}
-                deleteButton={true}/>
+                rowsPerPageOptions={25}
+                deleteButton={true}
+                checkboxSelection={true}/>
         </Box>
       </Grid>
 

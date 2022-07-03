@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 
 
-const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton, pageSize, rowsPerPageOptions, height }) => {
+const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton, pageSize, rowsPerPageOptions, checkboxSelection, hideFooter }) => {
 
   const [select, setSelect] = useState([]);
 
@@ -77,7 +77,7 @@ const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton
   };
 
   return (
-    <div style={{ height: height, width: '100%' }}>
+    <div style={{ width: '100%' }}>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           variant="filled"
@@ -88,14 +88,16 @@ const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton
         </Alert>
       </Snackbar>
       <DataGrid
+      autoHeight
         rows={rows}
         columns={columns}
         pageSize={pageSize}
         rowsPerPageOptions={[rowsPerPageOptions]}   
-        checkboxSelection
+        checkboxSelection={checkboxSelection}
+        hideFooter={hideFooter}
         onSelectionModelChange={(ids) => {
         setSelect(ids);
-        loading={loading}
+        loading={loading}        
       }}
       />
     </div>

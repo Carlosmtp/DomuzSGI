@@ -152,9 +152,9 @@ const Process = () => {
                   { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
                   { field: 'user', headerName: 'Usuario', width: 130 }]}
                 pageSize={5}
-                rowsPerPageOptions={5 }
-                height={400}
+                rowsPerPageOptions={25}
                 deleteButton={true}
+                checkboxSelection={true}
               />
           </Stack>
             

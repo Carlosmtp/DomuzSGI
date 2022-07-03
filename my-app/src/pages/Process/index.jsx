@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import General from './General'
 
 const Process = () => {
-  const { id } = useParams();
+    const { id } = useParams();
     const { login, processes } = useContext(AppContext)
     switch (id) {
       case "inicio":

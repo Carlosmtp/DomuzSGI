@@ -49,9 +49,9 @@ const User = () => {
         setRows={setRows}
         pageSize={100}
         rowsPerPageOptions={100}
-        height={1200}
         loading={loading}
-        editButton={true}/>        
+        editButton={true}
+        checkboxSelection={true}/>        
   )
   
 }

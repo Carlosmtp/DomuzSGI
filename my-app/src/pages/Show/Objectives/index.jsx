@@ -36,10 +36,10 @@ const Objectives = () => {
         rows={rows}
         setRows={setRows}
         pageSize={5}
-        rowsPerPageOptions={5 }
-        height={1200}
+        rowsPerPageOptions={5}
         loading={loading}
-        editButton={true}/>
+        editButton={true}
+        checkboxSelection={true}/>
   )
   
 }

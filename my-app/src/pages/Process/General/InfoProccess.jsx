@@ -4,17 +4,17 @@ import { Box, Divider, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ImageButton from '../../../components/ImageButton'
 
-const InfoProccess = ( {title}) => {
+const InfoProccess = ( {title, description}) => {
   return (
     <Grid item xs={12} sm={12} >  
-    <Typography variant='h5' color='White' align='center' pb={2} >Nombre del Proceso</Typography> 
+    <Typography variant='h5' color='White' align='center' pb={2} >{title}</Typography> 
       <Box bgcolor='secondary.dark' p={{xs:1, sm:3}} sx={{ borderRadius: '16px', border: 1, borderColor:'secondary.main', boxShadow: 3 }}>
         <Stack direction={{xs:"column", sm:"row"}}>
             <Grid item xs={12} sm={3} >    
             <ImageButton image={"https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg"} title={title} actionFunction={() => {console.log("ACTION")}}/>
         </Grid>   
         <Grid item xs={12} sm={7} p={{xs:1, sm:0}}  pl={{sm:3}} pr={{sm:3}}>    
-            <Typography color='White' align='justify'>DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO DESCRIPCIÓN DEL PROCESO.</Typography>
+            <Typography color='White' align='justify'>{description}</Typography>
         </Grid>
         <Grid item xs={12} sm={2} >    
             <Box bgcolor='secondary.main' p={{xs:1, sm:2}} sx={{ borderRadius: '16px', border: 1, borderColor:'secondary.light', boxShadow: 2 }}>

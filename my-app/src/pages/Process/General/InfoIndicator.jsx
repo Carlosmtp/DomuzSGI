@@ -16,8 +16,9 @@ const InfoProccess = ( {title, description, id }) => {
                         { field: 'weight', headerName: 'Peso', width: 75 },
                         { field: 'goal', headerName: 'Meta', width: 75 },
                         { field: 'periodicity', headerName: 'Periodicidad', width: 110  }]}
-                      pageSize={5}
-                      rowsPerPageOptions={1}
+                      pageSize={1}
+                      rowsPerPageOptions={25}
+                      hideFooter={true}
                       height={180}
                     />
           </Grid> 
@@ -36,8 +37,9 @@ const InfoProccess = ( {title, description, id }) => {
                         { field: 'oct', headerName: 'OCT', width: 17 },
                         { field: 'nov', headerName: 'NOV', width: 17 },
                         { field: 'dec', headerName: 'DEC', width: 17 }]}
-                      pageSize={5}
-                      rowsPerPageOptions={1}
+                      pageSize={1}
+                      rowsPerPageOptions={25}
+                      hideFooter
                       height={180}
                     />
           </Grid>

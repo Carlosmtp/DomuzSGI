@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Processes = () => {
   let navigate = useNavigate() 
   return (
-    <ListItemButton onClick={()=>navigate("/app/procesos")}>
+    <ListItemButton onClick={()=>navigate("/app/procesos/inicio")}>
       <ListItemIcon>
         <GridViewIcon />
       </ListItemIcon>

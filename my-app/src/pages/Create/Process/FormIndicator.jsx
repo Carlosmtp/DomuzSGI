@@ -80,24 +80,12 @@ const FormIndicator = ({ name, setName,
                         }}
                     />
                 </FormItem> 
-                <FormItem phone={12} computer={6}>               
-                    <TextField
-                        fullWidth
-                        id="objective"
-                        color="secondary"
-                        label="Objetivo"
-                        name="objective"                
-                        value={objective}
-                        onChange={handleInputChange}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                <DriveFileRenameOutline />
-                                </InputAdornment>
-                                ),
-                            }}
-                        />  
-                </FormItem> 
+                <FormItem phone={12} computer={6}> 
+                    <Typography>Meta del Indicador</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="weight" setHook={setWeight}/>
+                    </Box>    
+                </FormItem>  
                 <FormItem phone={12} computer={6}>                     
                         <Selector
                             idSelector="select-periodicity" 
@@ -109,7 +97,7 @@ const FormIndicator = ({ name, setName,
                             />
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
-                    <Typography>Peso*</Typography>
+                    <Typography>Peso</Typography>
                     <Box pl={2} pr={2}>
                         <CustomSlider id="weight" setHook={setWeight}/>
                     </Box>    
@@ -137,6 +125,19 @@ const FormIndicator = ({ name, setName,
                         hook={user}
                         setHook={setUser}
                         array_elements={loadedUsers}/>
+                </FormItem>
+                <FormItem phone={12} computer={12}>               
+                    <TextField
+                        fullWidth
+                        id="objective"
+                        color="secondary"
+                        label="Objetivo"
+                        name="objective"                
+                        value={objective}
+                        onChange={handleInputChange}
+                        multiline
+                        rows={1}                        
+                        />  
                 </FormItem>
         </FormContainer>
     )

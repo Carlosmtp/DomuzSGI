@@ -9,15 +9,15 @@ const SecondaryListItems = () => {
     let navigate = useNavigate()
   return (
     <Box>
-        <ListSubheader component="div" inset>
+       {/* <ListSubheader component="div" inset>
         Administración
         </ListSubheader>
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={{ my: 1 }} />*/}
         <ListItemButton onClick={()=>navigate("/app/administracion")}>
         <ListItemIcon>
             <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Crear" />
+        <ListItemText primary="Administración" />
         </ListItemButton>
         <ListItemButton>
         <ListItemIcon>

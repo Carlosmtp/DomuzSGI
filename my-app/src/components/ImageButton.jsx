@@ -25,13 +25,14 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
   },
 }));
 
-export default function ButtonBases( {image, setImage, title, setTitle} ) {
+export default function ButtonBases( {image, title, actionFunction} ) {
     const url = "url("+image+")"
 
     return (
       <Box sx={{ display: 'flex', flexWrap: 'wrap', Width: 300, width: '100%' }}>
           <ImageButton
-            focusRipple
+            focusRipple            
+            onClick = {actionFunction}
             style={{
               width: 250,
             }}

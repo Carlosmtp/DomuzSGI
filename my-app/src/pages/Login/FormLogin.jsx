@@ -75,7 +75,7 @@ const FormLogin = ({username, setUsername, password, setPassword}) => {
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                label="Recuérdame"
               />
               <Button
                 type="submit"
@@ -84,7 +84,7 @@ const FormLogin = ({username, setUsername, password, setPassword}) => {
                 sx={{ mt: 3, mb: 2 }}
                 color='secondary'
               >
-                Sign In
+                Ingresar
               </Button>
               <Grid container>
                   <Link href="#" variant="body2">

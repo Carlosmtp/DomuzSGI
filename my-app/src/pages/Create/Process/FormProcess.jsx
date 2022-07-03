@@ -49,7 +49,7 @@ const FormProcess = ({ name, setName,
                     />
             </FormItem>
             <FormItem phone={12} computer={6}> 
-                <Typography>Eficiencia*</Typography>
+                <Typography>Eficiencia - En realidad es META del Proceso.*</Typography>
                 <Box pl={2} pr={2}>
                     <CustomSlider id="efficiency" setHook={setEfficiency}/>
                 </Box>    

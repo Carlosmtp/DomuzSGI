@@ -33,13 +33,13 @@ const Login = () => {
           //Cuando se loguea
           bcrypt.compare(password, res.data.secret, (err, coinciden) => {
             if (err) {
-              console.log("Error Comprobando:", err);
+              console.log("Error, Comprobando:", err);
             } else {
               if (coinciden) {
-                navigate("app/procesos");
-                setLogin("Usuario identificado. Bienvenido " + res.data.name);
+                navigate("app/procesos/inicio");
+                setLogin("Usuario identificado. Bienvenido, " + res.data.name + ".");
               } else {
-                console.log("Error en contraseña");
+                console.log("Error en contraseña.");
                 setOpen(true);
               }
             }

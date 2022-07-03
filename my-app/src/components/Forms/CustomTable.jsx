@@ -1,5 +1,5 @@
 import { Alert, IconButton, Snackbar } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react'
@@ -123,14 +123,13 @@ const CustomTable = ({
           },
           '&.MuiDataGrid-root': {
             borderColor: 'background.light',
+          },          
+          '& .MuiCheckbox-root.Mui-checked.MuiCheckbox-indeterminate': {
+            color: 'secondary.light',
           },
-          '.css-1galuqd-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-1galuqd-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate': {
-            color: 'secondary.main'
-          },
-          '.css-7m04wo-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-7m04wo-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate':{
-            color: 'secondary.main'
-          }
-          
+          '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate)  ': {
+            color: 'secondary.main',
+          },          
         }}
       />
     </div>

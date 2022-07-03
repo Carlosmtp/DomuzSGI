@@ -1,17 +1,46 @@
 
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Stack, Typography } from '@mui/material'
 //import { Button } from '@mui/material';
 import React from 'react'
-import ImageButton from '../../../components/ImageButton'
+import CustomTable from '../../../components/Forms/CustomTable'
 
 const InfoProccess = ( {title, description, id }) => {
   return (
-    <Grid item xs={12} sm={12} >    
-      <Box bgcolor="white" sx={{ borderRadius: '16px' }}>
-        <Grid container>       
-            <ImageButton image={"https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg"} title={title} actionFunction={() => {console.log("ACTION")}}/>
-        </Grid>
-      </Box>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={12}>   
+        <Typography variant='h6' align='left' pb={2} >Nombre del Indicador</Typography> 
+      </Grid> 
+        <Grid item xs={12} sm={4} >   
+            <CustomTable rows={[]} columns={
+                      [
+                        { field: 'weight', headerName: 'Peso', width: 75 },
+                        { field: 'goal', headerName: 'Meta', width: 75 },
+                        { field: 'periodicity', headerName: 'Periodicidad', width: 110  }]}
+                      pageSize={5}
+                      rowsPerPageOptions={1}
+                      height={180}
+                    />
+          </Grid> 
+          <Grid item xs={12} sm={8} >   
+            <CustomTable rows={[]} columns={
+                      [
+                        { field: 'jan', headerName: 'ENE', width: 17 },
+                        { field: 'feb', headerName: 'FEB', width: 17 },
+                        { field: 'mar', headerName: 'MAR', width: 17 },
+                        { field: 'apr', headerName: 'ABR', width: 17 },
+                        { field: 'may', headerName: 'MAY', width: 17 },
+                        { field: 'jun', headerName: 'JUN', width: 17 },
+                        { field: 'jul', headerName: 'JUL', width: 17 },
+                        { field: 'ago', headerName: 'AGO', width: 17 },
+                        { field: 'sep', headerName: 'SEP', width: 17 },
+                        { field: 'oct', headerName: 'OCT', width: 17 },
+                        { field: 'nov', headerName: 'NOV', width: 17 },
+                        { field: 'dec', headerName: 'DEC', width: 17 }]}
+                      pageSize={5}
+                      rowsPerPageOptions={1}
+                      height={180}
+                    />
+          </Grid>
     </Grid> 
   )
 }

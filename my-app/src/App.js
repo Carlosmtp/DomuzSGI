@@ -17,6 +17,7 @@ import Show from './pages/Show'
 const App = () => {
 
   const { isDarkTheme } = useContext(AppContext)
+  
 
   const darkTheme = createTheme({
     palette: {

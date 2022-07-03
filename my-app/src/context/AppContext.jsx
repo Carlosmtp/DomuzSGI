@@ -13,6 +13,9 @@ export const AppProvider = ({ children }) => {
     const [processes, setProcesses] = useState()//Array de Objetos
     const [loading,setloading] = useState(true)
 
+    //Retorna el ultimo objeto insertado
+    const [lastObject, setLastObject] = useState({})
+
     useEffect(()=>{
         axios.get("get/processes")
         .then((res) => {
@@ -38,7 +41,9 @@ export const AppProvider = ({ children }) => {
             isDarkTheme,
             setIsDarkTheme,
             processes,
-            setProcesses }}>
+            setProcesses,
+            lastObject,
+            setLastObject }}>
             { children }
         </AppContext.Provider>
     )

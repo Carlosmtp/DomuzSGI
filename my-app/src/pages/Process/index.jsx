@@ -8,7 +8,6 @@ import General from './General'
 
 const Process = () => {
   const { id } = useParams();
-    //let navigate = useNavigate();
     const { login, processes } = useContext(AppContext)
     switch (id) {
       case "inicio":
@@ -19,8 +18,8 @@ const Process = () => {
             </Typography>
             <Grid container spacing={3} p={{xs:0, sm:3}}>
             
-              {processes.map((e) =>
-                <Processes title={e.name} description={e.description} key={e.id} />)}
+              {processes.map((e,i) =>
+                <Processes title={e.name} description={e.description} key={e.id}  id={i}/>)}
     
             </Grid> 
           </Box>

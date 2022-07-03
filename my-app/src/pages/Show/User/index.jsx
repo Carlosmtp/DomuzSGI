@@ -47,8 +47,8 @@ const User = () => {
         columns={columns}
         rows={rows}
         setRows={setRows}
-        pageSize={5}
-        rowsPerPageOptions={5}
+        pageSize={100}
+        rowsPerPageOptions={100}
         height={1200}
         loading={loading}
         editButton={true}/>        

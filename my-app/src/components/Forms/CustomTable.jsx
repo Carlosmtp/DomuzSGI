@@ -3,10 +3,28 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react'
+import styled from '@emotion/styled';
 
+const CustomDataGrid = styled(DataGrid)(({ theme }) => ({
+  root:{
+    "& .MuiDataGrid-renderingZone" : {
+      "& .MuiDataGrid-row": {
+        "&:nth.child(2n)": {
+          backgroundColor: "rgba(235, 235, 235, 0.7)"
+        }
+      }
+    }
+  }
+}));
 
-
-const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton, pageSize, rowsPerPageOptions, checkboxSelection, hideFooter }) => {
+const CustomTable = ({ 
+                      columns,
+                      rows, setRows,
+                      loading,
+                      deleteButton, editButton,
+                      pageSize, rowsPerPageOptions,
+                      checkboxSelection,
+                      hideFooter }) => {
 
   const [select, setSelect] = useState([]);
 
@@ -88,7 +106,7 @@ const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton
         </Alert>
       </Snackbar>
       <DataGrid
-      autoHeight
+        autoHeight
         rows={rows}
         columns={columns}
         pageSize={pageSize}
@@ -99,6 +117,21 @@ const CustomTable = ({ columns, rows, setRows, loading, deleteButton, editButton
         setSelect(ids);
         loading={loading}        
       }}
+        sx={{
+          '.MuiDataGrid-columnSeparator': {
+            display: 'none',
+          },
+          '&.MuiDataGrid-root': {
+            borderColor: 'background.light',
+          },
+          '.css-1galuqd-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-1galuqd-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate': {
+            color: 'secondary.main'
+          },
+          '.css-7m04wo-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-7m04wo-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate':{
+            color: 'secondary.main'
+          }
+          
+        }}
       />
     </div>
   )

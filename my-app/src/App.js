@@ -23,6 +23,8 @@ const App = () => {
       mode: 'dark',
       primary: {
         main: '#000000',
+        light: '#33aaff',
+        dark: '#0068b2',
       },
       secondary: {
         main: '#0095ff',
@@ -48,8 +50,8 @@ const App = () => {
       },
       secondary: {
         main: '#0095ff',
-        light: '#64c1ff',
-        dark: '#0064b7'
+        light: '#33aaff',
+        dark: '#0068b2',
       },
       info: {
         main: '#F3216B',

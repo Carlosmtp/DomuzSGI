@@ -112,7 +112,7 @@ export const Navbar = () => {
         </Box>
       </AppBar>
       <Drawer variant="permanent" open={open} >
-        <Box bgcolor="primary.light">
+        <Box bgcolor="background.paper">
         <Toolbar
           sx={{
             display: 'flex',

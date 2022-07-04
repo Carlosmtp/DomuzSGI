@@ -1,10 +1,10 @@
 
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 //import { Button } from '@mui/material';
 import React from 'react'
 import CustomTable from '../../../components/Forms/CustomTable'
 
-const InfoProccess = ( {title, description, id }) => {
+const InfoProcess = ( {title, description, id }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={12}>   
@@ -46,5 +46,5 @@ const InfoProccess = ( {title, description, id }) => {
     </Grid> 
   )
 }
-export default InfoProccess
+export default InfoProcess
 

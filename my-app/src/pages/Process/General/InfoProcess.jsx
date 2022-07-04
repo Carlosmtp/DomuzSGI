@@ -4,10 +4,10 @@ import { Box, Divider, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ImageButton from '../../../components/ImageButton'
 
-const InfoProccess = ( {title, description}) => {
+const InfoProcess = ( {title, description}) => {
   return (
     <Grid item xs={12} sm={12} >  
-    <Typography variant='h5' color='White' align='center' pb={2} >{title}</Typography> 
+    <Typography variant='h4' align='center' pb={2} >{title}</Typography> 
       <Box bgcolor='secondary.dark' p={{xs:1, sm:3}} sx={{ borderRadius: '16px', border: 1, borderColor:'secondary.main', boxShadow: 3 }}>
         <Stack direction={{xs:"column", sm:"row"}}>
             <Grid item xs={12} sm={3} >    
@@ -36,5 +36,5 @@ const InfoProccess = ( {title, description}) => {
     </Grid> 
   )
 }
-export default InfoProccess
+export default InfoProcess
 

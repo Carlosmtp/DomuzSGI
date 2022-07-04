@@ -230,7 +230,7 @@ model periodic_records {
   id                    Int                @id @default(autoincrement())
   id_process_indicators process_indicators @relation(fields: [indicatorId], references: [id])
   indicatorId           Int
-  record_date           String             @db.VarChar(50)
+  record_date           DateTime           @db.Date()
   expected_value        Int
   archieved_value       Int
 }

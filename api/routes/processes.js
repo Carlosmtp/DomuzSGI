@@ -1,4 +1,6 @@
-const { PrismaClient } = require("@prisma/client");
+const {
+  PrismaClient
+} = require("@prisma/client");
 const express = require("express");
 const prisma = new PrismaClient();
 const api = express.Router();
@@ -46,4 +48,17 @@ api.get("/get/process/indicators", async (req, res) => {
   res.json(indicators);
 });
 
+///////////////////////// Periodic Records ///////////////////////
+api.post("/add/periodic_record", async (req, res) => {
+  const data = req.body;
+  const record = await prisma.periodic_records.create({
+    data: {
+      indicatorId: data.indicator_id,
+      expected_value: data.expected_value,
+      archieved_value: data.archieved_value,
+      record_date: new Date(data.record_date),
+    }
+  })
+  res.json(record);
+})
 module.exports = api;

@@ -61,4 +61,18 @@ api.post("/add/periodic_record", async (req, res) => {
   })
   res.json(record);
 })
+
+api.get("/get/periodic_records/:year", async (req, res) => {
+  let year = req.params.year;
+  const periodic_records = await prisma.periodic_records.findMany({
+    where: {
+      record_date: {
+        lte: new Date(year+"-12-31"),
+        gte: new Date(year+"-01-01"),
+      }
+    }
+  })
+  res.json(periodic_records);
+})
+
 module.exports = api;

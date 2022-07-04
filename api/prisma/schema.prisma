@@ -57,7 +57,7 @@ model projects {
   id_project_states project_states @relation(fields: [stateId], references: [id])
   stateId           Int
   id_portfolios     portfolios     @relation(fields: [portfolioId], references: [id])
-  portfolioId       Int            
+  portfolioId       Int
   name              String         @db.VarChar(50)
   longitude         String         @db.VarChar(50)
   latitude          String         @db.VarChar(50)
@@ -217,7 +217,8 @@ model process_indicators {
   objetive     String             @db.VarChar()
   periodicity  String             @db.VarChar()
   in_charge    String             @db.VarChar()
-  weight       Float              
+  weight       Float
+  goal         Float
   id_processes processes          @relation(fields: [processId], references: [id])
   processId    Int
   id_users     users              @relation(fields: [userId], references: [id])

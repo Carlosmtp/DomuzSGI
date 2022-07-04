@@ -14,6 +14,7 @@ import Administration from './pages/Administration';
 import { AppContext } from './context/AppContext';
 import Create from './pages/Create';
 import Show from './pages/Show'
+import Actualizar from './pages/Actualizar'
 const App = () => {
 
   const { isDarkTheme } = useContext(AppContext)
@@ -77,6 +78,7 @@ const App = () => {
                   <Route path="administracion" element={<Administration />} />
                   <Route path="crear/:id" element={<Create />} />
                   <Route path="ver/:id" element={<Show />} />
+                  <Route path="actualizar/:id" element={<Actualizar />} />
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

@@ -13,15 +13,15 @@ const Process = ( {title, description, id }) => {
 
   return (
     <Grid item xs={12} sm={3} >    
-      <Box bgcolor="white" sx={{ borderRadius: '16px' }}>
+      <Box bgcolor="white" sx={{ boxShadow: 3 }}>
         <Grid container>                 
             <ImageButton image={"https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg"} title={title} actionFunction={() => {
                                     setLastObject(processes[id])
                                     navigate("/app/procesos/"+processes[id].name)
                                   }}/>
           
-          <Grid item pt={2} pb={2} pl={3} pr={3} align="left">
-            <Typography variant="body2" color="black" align="justify" height={{xs:40, sm:60}}>
+          <Grid item pt={{xs:1, sm:2}} pb={{xs:1, sm:2}} pl={{xs:2, sm:3}} pr={{xs:2, sm:3}} align="left" >
+            <Typography variant="body2" color="black" align="justify" height={{xs:40, sm:80}} widht={{xs:100, sm:200}}>
               { description }
             </Typography>
             {/*<Button size="small" color="primary">

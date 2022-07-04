@@ -62,17 +62,42 @@ api.post("/add/periodic_record", async (req, res) => {
   res.json(record);
 })
 
-api.get("/get/periodic_records/:year", async (req, res) => {
-  let year = req.params.year;
-  const periodic_records = await prisma.periodic_records.findMany({
-    where: {
-      record_date: {
-        lte: new Date(year+"-12-31"),
-        gte: new Date(year+"-01-01"),
-      }
+api.get("/get/periodic_records/", async (req, res) => {
+  const year = req.query.year;
+  const month = req.query.month;
+  const indicator = req.query.indicator
+  try {
+    //in this json are the clauses indicated in the url
+    var clauses = {
+      where: {}
+    };
+    //indicator clause
+    if (indicator !== undefined) {
+      clauses.where.indicatorId = parseInt(indicator);
     }
-  })
-  res.json(periodic_records);
+    //date clause when only the year was entered
+    if (year !== undefined & month == undefined) {
+      clauses.where.record_date = {
+        gte: new Date(year + "-jan-01"),
+        lte: new Date(year + "-dec-31")
+      };
+      //date clause when the year and month were entered
+    } else if (year !== undefined & month !== undefined) {
+      clauses.where.record_date = {
+        gte: new Date(year + month + "-01"),
+        lte: new Date(year + month + "-31")
+      };
+      //error when the month was entered but not the year
+    } else if (year == undefined & month !== undefined) {
+      throw new Error("si desea filtrar por mes, debe ingresar el año")
+    }
+    const periodic_records = await prisma.periodic_records.findMany(clauses)
+    res.json(periodic_records);
+  } catch (e) {
+    res.json({
+      error: e.message,
+    });
+  }
 })
 
 module.exports = api;

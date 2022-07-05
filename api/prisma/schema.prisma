@@ -208,7 +208,7 @@ model processes {
   name        String               @db.VarChar(50)
   description String               @db.VarChar(250)
   efficiency  Float
-  goal        Float?
+  goal        Float
   indicators  process_indicators[]
 }
 

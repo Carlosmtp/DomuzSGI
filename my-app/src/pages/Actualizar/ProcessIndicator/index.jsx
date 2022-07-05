@@ -1,9 +1,9 @@
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormIndicator from './FormIndicator'
 import FormRegister from './FormRegister'
 import CustomTable from '../../../components/Forms/CustomTable'
-//import axios from 'axios'
+import axios from 'axios'
 
 const ProcessIndicator = () => {
 
@@ -21,6 +21,30 @@ const ProcessIndicator = () => {
 
   //Llamar desde BD
   const [registerPerMonth,setRegisterPerMonth] = useState([])
+
+  //const [rows,setRows] = useState([])
+  const [loading,setloading] = useState(true)
+
+  useEffect(()=>{
+    axios.get("/get/periodic_records?year=2022")
+    .then((res) => {
+      let obj = []//,{}]
+      let aux = res.data
+      //console.log('aux',aux[0].record_date.substring(5, 7))
+      for (let i = 0; i < aux.length; i++) {
+        obj.push({
+          id: i+1,
+          month: aux[i].record_date,
+          numerator: aux[i].archieved_value,
+          denominator: aux[i].expected_value,
+          //score: aux[i]
+        })              
+      }
+      console.log("obj", obj)
+      setRegisterPerMonth(obj)
+      setloading(false)
+    })        
+  },[])
 
   const addRowRegister = (e) => {
     e.preventDefault();
@@ -80,7 +104,7 @@ const ProcessIndicator = () => {
       setValidationMsg(name+' ha sido actualizado exitosamente.')}
     }      
   
-//Validacion
+//Validación
 const [open, setOpen] = useState(false);
 const [severity, setSeverity] = useState('error');
 const [validationMsg, setValidationMsg] = useState('');
@@ -137,6 +161,7 @@ const handleClose = (event, reason) => {
                         rowsPerPageOptions={12}
                         hideFooter
                         editButton={true}
+                        loading={loading}
                         checkboxSelection={true}
                         />
           </Grid>  

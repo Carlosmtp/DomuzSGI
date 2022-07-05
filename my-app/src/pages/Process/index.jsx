@@ -9,12 +9,13 @@ import General from './General'
 const Process = () => {
     const { id } = useParams();
     const { login, processes } = useContext(AppContext)
+    console.log(login)
     switch (id) {
       case "inicio":
         return (
           <Box>
             <Typography color='default' variant='h6' align='center' pb={{xs:3, sm:0}}>
-            Interfaz de Menu: {login}
+            Interfaz de Menu: {login.name}
             </Typography>
             <Grid container spacing={3} p={{xs:0, sm:3}}>
             

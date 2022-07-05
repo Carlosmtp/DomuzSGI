@@ -16,7 +16,7 @@ function Copyright(props) {
     );
   }
 
-const FormLogin = ({username, setUsername, password, setPassword}) => {
+const FormLogin = ({username, setUsername, password, setPassword, remember, setRemember}) => {
      
       const handleInputChange = ({target}) => {
         switch (target.id) {
@@ -74,7 +74,7 @@ const FormLogin = ({username, setUsername, password, setPassword}) => {
                 }}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox checked={remember} color="secondary" onChange={(e)=>{setRemember(!remember)}}/>}
                 label="Recuérdame"
               />
               <Button

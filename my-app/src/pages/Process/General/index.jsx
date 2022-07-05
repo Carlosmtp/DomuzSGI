@@ -22,11 +22,6 @@ const General = () => {
   try {
     return (
       <Grid container component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}}>
-        <Grid item xs={12} sm={12}>
-            <Button onClick={()=>{console.log(lastObject.indicators)}}>
-              CLickme
-            </Button>
-        </Grid>
         <Grid item xs={12} sm={12}>      
           <InfoProcess title={lastObject.name} description={lastObject.description} goal={lastObject.goal}/>
         </Grid>

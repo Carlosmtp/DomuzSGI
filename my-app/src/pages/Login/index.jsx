@@ -7,14 +7,22 @@ import FormLogin from "./FormLogin";
 import { Paper, Box, Grid, Typography, Snackbar, Alert } from "@mui/material";
 
 import { AppContext } from "../../context/AppContext";
+
+//Cookiesssssssssssss
+import SetCookie from '../../hooks/setCookie'
+import RemoveCookie from '../../hooks/removeCookie'
+
 const axios = require("axios").default;
 const bcrypt = require("bcryptjs");
+
+
 
 const Login = () => {
   const { setLogin } = useContext(AppContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false)
 
   let navigate = useNavigate();
 
@@ -37,7 +45,13 @@ const Login = () => {
             } else {
               if (coinciden) {
                 navigate("app/procesos/inicio");
-                setLogin("Usuario identificado. Bienvenido, " + res.data.name + ".");
+                //Erase previous Cookie
+                RemoveCookie('usrin')
+                //Set new Cookie
+                if(remember){
+                  SetCookie('usrin',JSON.stringify(res.data))
+                }
+                setLogin(res.data);
               } else {
                 console.log("Error en contraseña.");
                 setOpen(true);
@@ -114,6 +128,8 @@ const Login = () => {
               setUsername={setUsername}
               password={password}
               setPassword={setPassword}
+              remember={remember}
+              setRemember={setRemember}
             />
           </Box>
         </Box>

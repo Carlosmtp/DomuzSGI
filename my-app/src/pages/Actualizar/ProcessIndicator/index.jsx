@@ -53,18 +53,6 @@ const ProcessIndicator = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
-      //Descomentar para añadir elemento por la fuerza y realizar pruebas.
-      /*
-      let aux = registerPerMonth.concat({
-        month:month,
-        numerator:numerator,
-        denominator:denominator
-      } )
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
-      }
-      setRegisterPerMonth(aux)
-      */
       for(let i = 0; i < registerPerMonth.length; i++){
         if(registerPerMonth[i].month.substring(0, 7)===month.substring(0, 7)){
           registerPerMonth[i].month = month
@@ -153,10 +141,10 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={8}>
             <CustomTable rows={registerPerMonth} setRows={setRegisterPerMonth} columns={
                         [
-                          { field: 'month', headerName: 'Mes', width: 90 },
-                          { field: 'numerator', headerName: 'Numerador', width: 140 },
-                          { field: 'denominator', headerName: 'Denominador', width: 140 },
-                          { field: 'score', headerName: 'Resultado', width: 140 }]}
+                          { field: 'month', headerName: 'Mes', width: 130 },
+                          { field: 'numerator', headerName: 'Numerador', width: 120 },
+                          { field: 'denominator', headerName: 'Denominador', width: 120 },
+                          { field: 'score', headerName: 'Resultado', width: 120 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter

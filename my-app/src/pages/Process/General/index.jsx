@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import InfoProcess from './InfoProcess'
 import InfoIndicator from './InfoIndicator'

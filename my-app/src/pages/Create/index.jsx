@@ -6,6 +6,7 @@ import Objective from './Objective'
 import Process from './Process'
 import Proyect from './Proyect'
 import User from './User'
+import Action_Plan from './Action_Plan'
 
 const routes = (id) => {
   switch (id) {
@@ -18,7 +19,11 @@ const routes = (id) => {
     case "empresa":
       return <Company />
     case "objetivo":
-      return <Objective />    
+      return <Objective />
+    case "plan":
+      return <Action_Plan />
+    
+  
     default:
       break;
   }

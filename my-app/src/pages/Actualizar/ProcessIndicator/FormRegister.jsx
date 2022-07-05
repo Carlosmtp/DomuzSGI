@@ -1,17 +1,17 @@
-import { DriveFileRenameOutline  } from '@mui/icons-material'
-import { InputAdornment, TextField } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
+import CustomSlider from '../../../components/Forms/CustomSlider'
 //import { useState } from 'react'
 //import axios from 'axios'
 
 //const date = new Date().toISOString().substring(0, 10);
 
-const FormRegister = ({ month, setMonth,
-                         numerator, setNumerator, 
-                         denominator, setDenominator,
-                         }) => {
+const FormRegister = ({ date, setDate,
+                        numerator, setNumerator, 
+                        denominator, setDenominator
+                        }) => {
     
     //const [loadedUsers, setLoadedUsers] = useState([])
 
@@ -34,8 +34,8 @@ const FormRegister = ({ month, setMonth,
 
     const handleInputChange = ({target}) => {
         switch (target.id) {
-            case "month":
-                setMonth(target.value)
+            case "date":
+                setDate(target.value)
                 break;
             case "numerator":
                 setNumerator(target.value)
@@ -54,10 +54,10 @@ const FormRegister = ({ month, setMonth,
                 <FormItem phone={12} computer={12}>                     
                 <TextField
                     fullWidth
-                    id="month"
+                    id="date"
                     color="secondary"
                     label="Fecha"
-                    name="month"
+                    name="date"
                     type="date"
                     //defaultValue={date}
                     onChange={handleInputChange}
@@ -67,41 +67,17 @@ const FormRegister = ({ month, setMonth,
                 />
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <TextField
-                        fullWidth
-                        id="numerator"
-                        color="secondary"
-                        label="Numerador"
-                        name="numerator"                
-                        value={numerator}
-                        onChange={handleInputChange}
-                        InputProps={{
-                            startAdornment: (
-                            <InputAdornment position="start">
-                                <DriveFileRenameOutline />
-                            </InputAdornment>
-                            ),
-                        }}
-                    />                 
+                    <Typography>Numerador</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="numerator" setHook={setNumerator}/>
+                    </Box>                  
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <TextField
-                        fullWidth
-                        id="denominator"
-                        color="secondary"
-                        label="Denominador"
-                        name="denominator"                
-                        value={denominator}
-                        onChange={handleInputChange}
-                        InputProps={{
-                            startAdornment: (
-                            <InputAdornment position="start">
-                                <DriveFileRenameOutline />
-                            </InputAdornment>
-                            ),
-                        }}
-                    />                 
-                </FormItem> 
+                    <Typography>Denominador</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="denominator" setHook={setDenominator}/>
+                    </Box>                 
+                </FormItem>    
         </FormContainer>
     )
 }

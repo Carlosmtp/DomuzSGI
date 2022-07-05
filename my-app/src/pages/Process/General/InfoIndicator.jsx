@@ -12,9 +12,11 @@ const InfoIndicator = ( {title, indicator, id }) => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records/2022")
+    axios.get("/get/periodic_records?year=2022")
     .then((res) => {
-      let obj = [{id:'Esperado',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',ago:'',sep:'',oct:'',nov:'',dec:''},{id:'Real',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',ago:'',sep:'',oct:'',nov:'',dec:''}]//,{}]
+      let obj = [
+        {id:'Esperado',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''},
+        {id:'Real',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''}]//,{}]
       let aux = res.data
       //console.log('aux',aux[0].record_date.substring(5, 7))
       
@@ -22,9 +24,9 @@ const InfoIndicator = ( {title, indicator, id }) => {
         switch (aux[i].record_date.substring(5, 7)) {
           case '07':
             //esperado
-            obj[0] = { ...obj[0], jul:aux[i].expected_value}
+            obj[0].jul = aux[i].expected_value
             //real
-            obj[1] = { ...obj[1], jul:aux[i].archieved_value}
+            obj[1].jul = aux[i].archieved_value
             //eficiencia
             //obj[2] = { ...obj[2], jul:aux[i].expected_value}
             break;
@@ -52,9 +54,9 @@ const InfoIndicator = ( {title, indicator, id }) => {
   },[])
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} pt={1} pb={2}>
       <Grid item xs={12} sm={12}>   
-        <Typography variant='h6' align='left' pb={2} >{title}</Typography> 
+        <Typography variant='h6' align='left' >{title}</Typography> 
       </Grid> 
         <Grid item xs={12} sm={4} >   
             <CustomTable rows={[]} columns={
@@ -66,12 +68,12 @@ const InfoIndicator = ( {title, indicator, id }) => {
                       rowsPerPageOptions={25}
                       hideFooter={true}
                       height={180}
+                      loading={loading}
                     />
           </Grid> 
-          <Grid item xs={12} sm={8} >   
+          <Grid item xs={12} sm={8} >
             <CustomTable rows={rows} columns={
                       [
-                        { field: 'id', headerName: ''},
                         { field: 'jan', headerName: 'ENE', width: 17 },
                         { field: 'feb', headerName: 'FEB', width: 17 },
                         { field: 'mar', headerName: 'MAR', width: 17 },

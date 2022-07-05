@@ -12,7 +12,7 @@ const InfoIndicator = ( {title, indicator, id }) => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records/2022")
+    axios.get("/get/periodic_records?year=2022")
     .then((res) => {
       let obj = [{id:'Esperado',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',ago:'',sep:'',oct:'',nov:'',dec:''},{id:'Real',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',ago:'',sep:'',oct:'',nov:'',dec:''}]//,{}]
       let aux = res.data
@@ -66,6 +66,7 @@ const InfoIndicator = ( {title, indicator, id }) => {
                       rowsPerPageOptions={25}
                       hideFooter={true}
                       height={180}
+                      loading={loading}
                     />
           </Grid> 
           <Grid item xs={12} sm={8} >   

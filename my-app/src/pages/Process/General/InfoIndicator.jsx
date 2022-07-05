@@ -3,10 +3,14 @@ import { Grid, Typography } from '@mui/material'
 import axios from 'axios'
 //import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import CustomTable from '../../../components/Forms/CustomTable'
 
-const InfoIndicator = ( {title, indicator, id }) => {
+const InfoIndicator = ( {title, userId, indicator, id }) => {
+  let navigate = useNavigate() 
+  
   //console.log(indicator)
+  const [user, setUser] = useState('')
 
   const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
@@ -57,6 +61,7 @@ const InfoIndicator = ( {title, indicator, id }) => {
     <Grid container spacing={2} pt={1} pb={2}>
       <Grid item xs={12} sm={12}>   
         <Typography variant='h6' align='left' >{title}</Typography> 
+        <Typography align='left' >Asignado: {user}</Typography> 
       </Grid> 
         <Grid item xs={12} sm={4} >   
             <CustomTable rows={[]} columns={

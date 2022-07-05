@@ -14,53 +14,67 @@ const ProcessIndicator = () => {
   const [inCharge,setInCharge] = useState('D')
   const [user,setUser] = useState('')
 
-  const [month,setMonth] = useState('')
+  const [date,setDate] = useState('')
   const [numerator,setNumerator] = useState('')
   const [denominator,setDenominator] = useState('')
   const [score,setScore] = useState('')
 
   //Llamar desde BD
-  const [registerPerMonth,setRegisterPerMonth] = useState([])
-
-  //const [rows,setRows] = useState([])
+  const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
     axios.get("/get/periodic_records?year=2022")
     .then((res) => {
-      let obj = []//,{}]
+      let obj = []
       let aux = res.data
-      //console.log('aux',aux[0].record_date.substring(5, 7))
       for (let i = 0; i < aux.length; i++) {
+        //Set Month
         obj.push({
           id: i+1,
-          month: aux[i].record_date,
+          date: aux[i].record_date,
+          month: parseToMonth(aux[i].record_date),
           numerator: aux[i].archieved_value,
           denominator: aux[i].expected_value,
-          //score: aux[i]
+          score: calculateScore(aux[i].archieved_value,aux[i].expected_value)
         })              
       }
       console.log("obj", obj)
-      setRegisterPerMonth(obj)
+      setRows(obj)
       setloading(false)
-    })        
+    })
   },[])
+
+  let parseToMonth = (e) => { 
+    switch (e.substring(5, 7)) {
+    case "01":
+          return "Enero"
+    case "07":
+      return "Julio"
+    default:
+      return "Mes inválido."
+    }
+  }  
+
+  let calculateScore = (num, den) => { 
+      return parseFloat(num)/parseFloat(den)
+  }
 
   const addRowRegister = (e) => {
     e.preventDefault();
-    if(month==='' || numerator==='' || denominator===''){
+    if(date==='' || numerator==='' || denominator===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
-      for(let i = 0; i < registerPerMonth.length; i++){
-        if(registerPerMonth[i].month.substring(0, 7)===month.substring(0, 7)){
-          registerPerMonth[i].month = month
-          registerPerMonth[i].numerator = numerator
-          registerPerMonth[i].denominator = denominator
-          registerPerMonth[i].score =  parseFloat(numerator)/parseFloat(denominator)
-          let aux = registerPerMonth.concat()
-          setRegisterPerMonth(aux)
+      for(let i = 0; i < rows.length; i++){
+        if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
+          rows[i].month = parseToMonth(date)
+          rows[i].numerator = numerator
+          rows[i].denominator = denominator
+          rows[i].score =  calculateScore(parseFloat(numerator),parseFloat(denominator))
+          let aux = rows.concat()
+          setRows(aux)
         }
       }
     }    
@@ -139,12 +153,12 @@ const handleClose = (event, reason) => {
         <Typography variant="h6" pb={3} color='secondary'>Medición</Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8}>
-            <CustomTable rows={registerPerMonth} setRows={setRegisterPerMonth} columns={
+            <CustomTable rows={rows} setRows={setRows} columns={
                         [
-                          { field: 'month', headerName: 'Mes', width: 130 },
-                          { field: 'numerator', headerName: 'Numerador', width: 120 },
-                          { field: 'denominator', headerName: 'Denominador', width: 120 },
-                          { field: 'score', headerName: 'Resultado', width: 120 }]}
+                          { field: 'month', headerName: 'Mes', width: 70 },
+                          { field: 'numerator', headerName: 'Numerador', width: 100 },
+                          { field: 'denominator', headerName: 'Denominador', width: 100 },
+                          { field: 'score', headerName: 'Resultado', width: 90 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter
@@ -156,14 +170,14 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={4}>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
-                <FormRegister month={month}
-                              setMonth={setMonth}
+                <FormRegister date={date}
+                              setDate={setDate}                              
                               numerator={numerator} 
                               setNumerator={setNumerator} 
                               denominator={denominator} 
                               setDenominator={setDenominator}        
                               score={score} 
-                              setScore={setScore}                                     
+                              setScore={setScore}                                      
                           />     
               </Grid>
               <Grid pb={2} item justify="center" align="center" xs={12}>             

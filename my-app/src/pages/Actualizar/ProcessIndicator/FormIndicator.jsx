@@ -136,7 +136,7 @@ const FormIndicator = ({ name, setName,
                         value={objective}
                         onChange={handleInputChange}
                         multiline
-                        rows={1}                        
+                        rows={2}                        
                         />  
                 </FormItem>
         </FormContainer>

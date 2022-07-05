@@ -5,7 +5,7 @@ import ProcessIndicator from './ProcessIndicator'
 
 let nombre = (id) => {
   switch (id) {
-    case "indicador":
+    case "indicador-de-proceso":
       return "indicador de proceso" 
     default:
       break;
@@ -14,7 +14,7 @@ let nombre = (id) => {
 
 const routes = (id) => {
   switch (id) {
-    case "indicador":
+    case "indicador-de-proceso":
       return <ProcessIndicator /> 
     default:
       break;

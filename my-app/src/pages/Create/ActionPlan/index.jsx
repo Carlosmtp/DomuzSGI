@@ -27,6 +27,8 @@ const Action_Plan = () => {
       console.log( nameInit,nameAP)
   }
 
+  console.log('nameInit',nameInit)
+
   return (
     <Grid container component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
        <Grid item xs={12} sm={6}>

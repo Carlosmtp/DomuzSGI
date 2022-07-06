@@ -6,7 +6,7 @@ import Objective from './Objective'
 import Process from './Process'
 import Proyect from './Proyect'
 import User from './User'
-import Action_Plan from './Action_Plan'
+import ActionPlan from './ActionPlan'
 
 const routes = (id) => {
   switch (id) {
@@ -21,7 +21,7 @@ const routes = (id) => {
     case "objetivo":
       return <Objective />
     case "plan":
-      return <Action_Plan />
+      return <ActionPlan />
     
   
     default:

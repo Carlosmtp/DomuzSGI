@@ -2,11 +2,15 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useParams } from 'react-router'
 import ProcessIndicator from './ProcessIndicator'
+import User from './User'
 
 let nombre = (id) => {
   switch (id) {
     case "indicador-de-proceso":
-      return "indicador de proceso" 
+      return "indicador de proceso"
+    case "usuario":
+      return "usuario"
+
     default:
       break;
   }
@@ -15,7 +19,9 @@ let nombre = (id) => {
 const routes = (id) => {
   switch (id) {
     case "indicador-de-proceso":
-      return <ProcessIndicator /> 
+      return <ProcessIndicator />
+    case "usuario":
+      return <User />
     default:
       break;
   }

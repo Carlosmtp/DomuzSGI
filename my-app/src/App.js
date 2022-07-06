@@ -79,7 +79,6 @@ const App = () => {
                   <Route path="crear/:id" element={<Create />} />
                   <Route path="ver/:id" element={<Show />} />
                   <Route path="actualizar/:id" element={<Actualizar />} />
-                  <Route path="actualizar/:id" element={<Update />} />
               </Route>
               <Route path="*" element={<Login />} />
             </Routes>

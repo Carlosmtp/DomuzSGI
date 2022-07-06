@@ -18,21 +18,26 @@ const FormActionSelector = ({
           <FormItem phone={12} computer={6}>
                 <Stack direction="column" m={-1}>
                     <Selector 
-                        idSelector="select-user" 
-                        labelSelector="Responsable" 
-                        id="user" 
-                        hook={user} 
-                        setHook={setUser}/>
+                            idSelector="select-user" 
+                            labelSelector="Responsable" 
+                            id="user" 
+                            hook={user} 
+                            setHook={setUser}
+                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
+                            />
+                    
                 </Stack>
             </FormItem> 
             <FormItem phone={12} computer={6}>
                 <Stack direction="column" m={-1}>
                     <Selector 
-                        idSelector="select-planState" 
-                        labelSelector="Estado del plan" 
-                        id="planState" 
-                        hook={planState} 
-                        setHook={SetPlanState}/>
+                            idSelector="select-planState" 
+                            labelSelector="Estado del plan" 
+                            id="planState" 
+                            hook={planState} 
+                            setHook={SetPlanState}
+                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
+                            />                    
                 </Stack>
             </FormItem>            
         </FormContainer>

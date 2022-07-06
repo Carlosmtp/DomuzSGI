@@ -24,12 +24,14 @@ const handleInputChange = ({target}) => {
         <FormContainer>
           <FormItem phone={12} computer={6}>
                 <Stack direction="column" m={-1}>
-                    <Selector 
+                <Selector 
                         idSelector="select-initiative" 
                         labelSelector="Iniciativa" 
                         id="initiative" 
                         hook={initiative} 
-                        setHook={setInitiative}/>
+                        setHook={setInitiative}
+                        array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
+                        />
                 </Stack>
             </FormItem>                    
         </FormContainer>

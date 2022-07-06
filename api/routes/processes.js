@@ -100,4 +100,16 @@ api.get("/get/periodic_records/", async (req, res) => {
   }
 })
 
+api.get("/get/last_record/", async (req, res) => {
+  const indicatorId = req.query.indicator_id;
+  const lastRecord = await prisma.periodic_records.findFirst({
+    where: {
+      indicatorId: parseInt(indicatorId),
+    },
+    orderBy: [
+      {record_date : 'desc'}
+    ]
+  })
+  res.json(lastRecord)
+})
 module.exports = api;

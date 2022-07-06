@@ -55,7 +55,6 @@ const FormIndicator = ({ name, setName,
                 break;
           default:
             console.log("Necesitas crear el respectivo handleInput")
-            console.log(target)
             break;
         }      
       }

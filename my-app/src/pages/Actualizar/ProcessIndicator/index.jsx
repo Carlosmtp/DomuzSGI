@@ -5,6 +5,8 @@ import FormRegister from './FormRegister'
 import CustomTable from '../../../components/Forms/CustomTable'
 import axios from 'axios'
 
+const actualDate = new Date().toISOString().substring(0, 10);
+
 const ProcessIndicator = () => {
 
   const [name,setName] = useState('A')
@@ -14,9 +16,9 @@ const ProcessIndicator = () => {
   const [inCharge,setInCharge] = useState('D')
   const [user,setUser] = useState('')
 
-  const [date,setDate] = useState('')
-  const [numerator,setNumerator] = useState('')
-  const [denominator,setDenominator] = useState('')
+  const [date,setDate] = useState(actualDate)
+  const [numerator,setNumerator] = useState(0.5)
+  const [denominator,setDenominator] = useState(0.5)
   const [score,setScore] = useState('')
 
   //Llamar desde BD
@@ -45,20 +47,40 @@ const ProcessIndicator = () => {
     })
   },[])
 
+  let calculateScore = (num, den) => { 
+    return parseFloat(num)/parseFloat(den)
+  }
+
   let parseToMonth = (e) => { 
     switch (e.substring(5, 7)) {
     case "01":
-          return "Enero"
+      return "Enero"
+    case "02":
+      return "Febrero"
+    case "03":
+      return "Marzo"
+    case "04":
+      return "Abril"
+    case "05":
+      return "Mayo"
+    case "06":
+      return "Junio"
     case "07":
       return "Julio"
+    case "08":
+      return "Agosto"
+    case "09":
+      return "Septiembre"
+    case "10":
+      return "Octubre"
+    case "11":
+      return "Noviembre"
+    case "12":
+      return "Diciembre"
     default:
       return "Mes inválido."
     }
   }  
-
-  let calculateScore = (num, den) => { 
-      return parseFloat(num)/parseFloat(den)
-  }
 
   const addRowRegister = (e) => {
     e.preventDefault();
@@ -155,10 +177,10 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={8}>
             <CustomTable rows={rows} setRows={setRows} columns={
                         [
-                          { field: 'month', headerName: 'Mes', width: 70 },
-                          { field: 'numerator', headerName: 'Numerador', width: 100 },
-                          { field: 'denominator', headerName: 'Denominador', width: 100 },
-                          { field: 'score', headerName: 'Resultado', width: 90 }]}
+                          { field: 'month', headerName: 'Mes', width: 120 },
+                          { field: 'numerator', headerName: 'Numerador', width: 130 },
+                          { field: 'denominator', headerName: 'Denominador', width: 130 },
+                          { field: 'score', headerName: 'Resultado', width: 130 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter

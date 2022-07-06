@@ -6,7 +6,7 @@ import CustomSlider from '../../../components/Forms/CustomSlider'
 //import { useState } from 'react'
 //import axios from 'axios'
 
-//const date = new Date().toISOString().substring(0, 10);
+const actualDate = new Date().toISOString().substring(0, 10);
 
 const FormRegister = ({ date, setDate,
                         numerator, setNumerator, 
@@ -36,6 +36,7 @@ const FormRegister = ({ date, setDate,
         switch (target.id) {
             case "date":
                 setDate(target.value)
+                console.log(actualDate)
                 break;
             case "numerator":
                 setNumerator(target.value)
@@ -59,7 +60,7 @@ const FormRegister = ({ date, setDate,
                     label="Fecha"
                     name="date"
                     type="date"
-                    //defaultValue={date}
+                    defaultValue={actualDate}
                     onChange={handleInputChange}
                     InputLabelProps={{
                     shrink: true,

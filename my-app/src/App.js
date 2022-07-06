@@ -19,14 +19,16 @@ const App = () => {
 
   const { isDarkTheme } = useContext(AppContext)
   
-
+/*
+        light: '#33aaff',
+        dark: '#0068b2',
+*/
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
       primary: {
         main: '#000000',
-        light: '#33aaff',
-        dark: '#0068b2',
+        contrast: '#FFFFFF'
       },
       secondary: {
         main: '#0095ff',
@@ -49,6 +51,7 @@ const App = () => {
       mode: 'light',
       primary: {
         main: '#ffffff',
+        contrast: '#000000'
       },
       secondary: {
         main: '#0095ff',

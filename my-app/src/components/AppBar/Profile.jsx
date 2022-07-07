@@ -1,6 +1,6 @@
-import { Box, Button, List, ListItem, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
+import { Box, List, ListItem, ListItemText, Menu, MenuItem } from '@mui/material'
 import CustomAvatar from '../CustomAvatar'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 import RemoveCookie from '../../hooks/removeCookie'

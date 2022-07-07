@@ -9,7 +9,7 @@ import { AppContext } from '../../context/AppContext.jsx';
 import { LinearProgress } from '@mui/material';
 
 const AppBar = () => {
-  const { login, setLogin } = useContext(AppContext)
+  const { login } = useContext(AppContext)
 
   const [loading, setLoading] = useState(true)
 
@@ -21,7 +21,8 @@ const AppBar = () => {
     }else{
       setLoading(false)
     }
-  },[])
+    //quitar si algo se daña
+  },[navigate,login.name])
 
   if(loading){
       return (

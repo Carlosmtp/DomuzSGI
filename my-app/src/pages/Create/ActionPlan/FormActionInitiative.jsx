@@ -1,4 +1,4 @@
-import { Box, InputAdornment, Stack, TextField } from '@mui/material'
+import { Stack } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
@@ -9,7 +9,8 @@ const FormActionInitiative = ({
 
                     }) => {
 
-const handleInputChange = ({target}) => {
+/*
+      const handleInputChange = ({target}) => {
     switch (target.id) {
         case "initiative":
             setInitiative(target.value)
@@ -19,7 +20,9 @@ const handleInputChange = ({target}) => {
             break;
         }      
       }
-      //<Stack spacing={2}>
+      //<Stack spacing={2}>                  
+*/
+
     return (
         <FormContainer>
           <FormItem phone={12} computer={6}>

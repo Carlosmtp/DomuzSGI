@@ -3,13 +3,11 @@ import { Grid, Typography } from '@mui/material'
 import axios from 'axios'
 //import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+//import { useNavigate } from 'react-router'
 import CustomTable from '../../../components/Forms/CustomTable'
 
 const InfoIndicator = ( {title, userId, indicator, id }) => {
-  let navigate = useNavigate() 
-  
-  console.log('userId',userId)
+  //let navigate = useNavigate() 
   const [user, setUser] = useState(userId)
 
   const [rows,setRows] = useState([])
@@ -60,7 +58,8 @@ const InfoIndicator = ( {title, userId, indicator, id }) => {
       console.log(res)
       setUser(res.data)
     })
-  },[])
+    //si algo se daña quita userId del array
+  },[userId])
 
   return (
     <Grid container spacing={2} pt={1} pb={2}>

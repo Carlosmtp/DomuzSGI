@@ -210,6 +210,7 @@ model processes {
   efficiency  Float
   goal        Float
   indicators  process_indicators[]
+  periodic_record process_periodic_records[]
 }
 
 model process_indicators {
@@ -234,4 +235,12 @@ model periodic_records {
   record_date           DateTime           @db.Date()
   expected_value        Int
   archieved_value       Int
+}
+
+model process_periodic_records {
+  id         Int      @id @default(autoincrement())
+  date       DateTime @db.Date()
+  efficiency Float
+  id_processes processes @relation(fields: [processId], references: [id])
+  processId  Int
 }

@@ -9,8 +9,8 @@ import CustomTable from '../../../components/Forms/CustomTable'
 const InfoIndicator = ( {title, userId, indicator, id }) => {
   let navigate = useNavigate() 
   
-  //console.log(indicator)
-  const [user, setUser] = useState('')
+  console.log('userId',userId)
+  const [user, setUser] = useState(userId)
 
   const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
@@ -50,18 +50,23 @@ const InfoIndicator = ( {title, userId, indicator, id }) => {
         })  
         */              
       }
-      console.log("obj", obj)
+      //console.log("obj", obj)
       setRows(obj)
       setloading(false)
       //console.log(res.data.length)
-    })        
+    })
+    
+    axios.get("get/user?user_id="+userId).then((res)=>{
+      console.log(res)
+      setUser(res.data)
+    })
   },[])
 
   return (
     <Grid container spacing={2} pt={1} pb={2}>
       <Grid item xs={12} sm={12}>   
         <Typography variant='h6' align='left' >{title}</Typography> 
-        <Typography align='left' >Asignado: {user}</Typography> 
+        <Typography align='left' >Asignado: {user.name}</Typography> 
       </Grid> 
         <Grid item xs={12} sm={4} >   
             <CustomTable rows={[]} columns={

@@ -9,7 +9,7 @@ import General from './General'
 const Process = () => {
     const { id } = useParams();
     const { login, processes } = useContext(AppContext)
-    console.log(login)
+    //console.log(login)
     switch (id) {
       case "inicio":
         return (

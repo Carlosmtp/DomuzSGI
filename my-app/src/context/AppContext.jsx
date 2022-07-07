@@ -21,7 +21,7 @@ export const AppProvider = ({ children }) => {
     useEffect(()=>{
         axios.get("get/processes")
         .then((res) => {
-          console.log(res.data)
+          //console.log(res.data)
           //setName(res.data[0].name)
           //setDescription(res.data[0].description)
         try {

@@ -29,16 +29,11 @@ api.get("/get/projects", async (req, res) => {
 
 api.post("/create/project/state", async (req, res) => {
   const data = req.body;
-  try {
     const state = await prisma.project_states.create({
       data: data,
     });
     console.log("Se agrego un nuevo estado");
     res.json(state);
-  } catch (error) {
-    console.log("!! ERROR ¡¡\n", error);
-    res.json({ err: error });
-  }
 });
 
 api.get("/get/project/state", async (req, res) => {
@@ -109,16 +104,11 @@ api.get("/get/project/aux", async (req, res) => {
 
 api.post("/create/project/clasification", async (req, res) => {
   const data = req.body;
-  try {
     const clasification = await prisma.clasification.create({
       data: data,
     });
     console.log("Se agrego una nueva clasificacion");
     res.json(clasification);
-  } catch (error) {
-    console.log("!! ERROR ¡¡\n", error);
-    res.json({ err: error });
-  }
 });
 
 api.get("/get/project/clasifications", async (req, res) => {
@@ -130,16 +120,11 @@ api.get("/get/project/clasifications", async (req, res) => {
 
 api.post("/create/project/type", async (req, res) => {
   const data = req.body;
-  try {
     const type = await prisma.type.create({
       data: data,
     });
     console.log("Se agrego un nuevo Tipo");
     res.json(type);
-  } catch (error) {
-    console.log("!! ERROR ¡¡\n", error);
-    res.json({ err: error });
-  }
 });
 
 api.get("/get/project/types", async (req, res) => {
@@ -150,7 +135,6 @@ api.get("/get/project/types", async (req, res) => {
 //////////////////////////////////////////// XD ////////////////////////
 
 async function createPortfolio(data, aux) {
-  try {
     const portfolio = await prisma.portfolios.create({
       data: {
         name: data.name,
@@ -159,10 +143,6 @@ async function createPortfolio(data, aux) {
     });
     console.log("Se creo un nuev portafolio");
     return portfolio;
-  } catch (error) {
-    console.log("!! ERROR ¡¡\n", error);
-    return { err: error };
-  }
 }
 
 module.exports = api;

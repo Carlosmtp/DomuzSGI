@@ -19,7 +19,13 @@ app.use(require("./routes/processes"));
 app.use(require("./routes/objectives"));
 app.use(require("./routes/administracion"));
 
-app.listen(app.get("port"), () => {
-  console.log(app.get("appName"));
-  console.log("Server Port ", app.get("port"));
-});
+try {
+  app.listen(app.get("port"), () => {
+    console.log(app.get("appName"));
+    console.log("Server Port ", app.get("port"));
+  });
+} catch (e) {
+  res.json({
+    error: e.message
+  })
+}

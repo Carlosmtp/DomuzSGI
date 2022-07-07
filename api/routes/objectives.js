@@ -1,10 +1,34 @@
-const { PrismaClient } = require("@prisma/client");
+const {PrismaClient} = require("@prisma/client");
 const express = require("express");
 const prisma = new PrismaClient();
 const api = express.Router();
 
 api.post("/create/objective", async (req, res) => {
-  const data = req.body;
+  const data = req.body
+  const name = data.name
+  const description = data.description
+  const prespectiveId = data.prespectiveId
+  const indicators = data.indicators
+  if (name == null) {
+    throw new Error("debe ingresar un nombre para el objetivo usando la llave 'name'")
+  }
+  if (description == null) {
+    throw new Error("debe ingresar una descripción para el objetivo usando la llave 'description'")
+  }
+  if (prespectiveId == null) {
+    throw new Error("debe ingresar el identificador de prespectiva usando la llave 'prespectiveId'")
+  } else if (!Number.isInteger(prespectiveId)) {
+    throw new Error("'prespectiveId' debe ser un número entero")
+  } else {
+    const prespective = await prisma.perspective.count({
+      where: {
+        id: prespectiveId
+      }
+    })
+    if (prespective == 0) {
+      throw new Error("no existe l'prespectiveId' debe ser un número entero")
+    }
+  }
   const objective = await prisma.objetives.create({
     data: {
       name: data.name,
@@ -40,11 +64,11 @@ api.get("/get/objectives", async (req, res) => {
 //////////////////// Perspective /////////////////////////////////////////
 
 api.post("/create/objective/perspective", async (req, res) => {
-  const data = req.body;
+  const data = req.body
   const perspective = await prisma.perspective.create({
     data: data,
   });
-  res.json(perspective);
+  res.json(perspective)
 });
 
 api.get("/get/objectives/perspectives", async (req, res) => {

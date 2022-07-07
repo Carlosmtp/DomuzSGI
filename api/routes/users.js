@@ -4,7 +4,6 @@ const {
   PrismaClient
 } = require("@prisma/client");
 const prisma = new PrismaClient();
-
 api.post("/create/user", async (req, res) => {
   const data = req.body;
   const person = await prisma.people.create({
@@ -28,29 +27,23 @@ api.post("/create/user", async (req, res) => {
 api.post("/login", async (req, res) => {
   const data = req.body;
   const person_id = data.person_id;
-  try {
-    const login = await prisma.people.findUnique({
-      where: {
-        person_id: person_id,
-      },
-      include: {
-        user: true,
-      },
-    });
-    if (login == null) {
-      throw new Error("La persona no existe en el sistema");
-    } else {
-      res.json({
-        person_id: login.person_id,
-        name: login.name,
-        lastname: login.lastname,
-        rol: login.user.rolId,
-        secret: login.user.password,
-      });
-    }
-  } catch (e) {
+  const login = await prisma.people.findUnique({
+    where: {
+      person_id: person_id,
+    },
+    include: {
+      user: true,
+    },
+  });
+  if (login == null) {
+    throw new Error("La persona no existe en el sistema");
+  } else {
     res.json({
-      error: e.message,
+      person_id: login.person_id,
+      name: login.name,
+      lastname: login.lastname,
+      rol: login.user.rolId,
+      secret: login.user.password,
     });
   }
 });
@@ -67,48 +60,49 @@ api.get("/get/users", async (req, res) => {
 });
 
 api.get("/get/user", async (req, res) => {
-      const data = req.body;
-      const user = await prisma.users.findUnique({
-          where: {
-            id: data.userId
-          },
-          include: {
-            id_people: true
-          }});
-          res.json({
-            person_id: user.id_people.person_id,
-            name : user.id_people.name,
-            lastname : user.id_people.lastname,
-            mail : user.id_people.mail,
-            phone : user.id_people.phone, 
-            rol: user.rolId
-          })
-      })
+  const data = req.body;
+  const user = await prisma.users.findUnique({
+    where: {
+      id: data.userId
+    },
+    include: {
+      id_people: true
+    }
+  });
+  res.json({
+    person_id: user.id_people.person_id,
+    name: user.id_people.name,
+    lastname: user.id_people.lastname,
+    mail: user.id_people.mail,
+    phone: user.id_people.phone,
+    rol: user.rolId
+  })
+})
 
-    api.get("/", (req, res) => {
-      res.send("Esta Funcionando Correctamente");
-    });
+api.get("/", (req, res) => {
+  res.send("Esta Funcionando Correctamente");
+});
 
-    api.post("/update/user", async (req, res) => {
-      const data = req.body;
-      const person = await prisma.people.update({
-        where: {
-          person_id: data.person_id,
+api.post("/update/user", async (req, res) => {
+  const data = req.body;
+  const person = await prisma.people.update({
+    where: {
+      person_id: data.person_id,
+    },
+    data: {
+      name: data.name,
+      lastname: data.lastname,
+      mail: data.mail,
+      phone: data.phone,
+      user: {
+        update: {
+          password: data.password,
+          rolId: data.id_roles,
         },
-        data: {
-          name: data.name,
-          lastname: data.lastname,
-          mail: data.mail,
-          phone: data.phone,
-          user: {
-            update: {
-              password: data.password,
-              rolId: data.id_roles,
-            },
-          },
-        },
-      });
-      res.json(person);
-    });
+      },
+    },
+  });
+  res.json(person);
+});
 
-    module.exports = api;
+module.exports = api;

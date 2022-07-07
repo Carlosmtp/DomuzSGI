@@ -67,10 +67,10 @@ api.get("/get/users", async (req, res) => {
 });
 
 api.get("/get/user", async (req, res) => {
-      const data = req.body;
+      const userId = req.query.user_id;
       const user = await prisma.users.findUnique({
           where: {
-            id: data.userId
+            id: parseInt(userId)
           },
           include: {
             id_people: true

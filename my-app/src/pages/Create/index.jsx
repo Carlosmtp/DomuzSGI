@@ -29,10 +29,13 @@ const routes = (id) => {
   }
 }
 
-const Create = () => {
+const Create = ({test}) => {
 
-  const { id } = useParams();
-
+  let { id } = useParams();
+  if (test != null) {
+    id = test
+  }
+  //const test = aux;
   return (
     <Box>
       <Typography variant="h4">

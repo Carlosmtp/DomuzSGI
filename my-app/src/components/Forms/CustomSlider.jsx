@@ -1,14 +1,14 @@
 import { Slider } from '@mui/material'
 import React from 'react'
 
-const CustomSlider = ({ id, setHook }) => {
+const CustomSlider = ({ id, setHook, maximo, valorPorDefecto, escala }) => {
 
   const handleChange = (event) => {
-    setHook(parseInt(event.target.value)/100);
+    setHook(parseFloat(event.target.value));
 };
 
   return (
-    <Slider name={id} size="small" defaultValue={50} aria-label="Small" valueLabelDisplay='auto' color='secondary' onChange={handleChange}/>
+    <Slider name={id} size="small" defaultValue={valorPorDefecto} aria-label="Small" valueLabelDisplay='auto' color='secondary' onChange={handleChange} min={0} max={maximo} step={escala}/>
   )
 }
 

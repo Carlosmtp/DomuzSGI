@@ -81,9 +81,9 @@ const FormIndicator = ({ name, setName,
                     />
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
-                    <Typography>Meta del Indicador</Typography>
+                    <Typography>Meta del Indicador - Está puesto con WEIGHT</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="weight" setHook={setWeight}/>
+                        <CustomSlider id="weight" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
                     </Box>    
                 </FormItem>  
                 <FormItem phone={12} computer={6}>                     
@@ -99,7 +99,7 @@ const FormIndicator = ({ name, setName,
                 <FormItem phone={12} computer={6}> 
                     <Typography>Peso</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="weight" setHook={setWeight}/>
+                        <CustomSlider id="weight" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
                     </Box>    
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 

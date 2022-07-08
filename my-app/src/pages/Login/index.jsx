@@ -58,7 +58,7 @@ const Login = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Grid container component="main" sx={{ height: "10vh" }}>
       <CssBaseline />
       <Grid
         item
@@ -88,8 +88,8 @@ const Login = () => {
           <Box
             component="img"
             sx={{
-              height: 150,
-              margin: 5,
+              height: 106,
+              weight: 30
             }}
             alt="Domuz"
             src={logo}

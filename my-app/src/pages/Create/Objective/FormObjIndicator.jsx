@@ -46,7 +46,7 @@ const handleInputChange = ({target}) => {
                     <Box>
                         <Typography>Meta</Typography>
                         <Box pl={2} pr={2}>
-                            <CustomSlider id="Goal" setHook={setGoal}/>
+                            <CustomSlider id="Goal" setHook={setGoal} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
                     </Box>    
 
                     </Box>

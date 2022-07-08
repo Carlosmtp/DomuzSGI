@@ -70,7 +70,6 @@ const Process = () => {
           }
         )      
       }
-      //console.log(
       axios.post("create/process",
       {
         name: nameProcess,
@@ -86,7 +85,7 @@ const Process = () => {
     }    
   }
   
-//Validacion
+//Validación
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [validationMsg, setValidationMsg] = useState('');

@@ -70,13 +70,13 @@ const FormRegister = ({ date, setDate,
                 <FormItem phone={12} computer={12}> 
                     <Typography>Numerador</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="numerator" setHook={setNumerator}/>
+                        <CustomSlider id="numerator" setHook={setNumerator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                  
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
                     <Typography>Denominador</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="denominator" setHook={setDenominator}/>
+                        <CustomSlider id="denominator" setHook={setDenominator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                 
                 </FormItem>    
         </FormContainer>

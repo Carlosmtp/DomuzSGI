@@ -1,7 +1,6 @@
 import { AccountCircle } from '@mui/icons-material'
-import { Box, InputAdornment, TextField, Typography } from '@mui/material'
+import { InputAdornment, TextField } from '@mui/material'
 import React from 'react'
-import CustomSlider from '../../../components/Forms/CustomSlider'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
@@ -29,7 +28,7 @@ const FormProcess = ({ name, setName,
       //<Stack spacing={2}>
     return (
         <FormContainer>
-            <FormItem phone={12} computer={6}>
+            <FormItem phone={12} computer={12}>
                 <TextField
                     required
                     fullWidth
@@ -47,12 +46,6 @@ const FormProcess = ({ name, setName,
                         ),
                     }}
                     />
-            </FormItem>
-            <FormItem phone={12} computer={6}> 
-                <Typography>Eficiencia - En realidad es META del Proceso.*</Typography>
-                <Box pl={2} pr={2}>
-                    <CustomSlider id="efficiency" setHook={setEfficiency}/>
-                </Box>    
             </FormItem>
             <FormItem phone={12} computer={12}>
                 <TextField

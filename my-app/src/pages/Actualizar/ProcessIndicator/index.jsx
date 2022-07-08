@@ -11,14 +11,15 @@ const ProcessIndicator = () => {
 
   const [name,setName] = useState('A')
   const [objective,setObjective] = useState('B')
+  const [goal,setGoal] = useState(0.5)
   const [periodicity,setPeriodicity] = useState('')
   const [weight,setWeight] = useState(0.5)
   const [inCharge,setInCharge] = useState('D')
   const [user,setUser] = useState('')
 
   const [date,setDate] = useState(actualDate)
-  const [numerator,setNumerator] = useState(0.5)
-  const [denominator,setDenominator] = useState(0.5)
+  const [numerator,setNumerator] = useState(50)
+  const [denominator,setDenominator] = useState(50)
   const [score,setScore] = useState('')
 
   //Llamar desde BD
@@ -106,6 +107,7 @@ const ProcessIndicator = () => {
     e.preventDefault();
     if(name==='' ||
        objective==='' ||
+       goal==='' ||
        periodicity==='' ||
        inCharge==='' ||
        weight==='' ||
@@ -114,6 +116,8 @@ const ProcessIndicator = () => {
       setSeverity("error")  
       setValidationMsg('No pueden haber campos en blanco para actualizar un indicador.')
     }else{
+      console.log(goal)
+      console.log(weight)
       /*axios.post("actualizar/indicador-de-proceso",
       {
         name : name,
@@ -157,6 +161,8 @@ const handleClose = (event, reason) => {
                         setName={setName}
                         objective={objective}
                         setObjective={setObjective}
+                        goal={goal}                         
+                        setGoal={setGoal}
                         periodicity={periodicity}                        
                         setPeriodicity={setPeriodicity}
                         weight={weight}                         

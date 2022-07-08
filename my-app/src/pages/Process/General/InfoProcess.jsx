@@ -2,7 +2,6 @@
 import { Box, Divider, Grid, Stack, Typography } from '@mui/material'
 //import { Button } from '@mui/material';
 import React from 'react'
-import ImageButton from '../../../components/ImageButton'
 
 const InfoProcess = ( {title, description}) => {
   return (

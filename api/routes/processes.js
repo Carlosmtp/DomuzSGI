@@ -12,6 +12,7 @@ api.post("/create/proccess", async (req, res) => {
       name: data.name,
       description: data.description,
       efficiency: data.efficiency,
+      goal : DataTransfer.goal,
       indicators: {
         createMany: {
           data: data.indicators,
@@ -19,6 +20,22 @@ api.post("/create/proccess", async (req, res) => {
         },
       },
     },
+  });
+  res.json(process);
+});
+
+api.post("/update/proccess", async (req, res) => {
+  const data = req.body;
+  const process = await prisma.processes.update({
+    where : {
+      id : data.id
+    },
+    data: {
+      name: data.name,
+      description: data.description,
+      efficiency: data.efficiency,
+      goal : data.goal,
+      },
   });
   res.json(process);
 });
@@ -100,4 +117,16 @@ api.get("/get/periodic_records/", async (req, res) => {
   }
 })
 
+api.get("/get/last_record/", async (req, res) => {
+  const indicatorId = req.query.indicator_id;
+  const lastRecord = await prisma.periodic_records.findFirst({
+    where: {
+      indicatorId: parseInt(indicatorId),
+    },
+    orderBy: [
+      {record_date : 'desc'}
+    ]
+  })
+  res.json(lastRecord)
+})
 module.exports = api;

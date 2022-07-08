@@ -17,6 +17,7 @@ import { styled } from '@mui/material/styles';
 import Darkmode from '../Darkmode.jsx';
 import Processes from './Processes.jsx';
 import SecondaryListItems from './SecondaryListItems.jsx';
+import Profile from './Profile.jsx';
 
 
 const drawerWidth = 240;
@@ -98,15 +99,25 @@ export const Navbar = () => {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, display: { xs: "none", sm:"block" } }}              
             >
               Sistema de Gestión Integral: DOMUZ
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1, display: { xs: "block", sm:"none" } }}              
+            >
+              SGI: DOMUZ
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="info">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Profile />
             
           </Toolbar>
         </Box>

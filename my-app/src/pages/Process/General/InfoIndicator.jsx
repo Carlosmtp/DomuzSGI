@@ -1,13 +1,17 @@
 
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import axios from 'axios'
 //import { Button } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-//import { useNavigate } from 'react-router'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import CustomTable from '../../../components/Forms/CustomTable'
+import { AppContext } from '../../../context/AppContext'
 
 const InfoIndicator = ( {title, userId, indicator, id }) => {
-  //let navigate = useNavigate() 
+  let navigate = useNavigate() 
+
+  const { setLastObject } = useContext(AppContext)
+
   const [user, setUser] = useState(userId)
 
   const [rows,setRows] = useState([])
@@ -66,6 +70,10 @@ const InfoIndicator = ( {title, userId, indicator, id }) => {
       <Grid item xs={12} sm={12}>   
         <Typography variant='h6' align='left' >{title}</Typography> 
         <Typography align='left' >Asignado: {user.name}</Typography> 
+        <Button onClick={()=>{
+          setLastObject(indicator)
+          navigate('/app/actualizar/indicador-de-proceso')
+          }}> Editar Indicador </Button>
       </Grid> 
         <Grid item xs={12} sm={4} >   
             <CustomTable rows={[]} columns={

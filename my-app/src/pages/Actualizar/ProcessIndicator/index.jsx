@@ -1,20 +1,24 @@
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FormIndicator from './FormIndicator'
 import FormRegister from './FormRegister'
 import CustomTable from '../../../components/Forms/CustomTable'
 import axios from 'axios'
+import { AppContext } from '../../../context/AppContext'
 
 const actualDate = new Date().toISOString().substring(0, 10);
 
 const ProcessIndicator = () => {
 
-  const [name,setName] = useState('A')
-  const [objective,setObjective] = useState('B')
-  const [goal,setGoal] = useState(0.5)
-  const [periodicity,setPeriodicity] = useState('')
-  const [weight,setWeight] = useState(0.5)
-  const [inCharge,setInCharge] = useState('D')
+  const { lastObject } = useContext(AppContext)
+
+  console.log("lastObject",lastObject)
+  const [name,setName] = useState(lastObject.name)
+  const [objective,setObjective] = useState(lastObject.objetive)
+  const [goal,setGoal] = useState(lastObject.goal)
+  const [periodicity,setPeriodicity] = useState(lastObject.periodicity)
+  const [weight,setWeight] = useState(lastObject.weight)
+  const [inCharge,setInCharge] = useState(lastObject.in_charge)
   const [user,setUser] = useState('')
 
   const [date,setDate] = useState(actualDate)
@@ -27,7 +31,7 @@ const ProcessIndicator = () => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records?year=2022")
+    axios.get("/get/periodic_records?year="+new Date().getFullYear()+"&indicator="+lastObject.id)
     .then((res) => {
       let obj = []
       let aux = res.data
@@ -46,7 +50,15 @@ const ProcessIndicator = () => {
       setRows(obj)
       setloading(false)
     })
-  },[])
+
+    axios.get("/get/user?user_id="+lastObject.userId)
+    .then((res) => {
+      let aux = res.data
+      console.log(aux.name)
+      setUser(aux.name+' '+aux.lastname)
+    })
+    
+  },[lastObject.userId])
 
   let calculateScore = (num, den) => { 
     return parseFloat(num)/parseFloat(den)
@@ -145,6 +157,7 @@ const handleClose = (event, reason) => {
 
   return (
     <Grid container component="form" spacing={4} pt={3} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
+      <Button onClick={()=>{console.log(lastObject)}}>TEXTO</Button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           variant="filled"

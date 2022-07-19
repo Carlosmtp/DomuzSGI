@@ -4,7 +4,7 @@ import React from 'react'
 import CustomSlider from '../../../components/Forms/CustomSlider'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
-import { Selector } from '../../../components/Forms/Selector'
+import { Periodicity } from '../../../components/Forms/Periodicity'
 
 const FormObjIndicator = ({ name, setName,
                             goal, setGoal,
@@ -51,14 +51,9 @@ const handleInputChange = ({target}) => {
 
                     </Box>
                         
-                        <Selector
-                            idSelector="select-periodicity" 
-                            labelSelector="Periodicidad" 
-                            id="periodicity" 
+                        <Periodicity
                             hook={periodicity} 
-                            setHook={setPeriodicity}
-                            required={false}
-                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}/>
+                            setHook={setPeriodicity}/>
                     </Stack>
                 </Box>
             </FormItem>                     

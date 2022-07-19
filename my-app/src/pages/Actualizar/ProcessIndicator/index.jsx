@@ -12,6 +12,7 @@ const ProcessIndicator = () => {
 
   const { lastObject } = useContext(AppContext)
 
+  console.log("lastObject",lastObject)
   const [name,setName] = useState(lastObject.name)
   const [objective,setObjective] = useState(lastObject.objetive)
   const [goal,setGoal] = useState(lastObject.goal)
@@ -30,7 +31,7 @@ const ProcessIndicator = () => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records?year=2022")
+    axios.get("/get/periodic_records?year="+new Date().getFullYear()+"&indicator="+lastObject.id)
     .then((res) => {
       let obj = []
       let aux = res.data
@@ -49,7 +50,15 @@ const ProcessIndicator = () => {
       setRows(obj)
       setloading(false)
     })
-  },[])
+
+    axios.get("/get/user?user_id="+lastObject.userId)
+    .then((res) => {
+      let aux = res.data
+      console.log(aux.name)
+      setUser(aux.name+' '+aux.lastname)
+    })
+    
+  },[lastObject.userId])
 
   let calculateScore = (num, den) => { 
     return parseFloat(num)/parseFloat(den)

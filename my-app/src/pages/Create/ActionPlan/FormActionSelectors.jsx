@@ -2,7 +2,7 @@ import { Stack} from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
-import { Selector } from '../../../components/Forms/Selector'
+import { Periodicity } from '../../../components/Forms/Periodicity'
 
 
 const FormActionSelector = ({
@@ -17,26 +17,18 @@ const FormActionSelector = ({
         <FormContainer>
           <FormItem phone={12} computer={6}>
                 <Stack direction="column" m={-1}>
-                    <Selector 
-                            idSelector="select-user" 
-                            labelSelector="Responsable" 
-                            id="user" 
+                    <Periodicity 
                             hook={user} 
                             setHook={setUser}
-                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
                             />
                     
                 </Stack>
             </FormItem> 
             <FormItem phone={12} computer={6}>
                 <Stack direction="column" m={-1}>
-                    <Selector 
-                            idSelector="select-planState" 
-                            labelSelector="Estado del plan" 
-                            id="planState" 
+                    <Periodicity
                             hook={planState} 
                             setHook={SetPlanState}
-                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
                             />                    
                 </Stack>
             </FormItem>            

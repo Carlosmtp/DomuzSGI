@@ -4,11 +4,11 @@ import { Box } from '@mui/system'
 import React, { useEffect } from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
-import { Selector } from '../../../components/Forms/Selector'
 import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 import CustomSlider from '../../../components/Forms/CustomSlider'
 import { useState } from 'react'
 import axios from 'axios'
+import { Periodicity } from '../../../components/Forms/Periodicity'
 
 const FormIndicator = ({ name, setName,
                          objective, setObjective, 
@@ -87,13 +87,9 @@ const FormIndicator = ({ name, setName,
                     </Box>    
                 </FormItem>  
                 <FormItem phone={12} computer={6}>                     
-                        <Selector
-                            idSelector="select-periodicity" 
-                            labelSelector="Periodicidad" 
-                            id="periodicity" 
+                        <Periodicity
                             hook={periodicity} 
                             setHook={setPeriodicity}
-                            array_elements={["Semanal","Mensual","Trimestral","Semestral","Anual"]}
                             />
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 

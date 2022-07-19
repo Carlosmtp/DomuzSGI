@@ -7,18 +7,18 @@ import { useNavigate } from 'react-router'
 import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 
-const InfoIndicator = ( {title, userId, indicator, id }) => {
+const InfoIndicator = ( { indicator }) => {
   let navigate = useNavigate() 
 
   const { setLastObject } = useContext(AppContext)
 
-  const [user, setUser] = useState(userId)
+  const [user, setUser] = useState(indicator.userId)
 
   const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records?year=2022")
+    axios.get("/get/periodic_records?year="+new Date().getFullYear()+"&indicator="+indicator.id)
     .then((res) => {
       let obj = [
         {id:'Esperado',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''},
@@ -52,28 +52,31 @@ const InfoIndicator = ( {title, userId, indicator, id }) => {
         })  
         */              
       }
-      //console.log("obj", obj)
+      console.log("obj", obj)
       setRows(obj)
       setloading(false)
       //console.log(res.data.length)
     })
     
-    axios.get("get/user?user_id="+userId).then((res)=>{
-      console.log(res)
+    axios.get("get/user?user_id="+indicator.userId).then((res)=>{
+      //console.log(res)
       setUser(res.data)
     })
     //si algo se daña quita userId del array
-  },[userId])
+  },[indicator.userId,indicator.id])
 
   return (
     <Grid container spacing={2} pt={1} pb={2}>
       <Grid item xs={12} sm={12}>   
-        <Typography variant='h6' align='left' >{title}</Typography> 
-        <Typography align='left' >Asignado: {user.name}</Typography> 
+        <Typography variant='h6' align='left' >{indicator.name}</Typography> 
+        <Typography align='left' pb={1}>Asignado: {user.name}</Typography> 
         <Button onClick={()=>{
           setLastObject(indicator)
           navigate('/app/actualizar/indicador-de-proceso')
-          }}> Editar Indicador </Button>
+          }}
+          variant="contained"
+          color='secondary'
+          > Editar Indicador </Button>
       </Grid> 
         <Grid item xs={12} sm={4} >   
             <CustomTable rows={[]} columns={

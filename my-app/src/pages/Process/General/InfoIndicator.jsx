@@ -4,6 +4,7 @@ import axios from 'axios'
 //import { Button } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import CustomAvatar from '../../../components/CustomAvatar'
 import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 
@@ -22,37 +23,114 @@ const InfoIndicator = ( { indicator }) => {
     .then((res) => {
       let obj = [
         {id:'Esperado',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''},
-        {id:'Real',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''}]//,{}]
-      let aux = res.data
-      //console.log('aux',aux[0].record_date.substring(5, 7))
-      
-      for (let i = 0; i < 1; i++) {
-        switch (aux[i].record_date.substring(5, 7)) {
-          case '07':
-            //esperado
-            obj[0].jul = aux[i].expected_value
-            //real
-            obj[1].jul = aux[i].archieved_value
-            //eficiencia
-            //obj[2] = { ...obj[2], jul:aux[i].expected_value}
-            break;
-          
-          default:
-            break;
-        }            
-      /*
-        obj.push({
-          id: i+1,
-          person_id: aux[i].id_people.person_id,
-          firstName: aux[i].id_people.name,
-          lastName: aux[i].id_people.lastname,
-          rol: aux[i].id_roles.name,
-          mail: aux[i].id_people.mail,
-          phone: aux[i].id_people.phone
-        })  
-        */              
+        {id:'Real',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''},
+        {id:'Eficiencia',jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''}]//,{}]
+      let aux = res.data      
+      if(aux !== []){
+        for (let i = 0; i < aux.length; i++) {
+          switch (aux[i].record_date.substring(5, 7)) {
+            case '01':
+              //esperado
+              obj[0].jan = aux[i].expected_value
+              //real
+              obj[1].jan = aux[i].archieved_value
+              //eficiencia
+              obj[2].jan = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '02':
+              //esperado
+              obj[0].feb = aux[i].expected_value
+              //real
+              obj[1].feb = aux[i].archieved_value
+              //eficiencia
+              obj[2].feb = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '03':
+              //esperado
+              obj[0].mar = aux[i].expected_value
+              //real
+              obj[1].mar = aux[i].archieved_value
+              //eficiencia
+              obj[2].mar = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '04':
+              //esperado
+              obj[0].apr = aux[i].expected_value
+              //real
+              obj[1].apr = aux[i].archieved_value
+              //eficiencia
+              obj[2].apr = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '05':
+              //esperado
+              obj[0].may = aux[i].expected_value
+              //real
+              obj[1].may = aux[i].archieved_value
+              //eficiencia
+              obj[2].may = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '06':
+              //esperado
+              obj[0].jun = aux[i].expected_value
+              //real
+              obj[1].jun = aux[i].archieved_value
+              //eficiencia
+              obj[2].jun = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '07':
+              //esperado
+              obj[0].jul = aux[i].expected_value
+              //real
+              obj[1].jul = aux[i].archieved_value
+              //eficiencia
+              obj[2].jul = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '08':
+              //esperado
+              obj[0].ago = aux[i].expected_value
+              //real
+              obj[1].ago = aux[i].archieved_value
+              //eficiencia
+              obj[2].ago = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '09':
+              //esperado
+              obj[0].sep = aux[i].expected_value
+              //real
+              obj[1].sep = aux[i].archieved_value
+              //eficiencia
+              obj[2].sep = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '10':
+              //esperado
+              obj[0].oct = aux[i].expected_value
+              //real
+              obj[1].oct = aux[i].archieved_value
+              //eficiencia
+              obj[2].oct = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '11':
+              //esperado
+              obj[0].nov = aux[i].expected_value
+              //real
+              obj[1].nov = aux[i].archieved_value
+              //eficiencia
+              obj[2].nov = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            case '12':
+              //esperado
+              obj[0].dec = aux[i].expected_value
+              //real
+              obj[1].dec = aux[i].archieved_value
+              //eficiencia
+              obj[2].dec = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              break;
+            default:
+              break;
+          }                  
+        }        
       }
-      console.log("obj", obj)
+      //console.log("obj", obj)
       setRows(obj)
       setloading(false)
       //console.log(res.data.length)
@@ -69,16 +147,14 @@ const InfoIndicator = ( { indicator }) => {
     <Grid container spacing={2} pt={1} pb={2}>
       <Grid item xs={12} sm={12}>   
         <Typography variant='h6' align='left' >{indicator.name}</Typography> 
-        <Typography align='left' pb={1}>Asignado: {user.name}</Typography> 
-        <Button onClick={()=>{
-          setLastObject(indicator)
-          navigate('/app/actualizar/indicador-de-proceso')
-          }}
-          variant="contained"
-          color='secondary'
-          > Editar Indicador </Button>
+        
+        
       </Grid> 
-        <Grid item xs={12} sm={4} >   
+        <Grid item xs={12} sm={2} align='center'>
+              <CustomAvatar id={user.rol} size={120}/>
+              <Typography variant='h5' pt={1}>{user.name}</Typography> 
+            </Grid>        
+        <Grid item xs={12} sm={8} >   
             <CustomTable rows={[]} columns={
                       [
                         { field: 'weight', headerName: 'Peso', width: 75 },
@@ -91,21 +167,32 @@ const InfoIndicator = ( { indicator }) => {
                       loading={loading}
                     />
           </Grid> 
-          <Grid item xs={12} sm={8} >
+          <Grid item xs={12} sm={2} align='center'>
+            <Button onClick={()=>{
+              setLastObject(indicator)
+              navigate('/app/actualizar/indicador-de-proceso')
+              }}
+              variant="contained"
+              color='secondary'
+              > Editar Indicador </Button>
+            </Grid>
+          
+          <Grid item xs={12} sm={12} >
             <CustomTable rows={rows} columns={
                       [
-                        { field: 'jan', headerName: 'ENE', width: 17 },
-                        { field: 'feb', headerName: 'FEB', width: 17 },
-                        { field: 'mar', headerName: 'MAR', width: 17 },
-                        { field: 'apr', headerName: 'ABR', width: 17 },
-                        { field: 'may', headerName: 'MAY', width: 17 },
-                        { field: 'jun', headerName: 'JUN', width: 17 },
-                        { field: 'jul', headerName: 'JUL', width: 17 },
-                        { field: 'ago', headerName: 'AGO', width: 17 },
-                        { field: 'sep', headerName: 'SEP', width: 17 },
-                        { field: 'oct', headerName: 'OCT', width: 17 },
-                        { field: 'nov', headerName: 'NOV', width: 17 },
-                        { field: 'dec', headerName: 'DEC', width: 17 }]}
+                        { field: 'id', headerName: '', width: 100 },
+                        { field: 'jan', headerName: 'ENE', width: 60 },
+                        { field: 'feb', headerName: 'FEB', width: 60 },
+                        { field: 'mar', headerName: 'MAR', width: 60 },
+                        { field: 'apr', headerName: 'ABR', width: 60 },
+                        { field: 'may', headerName: 'MAY', width: 60 },
+                        { field: 'jun', headerName: 'JUN', width: 60 },
+                        { field: 'jul', headerName: 'JUL', width: 60 },
+                        { field: 'ago', headerName: 'AGO', width: 60 },
+                        { field: 'sep', headerName: 'SEP', width: 60 },
+                        { field: 'oct', headerName: 'OCT', width: 60 },
+                        { field: 'nov', headerName: 'NOV', width: 60 },
+                        { field: 'dec', headerName: 'DEC', width: 60 }]}
                       pageSize={3}
                       rowsPerPageOptions={25}
                       hideFooter

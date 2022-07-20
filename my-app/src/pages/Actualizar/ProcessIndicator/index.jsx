@@ -1,7 +1,8 @@
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import FormIndicator from './FormIndicator'
-import FormRegister from './FormRegister'
+import UFormRegister from './FormRegister'
+import CFormRegister from '../../Create/ProcessIndicator/FormRegister'
 import CustomTable from '../../../components/Forms/CustomTable'
 import axios from 'axios'
 import { AppContext } from '../../../context/AppContext'
@@ -58,7 +59,7 @@ const ProcessIndicator = () => {
       setUser(aux.name+' '+aux.lastname)
     })
     
-  },[lastObject.userId])
+  },[lastObject.userId,lastObject.id])
 
   let calculateScore = (num, den) => { 
     return parseFloat(num)/parseFloat(den)
@@ -157,7 +158,6 @@ const handleClose = (event, reason) => {
 
   return (
     <Grid container component="form" spacing={4} pt={3} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
-      <Button onClick={()=>{console.log(lastObject)}}>TEXTO</Button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           variant="filled"
@@ -211,7 +211,7 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={4}>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
-                <FormRegister date={date}
+                <CFormRegister date={date}
                               setDate={setDate}                              
                               numerator={numerator} 
                               setNumerator={setNumerator} 
@@ -223,6 +223,22 @@ const handleClose = (event, reason) => {
               </Grid>
               <Grid pb={2} item justify="center" align="center" xs={12}>             
                   <Button pt={2} variant="contained" color='secondary' type="submit" onClick={addRowRegister}>Actualizar Registro</Button>
+              </Grid>
+            </Box>
+            <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
+              <Grid item align="center" p={2} ml={-1} xs={12}>  
+                <CFormRegister date={date}
+                              setDate={setDate}                              
+                              numerator={numerator} 
+                              setNumerator={setNumerator} 
+                              denominator={denominator} 
+                              setDenominator={setDenominator}        
+                              score={score} 
+                              setScore={setScore}                                      
+                          />     
+              </Grid>
+              <Grid pb={2} item justify="center" align="center" xs={12}>             
+                  <Button pt={2} variant="contained" color='secondary' type="submit" onClick={addRowRegister}>Crear Registro</Button>
               </Grid>
             </Box>
           </Grid>   

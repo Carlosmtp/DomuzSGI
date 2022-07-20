@@ -8,8 +8,7 @@ import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const actualDate = new Date().toISOString().substring(0, 10);
 
-const UFormRegister = ({ year, setYear,
-                        month, setMonth,
+const CFormRegister = ({ date, setDate,
                         numerator, setNumerator, 
                         denominator, setDenominator
                         }) => {
@@ -35,20 +34,16 @@ const UFormRegister = ({ year, setYear,
 
     const handleInputChange = ({target}) => {
         switch (target.id) {
-          case "year":
-            setYear(target.value)
-            console.log(actualDate.year)
-            break;
-          case "month":
-            setMonth(target.value)
-            console.log(actualDate.month)
-            break;
-          case "numerator":
-              setNumerator(target.value)
-              break;
-          case "denominator":
-              setDenominator(target.value)
-              break;
+            case "date":
+                setDate(target.value)
+                console.log(actualDate)
+                break;
+            case "numerator":
+                setNumerator(target.value)
+                break;
+            case "denominator":
+                setDenominator(target.value)
+                break;
           default:
             console.log("Necesitas crear el respectivo handleInput")
             console.log(target)
@@ -60,24 +55,11 @@ const UFormRegister = ({ year, setYear,
                 <FormItem phone={12} computer={12}>                     
                 <TextField
                     fullWidth
-                    id="year"
+                    id="date"
                     color="secondary"
-                    label="Año"
-                    name="year"
-                    type="year"
-                    defaultValue={actualDate}
-                    onChange={handleInputChange}
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
-                <TextField
-                    fullWidth
-                    id="month"
-                    color="secondary"
-                    label="Mes"
-                    name="month"
-                    type="month"
+                    label="Fecha"
+                    name="date"
+                    type="date"
                     defaultValue={actualDate}
                     onChange={handleInputChange}
                     InputLabelProps={{
@@ -101,4 +83,4 @@ const UFormRegister = ({ year, setYear,
     )
 }
 
-export default UFormRegister
+export default CFormRegister

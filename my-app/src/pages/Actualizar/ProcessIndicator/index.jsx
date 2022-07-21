@@ -24,8 +24,8 @@ const ProcessIndicator = () => {
   const [year,setYear] = useState("")
   const [month,setMonth] = useState("")
   
-  const [goal,setGoal] = useState(lastObject.goal)
-  const [weight,setWeight] = useState(lastObject.weight)
+  const [goal,setGoal] = useState(0.5)
+  const [weight,setWeight] = useState(0.5)
   const [numerator,setNumerator] = useState(50)
   const [denominator,setDenominator] = useState(50)
   const [score,setScore] = useState('')
@@ -107,11 +107,15 @@ const ProcessIndicator = () => {
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
       for(let i = 0; i < rows.length; i++){
-        if(rows[i].date.substring(1, 5)===year){
-          console.log("-----------------------")
-          console.log("AÑO TABLA:" + rows[i].date.substring(0, 3))
-          console.log("AÑO NUEVO:" + year)
-          console.log("-----------------------")
+          console.log("MES NUEVO:" + month.substring(0, 2))
+          console.log("MES TABLA:" + rows[i].date.substring(5, 7))
+          console.log("0000000000000")
+          //rows[i].date.substring(0, 4)===year && 
+        if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
+          console.log("--------------")
+          console.log("MES TABLA:" + rows[i].date.substring(0, 4))
+          console.log("MES NUEVO:" + year)
+          console.log("--------------")
           rows[i].month = parseToMonth(date)          
           rows[i].weight = weight
           rows[i].goal = goal
@@ -238,21 +242,24 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={8}>
             <CustomTable rows={rows} setRows={setRows} columns={
                         [
-                          { field: 'month', headerName: 'Mes', width: 100 },
-                          { field: 'weight', headerName: 'Peso', width: 80 },
-                          { field: 'goal', headerName: 'Meta', width: 80 },
-                          { field: 'numerator', headerName: 'Valor real', width: 120 },
-                          { field: 'denominator', headerName: 'Valor esperado', width: 120 },
-                          { field: 'score', headerName: 'Resultado', width: 130 }]}
+                          { field: 'month', headerName: 'Mes', width: 90},
+                          { field: 'weight', headerName: 'Peso', width: 65 },
+                          { field: 'goal', headerName: 'Meta', width: 65 },
+                          { field: 'numerator', headerName: 'Valor real', width: 100 },
+                          { field: 'denominator', headerName: 'Valor esperado', width: 110 },
+                          { field: 'score', headerName: 'Resultado', width: 75 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter
                         loading={loading}
+                        checkboxSelection
+                        deleteButton
                         />
           </Grid>  
           <Grid item xs={12} sm={4}>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
-              <Grid item align="center" p={2} ml={-1} xs={12}>  
+              <Grid item align="center" p={2} ml={-1} xs={12}>
+                <Typography pb={1}>Actualizar Registro</Typography>
                 <UFormRegister year={year}
                               setYear={setYear}  
                               month={month}
@@ -275,6 +282,7 @@ const handleClose = (event, reason) => {
             </Box>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
+                <Typography pb={1}>Crear Registro</Typography>
                 <CFormRegister date={date}
                               setDate={setDate}  
                               weight={weight}                         

@@ -21,6 +21,8 @@ const ProcessIndicator = () => {
   const [user,setUser] = useState('')
 
   const [date,setDate] = useState(actualDate)
+  const [year,setYear] = useState("")
+  const [month,setMonth] = useState("")
   
   const [goal,setGoal] = useState(lastObject.goal)
   const [weight,setWeight] = useState(lastObject.weight)
@@ -99,13 +101,17 @@ const ProcessIndicator = () => {
 
   const updateRowRegister = (e) => {
     e.preventDefault();
-    if(date==='' || numerator==='' || denominator===''){
+    if(year==='' || month===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
       for(let i = 0; i < rows.length; i++){
-        if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
+        if(rows[i].date.substring(1, 5)===year){
+          console.log("-----------------------")
+          console.log("AÑO TABLA:" + rows[i].date.substring(0, 3))
+          console.log("AÑO NUEVO:" + year)
+          console.log("-----------------------")
           rows[i].month = parseToMonth(date)          
           rows[i].weight = weight
           rows[i].goal = goal
@@ -128,9 +134,6 @@ const ProcessIndicator = () => {
     }else{
       let conteo = 0
       for(let i = 0; i < rows.length; i++){
-        console.log("TABLA: "+rows[i].date.substring(0, 7))
-        console.log("NUEVO: "+date.substring(0, 7))
-        console.log("----------------------------------------")
         if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
           conteo = conteo+1
         }
@@ -250,8 +253,10 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={4}>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
-                <UFormRegister date={date}
-                              setDate={setDate}  
+                <UFormRegister year={year}
+                              setYear={setYear}  
+                              month={month}
+                              setMonth={setMonth} 
                               weight={weight}                         
                               setWeight={setWeight}
                               goal={goal}                         

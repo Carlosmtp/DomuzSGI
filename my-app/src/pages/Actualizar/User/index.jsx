@@ -5,13 +5,14 @@ import FormPersonal from "../../Create/User/FormPersonal";
 import FormRole from "../../Create/User/FormRole";
 import { AppContext } from "../../../context/AppContext";
 import axios from "axios";
+import { useNavigate } from "react-router";
 const bcrypt = require("bcryptjs");
 
 const User = () => {
 
   const { lastObject } = useContext(AppContext)
 
-  console.log(lastObject)
+  //console.log(lastObject)
   const [name, setName] = useState(lastObject.firstName);
   const [lastname, setLastname] = useState(lastObject.lastName);
   const [idPerson, setIdPerson] = useState(lastObject.person_id);
@@ -37,7 +38,17 @@ const User = () => {
         id_roles:idRole,
         password:secret
       }
-    axios.post("update/user", newUser).then((res) => {console.log(res)})
+    try {
+      axios.post("update/user", newUser).then((res) => {console.log(res)})
+      setOpen(true)
+      setSeverity("success")
+      setValidationMsg(name+' ha sido actualizado exitosamente.')
+    } catch (error) {
+      setOpen(true)
+      setSeverity("error")
+      setValidationMsg('Algo ha salido mal.')
+    }    
+    
   };
 
   const [open, setOpen] = useState(false);

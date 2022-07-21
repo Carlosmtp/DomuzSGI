@@ -1,17 +1,35 @@
-import { Box, Divider, Grid, LinearProgress, Pagination, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid, LinearProgress, Pagination, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import CustomAvatar from '../../../components/CustomAvatar';
 const axios = require('axios').default;
 
 const FormRole = ({
-          idRole, setIdRole
+          idRole, setIdRole, startRole
 }) => {
 
     const[name, setName] = useState()
     const[description, setDescription] = useState()
 
+    const[page, setPage] = useState(1)
+
     const [roles,setRoles] = useState([])//Array de Objetos
     const [loading,setloading] = useState(true)
+
+    useEffect(()=>{
+      if(startRole >= 0){
+        axios.get("get/user?user_id="+startRole).then((res)=>{
+          let init = res.data.rol
+          for (let i = 0; i < roles.length; i++) {
+            if(init === roles[i].id){
+              setName(roles[i].name)
+              setDescription(roles[i].description)
+              setIdRole(roles[i].id)
+              setPage(i+1)
+            }            
+          }
+        }) 
+      }
+    },[roles, setIdRole, startRole])
 
     useEffect(()=>{
         axios.get("get/roles")
@@ -19,17 +37,19 @@ const FormRole = ({
           //console.log(res.data)        
           setloading(false)
           setRoles(res.data)
-
           setName(res.data[0].name)
           setDescription(res.data[0].description)
           setIdRole(res.data[0].id)
+          
         })
-      },[])
+                
+      },[setIdRole])
 
-    const handleChange = (event, page) => {
-        setIdRole(roles[page-1].id)
-        setName(roles[page-1].name)
-        setDescription(roles[page-1].description)
+    const handleChange = (event, i) => {
+        setPage(i)
+        setIdRole(roles[i-1].id)
+        setName(roles[i-1].name)
+        setDescription(roles[i-1].description)
   };
 
   if(loading){
@@ -40,7 +60,7 @@ const FormRole = ({
   return (
     <Box pl={{xs:1,sm:3}} pr={{xs:1,sm:3}} pt={4} pb={4} sx={{ borderRadius: '16px', border: 1, borderColor: 'background.light' }}>
         <Grid container spacing={1} >
-            <Grid item xs={12} sm={6} align="center" justify="center">                
+            <Grid item xs={12} sm={6} align="center" justify="center">        
                 <CustomAvatar id={idRole} size={128} />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -56,7 +76,7 @@ const FormRole = ({
                 
             </Grid>
             <Box pt={3}>
-              <Pagination count={roles.length} onChange={handleChange} color="secondary" />
+              <Pagination page={page} count={roles.length} onChange={handleChange} color="secondary" />
             </Box>
             
         </Grid>

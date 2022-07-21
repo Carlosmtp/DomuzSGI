@@ -1,10 +1,13 @@
 import { Alert, IconButton, Snackbar } from '@mui/material';
-import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react'
-import styled from '@emotion/styled';
+//import styled from '@emotion/styled';
+import { AppContext } from '../../context/AppContext';
+import { useContext } from 'react';
 
+/*
 const CustomDataGrid = styled(DataGrid)(({ theme }) => ({
   root:{
     "& .MuiDataGrid-renderingZone" : {
@@ -17,6 +20,8 @@ const CustomDataGrid = styled(DataGrid)(({ theme }) => ({
   }
 }));
 
+*/
+
 const CustomTable = ({ 
                       columns,
                       rows, setRows,
@@ -24,7 +29,9 @@ const CustomTable = ({
                       deleteButton, editButton,
                       pageSize, rowsPerPageOptions,
                       checkboxSelection,
-                      hideFooter }) => {
+                      hideFooter, editFunction }) => {
+
+  const { setLastObject } = useContext(AppContext)
 
   const [select, setSelect] = useState([]);
 
@@ -64,15 +71,24 @@ const CustomTable = ({
           return (
             <IconButton
               onClick={() => {    
-                if(select.length > 1){
+                if(select.length === 0){
                   setOpen(true)
                   setSeverity("error")
-                  setValidationMsg('Solo puedes modificar 1 fila a la vez. Seleccionadas: '+select.length)
+                  setValidationMsg('Por favor seleccione la fila que desea modificar')
                 }else{
-                //Siempre debe empezar con un id desde 1
-                console.log("select",select)            
-                console.log("selected",rows[select[0]-1])
+                  if(select.length > 1){
+                    setOpen(true)
+                    setSeverity("error")
+                    setValidationMsg('Solo puedes modificar 1 fila a la vez. Seleccionadas: '+select.length)
+                  }else{
+                  //Siempre debe empezar con un id desde 1
+                  setLastObject(rows[select[0]-1])
+                  editFunction()
+                  //console.log("select",select)            
+                  //console.log("selected",rows[select[0]-1])
+                  }
                 }
+                
               }}
             >
               <EditIcon />

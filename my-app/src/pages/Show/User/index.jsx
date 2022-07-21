@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid';
-import { LinearProgress } from '@mui/material';
 import CustomTable from '../../../components/Forms/CustomTable';
+import { useNavigate } from 'react-router';
 const axios = require('axios').default;
 
 const columns = [
@@ -15,15 +14,21 @@ const columns = [
 
 const User = () => {
 
+  let navigate = useNavigate();
+
   const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
+
+  const update = () =>{
+    navigate("/app/actualizar/usuario")
+  }
 
   useEffect(()=>{
     axios.get("get/users")
     .then((res) => {
       let obj = []
       let aux = res.data
-      console.log(aux[0])
+      //console.log(aux[0])
       for(let i=0;i<aux.length;i++){
         obj.push({
           id: i+1,
@@ -51,6 +56,7 @@ const User = () => {
         rowsPerPageOptions={100}
         loading={loading}
         editButton={true}
+        editFunction={update}
         checkboxSelection={true}/>        
   )
   

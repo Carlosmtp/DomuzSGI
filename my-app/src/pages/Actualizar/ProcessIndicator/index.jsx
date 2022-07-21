@@ -106,16 +106,10 @@ const ProcessIndicator = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
+      let conteo = 0
       for(let i = 0; i < rows.length; i++){
-          console.log("MES NUEVO:" + month.substring(0, 2))
-          console.log("MES TABLA:" + rows[i].date.substring(5, 7))
-          console.log("0000000000000")
-          //rows[i].date.substring(0, 4)===year && 
-        if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
-          console.log("--------------")
-          console.log("MES TABLA:" + rows[i].date.substring(0, 4))
-          console.log("MES NUEVO:" + year)
-          console.log("--------------")
+        if(rows[i].date.substring(0, 4)===year && rows[i].date.substring(5, 7)===month.substring(0, 2)){
+          conteo = conteo+1
           rows[i].month = parseToMonth(date)          
           rows[i].weight = weight
           rows[i].goal = goal
@@ -125,6 +119,11 @@ const ProcessIndicator = () => {
           let aux = rows.concat()
           setRows(aux)
         }
+      }
+      if(conteo===0){
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('No se encontró un registro que actualizar.')
       }
     }    
   }

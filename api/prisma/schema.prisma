@@ -37,7 +37,6 @@ model users {
   projects  projects[]
   plans     action_plans[]
   indicator process_indicators[]
-
 }
 
 model companies {
@@ -204,12 +203,11 @@ model plan_states {
 }
 
 model processes {
-  id          Int                  @id @default(autoincrement())
-  name        String               @db.VarChar(50)
-  description String               @db.VarChar(250)
-  efficiency  Float
-  goal        Float
-  indicators  process_indicators[]
+  id              Int                        @id @default(autoincrement())
+  name            String                     @db.VarChar(50)
+  description     String                     @db.VarChar(250)
+  goal            Float
+  indicators      process_indicators[]
   periodic_record process_periodic_records[]
 }
 
@@ -219,7 +217,6 @@ model process_indicators {
   objetive     String             @db.VarChar()
   periodicity  String             @db.VarChar()
   in_charge    String             @db.VarChar()
-  weight       Float
   goal         Float
   id_processes processes          @relation(fields: [processId], references: [id])
   processId    Int
@@ -235,12 +232,16 @@ model periodic_records {
   record_date           DateTime           @db.Date()
   expected_value        Int
   archieved_value       Int
+  goal                  Float
+  weight                Float
+  efficiency            Float
 }
 
 model process_periodic_records {
-  id         Int      @id @default(autoincrement())
-  date       DateTime @db.Date()
-  efficiency Float
+  id           Int       @id @default(autoincrement())
+  date         DateTime  @db.Date()
+  efficiency   Float
   id_processes processes @relation(fields: [processId], references: [id])
-  processId  Int
+  processId    Int
+  goal Float?
 }

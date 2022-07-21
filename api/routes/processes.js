@@ -60,6 +60,17 @@ api.post("/create/process/indicators", async (req, res) => {
   res.json(count);
 });
 
+api.post("/update/process/indicator", async (req, res) => {
+  const data = req.body;
+  const indicator = await prisma.process_indicators.update({
+    where : {
+      id : data.id
+    },
+    data: data,
+  });
+  res.json(indicator);
+})
+
 api.get("/get/process/indicators", async (req, res) => {
   const indicators = await prisma.process_indicators.findMany();
   res.json(indicators);

@@ -8,10 +8,12 @@ import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const actualDate = new Date().toISOString().substring(0, 10);
 
-const UFormRegister = ({ year, setYear,
-                        month, setMonth,
-                        numerator, setNumerator, 
-                        denominator, setDenominator
+const UFormRegister = ({ setYear,
+                        setMonth,                        
+                        setGoal,                        
+                        setWeight,
+                        setNumerator,
+                        setDenominator
                         }) => {
     
     //const [loadedUsers, setLoadedUsers] = useState([])
@@ -43,6 +45,12 @@ const UFormRegister = ({ year, setYear,
             setMonth(target.value)
             console.log(actualDate.month)
             break;
+          case "weight":
+              setWeight(target.value)
+              break;
+          case "goal":
+              setGoal(target.value)
+              break;
           case "numerator":
               setNumerator(target.value)
               break;
@@ -86,13 +94,25 @@ const UFormRegister = ({ year, setYear,
                 />
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <Typography>Numerador</Typography>
+                    <Typography>Peso</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="weight" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                    </Box>                  
+                </FormItem> 
+                <FormItem phone={12} computer={12}> 
+                    <Typography>Meta</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="goal" setHook={setGoal} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                    </Box>                 
+                </FormItem>   
+                <FormItem phone={12} computer={12}> 
+                    <Typography>Valor real</Typography>
                     <Box pl={2} pr={2}>
                         <CustomSlider id="numerator" setHook={setNumerator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                  
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <Typography>Denominador</Typography>
+                    <Typography>Valor esperado</Typography>
                     <Box pl={2} pr={2}>
                         <CustomSlider id="denominator" setHook={setDenominator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                 

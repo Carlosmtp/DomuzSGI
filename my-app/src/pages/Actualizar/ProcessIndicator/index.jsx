@@ -16,13 +16,14 @@ const ProcessIndicator = () => {
   console.log("lastObject",lastObject)
   const [name,setName] = useState(lastObject.name)
   const [objective,setObjective] = useState(lastObject.objetive)
-  const [goal,setGoal] = useState(lastObject.goal)
   const [periodicity,setPeriodicity] = useState(lastObject.periodicity)
-  const [weight,setWeight] = useState(lastObject.weight)
   const [inCharge,setInCharge] = useState(lastObject.in_charge)
   const [user,setUser] = useState('')
 
   const [date,setDate] = useState(actualDate)
+  
+  const [goal,setGoal] = useState(lastObject.goal)
+  const [weight,setWeight] = useState(lastObject.weight)
   const [numerator,setNumerator] = useState(50)
   const [denominator,setDenominator] = useState(50)
   const [score,setScore] = useState('')
@@ -96,7 +97,7 @@ const ProcessIndicator = () => {
     }
   }  
 
-  const addRowRegister = (e) => {
+  const updateRowRegister = (e) => {
     e.preventDefault();
     if(date==='' || numerator==='' || denominator===''){
       setOpen(true)
@@ -105,7 +106,9 @@ const ProcessIndicator = () => {
     }else{
       for(let i = 0; i < rows.length; i++){
         if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
-          rows[i].month = parseToMonth(date)
+          rows[i].month = parseToMonth(date)          
+          rows[i].weight = weight
+          rows[i].goal = goal
           rows[i].numerator = numerator
           rows[i].denominator = denominator
           rows[i].score =  calculateScore(parseFloat(numerator),parseFloat(denominator))
@@ -114,6 +117,46 @@ const ProcessIndicator = () => {
         }
       }
     }    
+  }
+
+  const addRowRegister = (e) => {
+    e.preventDefault();
+    if(date==='' || numerator==='' || denominator===''){
+      setOpen(true)
+      setSeverity("error")
+      setValidationMsg('No pueden haber campos en blanco para crear un registro.')
+    }else{
+      let conteo = 0
+      for(let i = 0; i < rows.length; i++){
+        console.log("TABLA: "+rows[i].date.substring(0, 7))
+        console.log("NUEVO: "+date.substring(0, 7))
+        console.log("----------------------------------------")
+        if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
+          conteo = conteo+1
+        }
+      }
+      if(conteo===0){
+        let aux = rows.concat({
+          id: "",
+          date: date,
+          month: parseToMonth(date),          
+          weight: weight,
+          goal: goal,
+          numerator: numerator,
+          denominator: denominator,
+          score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
+        })
+        for (let i = 0; i < aux.length; i++) {
+          aux[i].id = i + 1;      
+        }
+        console.log(aux)
+        setRows(aux)
+      }else{
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg("Ya existe un registro en la fecha indicada.")
+      }
+    }   
   }
 
   const handleSubmit = async (e) => {
@@ -174,12 +217,8 @@ const handleClose = (event, reason) => {
                         setName={setName}
                         objective={objective}
                         setObjective={setObjective}
-                        goal={goal}                         
-                        setGoal={setGoal}
                         periodicity={periodicity}                        
-                        setPeriodicity={setPeriodicity}
-                        weight={weight}                         
-                        setWeight={setWeight}
+                        setPeriodicity={setPeriodicity}                        
                         inCharge={inCharge}                         
                         setInCharge={setInCharge}
                         user={user}                         
@@ -196,23 +235,27 @@ const handleClose = (event, reason) => {
           <Grid item xs={12} sm={8}>
             <CustomTable rows={rows} setRows={setRows} columns={
                         [
-                          { field: 'month', headerName: 'Mes', width: 120 },
-                          { field: 'numerator', headerName: 'Numerador', width: 130 },
-                          { field: 'denominator', headerName: 'Denominador', width: 130 },
+                          { field: 'month', headerName: 'Mes', width: 100 },
+                          { field: 'weight', headerName: 'Peso', width: 80 },
+                          { field: 'goal', headerName: 'Meta', width: 80 },
+                          { field: 'numerator', headerName: 'Valor real', width: 120 },
+                          { field: 'denominator', headerName: 'Valor esperado', width: 120 },
                           { field: 'score', headerName: 'Resultado', width: 130 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter
-                        editButton={true}
                         loading={loading}
-                        checkboxSelection={true}
                         />
           </Grid>  
           <Grid item xs={12} sm={4}>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
-                <CFormRegister date={date}
-                              setDate={setDate}                              
+                <UFormRegister date={date}
+                              setDate={setDate}  
+                              weight={weight}                         
+                              setWeight={setWeight}
+                              goal={goal}                         
+                              setGoal={setGoal}                            
                               numerator={numerator} 
                               setNumerator={setNumerator} 
                               denominator={denominator} 
@@ -222,13 +265,17 @@ const handleClose = (event, reason) => {
                           />     
               </Grid>
               <Grid pb={2} item justify="center" align="center" xs={12}>             
-                  <Button pt={2} variant="contained" color='secondary' type="submit" onClick={addRowRegister}>Actualizar Registro</Button>
+                  <Button pt={2} variant="contained" color='secondary' type="submit" onClick={updateRowRegister}>Actualizar Registro</Button>
               </Grid>
             </Box>
             <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>  
                 <CFormRegister date={date}
-                              setDate={setDate}                              
+                              setDate={setDate}  
+                              weight={weight}                         
+                              setWeight={setWeight}
+                              goal={goal}                         
+                              setGoal={setGoal}                             
                               numerator={numerator} 
                               setNumerator={setNumerator} 
                               denominator={denominator} 

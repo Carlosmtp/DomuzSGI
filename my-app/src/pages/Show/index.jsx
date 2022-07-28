@@ -3,6 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router';
 import Objectives from './Objectives';
 import User from './User'
+import Process from './Process'
 
 const routes = (id) => {
     switch (id) {
@@ -10,6 +11,8 @@ const routes = (id) => {
         return <User /> 
       case "objetivos":
         return <Objectives /> 
+      case "procesos":
+        return <Process /> 
       default:
         break;
     }

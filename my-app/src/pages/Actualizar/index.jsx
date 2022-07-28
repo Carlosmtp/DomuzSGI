@@ -3,6 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router'
 import ProcessIndicator from './ProcessIndicator'
 import User from './User'
+import Process from './Process'
 
 let nombre = (id) => {
   switch (id) {
@@ -10,7 +11,8 @@ let nombre = (id) => {
       return "indicador de proceso"
     case "usuario":
       return "usuario"
-
+    case "proceso":
+      return "proceso"
     default:
       break;
   }
@@ -22,6 +24,8 @@ const routes = (id) => {
       return <ProcessIndicator />
     case "usuario":
       return <User />
+    case "proceso":
+      return <Process />
     default:
       break;
   }

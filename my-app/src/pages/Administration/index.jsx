@@ -37,7 +37,7 @@ const Administration = () => {
             <CardAdmin Icon={PersonIcon} color={lightBlue} title='PERSONAS' created={adminCount.users} link_create="/app/crear/usuario" link_show="/app/ver/usuarios"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={AssignmentIcon} color={orange} title='PROCESOS' created={adminCount.processes} link_create="/app/crear/proceso"/>
+            <CardAdmin Icon={AssignmentIcon} color={orange} title='PROCESOS' created={adminCount.processes} link_create="/app/crear/proceso" link_show="/app/procesos/inicio"/>
           </Grid>
           <Grid item xs={12} sm={4}>
             <CardAdmin Icon={AccountTreeIcon} color={teal} title='PROYECTOS' created='0' link_create="/app/crear/proyecto"/>

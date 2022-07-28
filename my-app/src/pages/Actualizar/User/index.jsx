@@ -12,7 +12,7 @@ const User = () => {
 
   const { lastObject } = useContext(AppContext)
 
-  //console.log(lastObject)
+  //console.log('lastObject',lastObject)
   const [name, setName] = useState(lastObject.firstName);
   const [lastname, setLastname] = useState(lastObject.lastName);
   const [idPerson, setIdPerson] = useState(lastObject.person_id);
@@ -21,6 +21,7 @@ const User = () => {
   const [phone, setPhone] = useState(lastObject.phone);
 
   const [idRole, setIdRole] = useState([]);
+  const [startRole, setStartRole] = useState(lastObject.id_users)
 
   /*const [typeUser,setTypeUser] = useState(1)  */
 
@@ -107,7 +108,7 @@ const User = () => {
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormRole idRole={idRole} setIdRole={setIdRole} startRole={lastObject.id}/>
+        <FormRole idRole={idRole} setIdRole={setIdRole} startRole={startRole} setStartRole={setStartRole}/>
       </Grid>
       <Grid item justify="center" align="right" xs={12}>
         <Button variant="contained" color="secondary" type="submit">

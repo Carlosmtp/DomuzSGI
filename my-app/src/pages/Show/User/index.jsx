@@ -32,6 +32,7 @@ const User = () => {
       for(let i=0;i<aux.length;i++){
         obj.push({
           id: i+1,
+          id_users: aux[i].id,
           person_id: aux[i].id_people.person_id,
           firstName: aux[i].id_people.name,
           lastName: aux[i].id_people.lastname,

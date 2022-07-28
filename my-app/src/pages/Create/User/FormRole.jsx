@@ -4,7 +4,7 @@ import CustomAvatar from '../../../components/CustomAvatar';
 const axios = require('axios').default;
 
 const FormRole = ({
-          idRole, setIdRole, startRole
+          idRole, setIdRole, startRole, setStartRole
 }) => {
 
     const[name, setName] = useState()
@@ -15,21 +15,46 @@ const FormRole = ({
     const [roles,setRoles] = useState([])//Array de Objetos
     const [loading,setloading] = useState(true)
 
+    /*
     useEffect(()=>{
-      if(startRole >= 0){
+      console.log(startRole)
+      if(startRole >= 0 && roles.length > 0){
         axios.get("get/user?user_id="+startRole).then((res)=>{
           let init = res.data.rol
           for (let i = 0; i < roles.length; i++) {
+            
             if(init === roles[i].id){
+              console.log(roles[i])
               setName(roles[i].name)
               setDescription(roles[i].description)
               setIdRole(roles[i].id)
               setPage(i+1)
+              setStartRole('')
             }            
           }
         }) 
       }
-    },[roles, setIdRole, startRole])
+    },[startRole, roles])
+
+    */
+    
+    useEffect(()=>{
+      if(startRole >= 0 && roles.length > 0){
+        axios.get("get/user?user_id="+startRole).then((res)=>{
+        let init = res.data.rol
+        for (let i = 0; i < roles.length; i++) {  
+          if(init === roles[i].id){
+            setName(roles[i].name)
+            setDescription(roles[i].description)
+            setIdRole(roles[i].id)
+            setPage(i+1)
+            setStartRole('')
+            }            
+          }
+        }) 
+      } 
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[roles])
 
     useEffect(()=>{
         axios.get("get/roles")
@@ -39,11 +64,10 @@ const FormRole = ({
           setRoles(res.data)
           setName(res.data[0].name)
           setDescription(res.data[0].description)
-          setIdRole(res.data[0].id)
-          
+          setIdRole(res.data[0].id)          
         })
-                
-      },[setIdRole])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
 
     const handleChange = (event, i) => {
         setPage(i)

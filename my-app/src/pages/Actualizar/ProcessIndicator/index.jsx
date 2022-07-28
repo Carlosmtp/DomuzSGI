@@ -118,6 +118,10 @@ const ProcessIndicator = () => {
           rows[i].score =  calculateScore(parseFloat(numerator),parseFloat(denominator))
           let aux = rows.concat()
           setRows(aux)
+
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg('Se ha actualizado el registro correctamente.')
         }
       }
       if(error){
@@ -159,6 +163,10 @@ const ProcessIndicator = () => {
         for (let i = 0; i < aux.length; i++) {
           aux[i].id = i + 1;      
         }
+
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg('Se ha creado el registro correctamente.')
 
         //CREAR AQUI LA CONEXION
 
@@ -254,8 +262,6 @@ const handleClose = (event, reason) => {
                         rowsPerPageOptions={12}
                         hideFooter
                         loading={loading}
-                        checkboxSelection
-                        deleteButton
                         />
           </Grid>  
           <Grid item xs={12} sm={4}>

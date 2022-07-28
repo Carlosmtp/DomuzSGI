@@ -12,9 +12,7 @@ import { Periodicity } from '../../../components/Forms/Periodicity'
 
 const FormIndicator = ({ name, setName,
                          objective, setObjective, 
-                         setGoal,
                          periodicity, setPeriodicity,
-                         setWeight,
                          inCharge, setInCharge,
                          user, setUser}) => {
     
@@ -80,23 +78,11 @@ const FormIndicator = ({ name, setName,
                         }}
                     />
                 </FormItem> 
-                <FormItem phone={12} computer={6}> 
-                    <Typography>Meta del Indicador</Typography>
-                    <Box pl={2} pr={2}>
-                        <CustomSlider id="goal" setHook={setGoal} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
-                    </Box>    
-                </FormItem>  
                 <FormItem phone={12} computer={6}>                     
                         <Periodicity
                             hook={periodicity} 
                             setHook={setPeriodicity}
                             />
-                </FormItem> 
-                <FormItem phone={12} computer={6}> 
-                    <Typography>Peso</Typography>
-                    <Box pl={2} pr={2}>
-                        <CustomSlider id="weight" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
-                    </Box>    
                 </FormItem> 
                 <FormItem phone={12} computer={6}> 
                     <TextField

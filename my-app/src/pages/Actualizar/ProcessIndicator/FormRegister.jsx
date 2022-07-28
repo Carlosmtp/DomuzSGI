@@ -1,17 +1,20 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 import CustomSlider from '../../../components/Forms/CustomSlider'
+import { Selector } from '../../../components/Forms/Selector'
 //import { useState } from 'react'
 //import axios from 'axios'
 
-const actualDate = new Date().toISOString().substring(0, 10);
+//const actualDate = new Date().toISOString().substring(0, 10);
 
 const UFormRegister = ({ year, setYear,
-                        month, setMonth,
-                        numerator, setNumerator, 
-                        denominator, setDenominator
+                        month, setMonth,                        
+                        setGoal,                        
+                        setWeight,
+                        setNumerator,
+                        setDenominator
                         }) => {
     
     //const [loadedUsers, setLoadedUsers] = useState([])
@@ -33,7 +36,7 @@ const UFormRegister = ({ year, setYear,
         })        
       },[])*/
 
-    const handleInputChange = ({target}) => {
+    /*const handleInputChange = ({target}) => {
         switch (target.id) {
           case "year":
             setYear(target.value)
@@ -43,6 +46,12 @@ const UFormRegister = ({ year, setYear,
             setMonth(target.value)
             console.log(actualDate.month)
             break;
+          case "weight":
+              setWeight(target.value)
+              break;
+          case "goal":
+              setGoal(target.value)
+              break;
           case "numerator":
               setNumerator(target.value)
               break;
@@ -54,45 +63,48 @@ const UFormRegister = ({ year, setYear,
             console.log(target)
             break;
         }      
-      }
+      }*/
     return (
         <FormContainer>    
-                <FormItem phone={12} computer={12}>                     
-                <TextField
-                    fullWidth
-                    id="year"
-                    color="secondary"
-                    label="Año"
-                    name="year"
-                    type="year"
-                    defaultValue={actualDate}
-                    onChange={handleInputChange}
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
-                <TextField
-                    fullWidth
-                    id="month"
-                    color="secondary"
-                    label="Mes"
-                    name="month"
-                    type="month"
-                    defaultValue={actualDate}
-                    onChange={handleInputChange}
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
+                <FormItem phone={12} computer={12}>    
+                  <Selector  idSelector="year" 
+                            labelSelector="Año" 
+                            id="year" 
+                            hook={year} 
+                            setHook={setYear}
+                            array_elements={["2021","2022","2023"]}/>            
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <Typography>Numerador</Typography>
+                  <Selector  idSelector="month" 
+                            labelSelector="Mes" 
+                            id="month" 
+                            hook={month} 
+                            setHook={setMonth}
+                            array_elements={["01 - Enero","02 - Febrero","03 - Marzo",
+                                            "04 - Abril","05 - Mayo","06 - Junio",
+                                            "07 - Julio","08 - Agosto","09 - Septiempre",
+                                            "10 - Octubre","11 - Noviembre","12 - Diciembre",]}/>                  
+                </FormItem> 
+                <FormItem phone={12} computer={12}> 
+                    <Typography>Peso</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="numerator" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                    </Box>                  
+                </FormItem> 
+                <FormItem phone={12} computer={12}> 
+                    <Typography>Meta</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="goal" setHook={setGoal} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                    </Box>                 
+                </FormItem>   
+                <FormItem phone={12} computer={12}> 
+                    <Typography>Valor real</Typography>
                     <Box pl={2} pr={2}>
                         <CustomSlider id="numerator" setHook={setNumerator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                  
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
-                    <Typography>Denominador</Typography>
+                    <Typography>Valor esperado</Typography>
                     <Box pl={2} pr={2}>
                         <CustomSlider id="denominator" setHook={setDenominator} valorPorDefecto={50} maximo={100} escala={1}/>
                     </Box>                 

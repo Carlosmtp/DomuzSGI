@@ -16,7 +16,12 @@ const UFormRegister = ({ year, setYear,
                         setNumerator,
                         setDenominator
                         }) => {
-    
+
+                          
+    let year_arr = []
+    for (let i = 2017; i <= new Date().getFullYear(); i++) {
+      year_arr.push(i)        
+    }
     //const [loadedUsers, setLoadedUsers] = useState([])
 
     /*useEffect(()=>{
@@ -36,6 +41,9 @@ const UFormRegister = ({ year, setYear,
         })        
       },[])*/
 
+    const handleInputChange = ({target}) => {
+      console.log(target)
+    }
     /*const handleInputChange = ({target}) => {
         switch (target.id) {
           case "year":
@@ -67,12 +75,14 @@ const UFormRegister = ({ year, setYear,
     return (
         <FormContainer>    
                 <FormItem phone={12} computer={12}>    
-                  <Selector  idSelector="year" 
+                  <Selector idSelector="year" 
                             labelSelector="Año" 
                             id="year" 
                             hook={year} 
                             setHook={setYear}
-                            array_elements={["2021","2022","2023"]}/>            
+                            array_elements={year_arr}
+                            onClick={handleInputChange}
+                            />            
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
                   <Selector  idSelector="month" 

@@ -38,7 +38,7 @@ const FormIndicator = ({ name, setName,
     const handleInputChange = ({target}) => {
         switch (target.id) {
             case "name":
-                    setName(target.value)
+                setName(target.value)
                 break;
             case "objective":
                 setObjective(target.value)

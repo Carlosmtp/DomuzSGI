@@ -10,10 +10,9 @@ import { AppContext } from '../../../context/AppContext'
 const actualDate = new Date().toISOString().substring(0, 10);
 
 const ProcessIndicator = () => {
-
   const { lastObject } = useContext(AppContext)
 
-  console.log("lastObject",lastObject)
+  //console.log("lastObject",lastObject)
   const [name,setName] = useState(lastObject.name)
   const [objective,setObjective] = useState(lastObject.objetive)
   const [periodicity,setPeriodicity] = useState(lastObject.periodicity)
@@ -21,7 +20,7 @@ const ProcessIndicator = () => {
   const [user,setUser] = useState('')
 
   const [date,setDate] = useState(actualDate)
-  const [year,setYear] = useState("")
+  const [year,setYear] = useState(new Date().getFullYear())
   const [month,setMonth] = useState("")
   
   const [goal,setGoal] = useState(0.5)
@@ -35,7 +34,7 @@ const ProcessIndicator = () => {
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
-    axios.get("/get/periodic_records?year="+new Date().getFullYear()+"&indicator="+lastObject.id)
+    axios.get("/get/periodic_records?year="+year+"&indicator="+lastObject.id)
     .then((res) => {
       let obj = []
       let aux = res.data
@@ -62,7 +61,7 @@ const ProcessIndicator = () => {
       setUser(aux.name+' '+aux.lastname)
     })
     
-  },[lastObject.userId,lastObject.id])
+  },[year,lastObject.userId,lastObject.id])
 
   let calculateScore = (num, den) => { 
     return parseFloat(num)/parseFloat(den)
@@ -101,15 +100,16 @@ const ProcessIndicator = () => {
 
   const updateRowRegister = (e) => {
     e.preventDefault();
-    if(year==='' || month===''){
+    if(month===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
-      let conteo = 0
+      let error = true
       for(let i = 0; i < rows.length; i++){
-        if(rows[i].date.substring(0, 4)===year && rows[i].date.substring(5, 7)===month.substring(0, 2)){
-          conteo = conteo+1
+        
+        if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
+          error = false
           rows[i].month = parseToMonth(date)          
           rows[i].weight = weight
           rows[i].goal = goal
@@ -120,7 +120,7 @@ const ProcessIndicator = () => {
           setRows(aux)
         }
       }
-      if(conteo===0){
+      if(error){
         setOpen(true)
         setSeverity("error")
         setValidationMsg('No se encontró un registro que actualizar.')
@@ -135,13 +135,17 @@ const ProcessIndicator = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para crear un registro.')
     }else{
-      let conteo = 0
+      let crear = true
       for(let i = 0; i < rows.length; i++){
         if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
-          conteo = conteo+1
+          crear = false
+          setOpen(true)
+          setSeverity("error")
+          setValidationMsg("Ya existe un registro en la fecha indicada.")
         }
       }
-      if(conteo===0){
+      if(crear){
+         //CREAR AQUI LA CONEXION
         let aux = rows.concat({
           id: "",
           date: date,
@@ -155,12 +159,11 @@ const ProcessIndicator = () => {
         for (let i = 0; i < aux.length; i++) {
           aux[i].id = i + 1;      
         }
+
+        //CREAR AQUI LA CONEXION
+
         console.log(aux)
         setRows(aux)
-      }else{
-        setOpen(true)
-        setSeverity("error")
-        setValidationMsg("Ya existe un registro en la fecha indicada.")
       }
     }   
   }

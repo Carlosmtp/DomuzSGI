@@ -23,7 +23,7 @@ const General = () => {
     return (
       <Grid container component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}}>
         <Fab
-          color="secondary"
+          color='info'
           sx={{
             position: 'absolute',
             bottom: (theme) => theme.spacing(2),

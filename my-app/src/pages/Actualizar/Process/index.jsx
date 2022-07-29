@@ -1,6 +1,6 @@
 
 import { Alert, Box, Button, Grid, Snackbar, Stack, Typography } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
 import axios from 'axios'
@@ -9,11 +9,10 @@ import { AppContext } from '../../../context/AppContext'
 
 const Process = () => {
   const { lastObject } = useContext(AppContext)
-  console.log(lastObject)
+  //console.log(lastObject)
 
   const [nameProcess,setNameProcess] = useState(lastObject.name)
   const [descriptionProcess,setDescriptionProcess] = useState(lastObject.description)
-  const [efficiency,setEfficiency] = useState(0.5)
 
   const [nameIndicator,setNameIndicator] = useState('')
   const [objective,setObjective] = useState('')
@@ -77,7 +76,6 @@ const Process = () => {
       {
         name: nameProcess,
         description: descriptionProcess,
-        efficiency: efficiency,
         indicators: aux
       })
       setOpen(true)
@@ -88,6 +86,23 @@ const Process = () => {
     }    
   }
   
+  useEffect(()=>{
+    //Start Rows
+    for (let i = 0; i < lastObject.indicators.length; i++) {
+      
+      let aux = []
+      for (let i = 0; i < lastObject.indicators.length; i++) {
+        aux = aux.concat({
+          id:i+1,
+          name:lastObject.indicators[i].name,
+          objetive: lastObject.indicators[i].objetive,
+        } )     
+      }
+      setIndicators(aux)
+    }
+  }
+  ,[lastObject.indicators])
+
 //Validación
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
@@ -116,16 +131,26 @@ const Process = () => {
                      setName={setNameProcess}
                      description={descriptionProcess}
                      setDescription={setDescriptionProcess}
-                     efficiency={efficiency}
-                     setEfficiency={setEfficiency}
                        />
       </Grid>
       <Grid item xs={12} sm={12}>
         <Box p={{xs:2,sm:3}} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
-          <Typography variant="h6" pb={3} color='secondary'>Añadir indicadores</Typography>    
-            <Stack spacing={4}>
-              
-              <Box p={{xs:2,sm:4}} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
+          <Typography variant="h6" pb={3} color='secondary'>Editar indicadores</Typography>   
+            <Stack spacing={4}>                           
+            <CustomTable rows={indicators} setRows={setIndicators} columns={
+                [
+                  { field: 'id', headerName: 'ID', width: 25 },
+                  { field: 'name', headerName: 'Nombre', width: 150 },
+                  { field: 'objetive', headerName: 'Objetivo', width: 150 }
+                ]}
+                pageSize={5}
+                rowsPerPageOptions={25}
+                deleteButton={true}
+                checkboxSelection={true}
+                deleteFunction={()=>{console.log('Pal Lobby')}}
+              />
+            <Typography color='main.light'>Añadir indicador</Typography>
+            <Box p={{xs:2,sm:4}} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 
                 <FormIndicator
                             name={nameIndicator}
                             setName={setNameIndicator}
@@ -144,20 +169,6 @@ const Process = () => {
             <Grid item justify="center" align="center" xs={12}>       
               <Button variant="contained" color='secondary'onClick={addRow}>Añadir Indicador</Button>
             </Grid>
-            <CustomTable rows={indicators} setRows={setIndicators} columns={
-                [
-                  { field: 'id', headerName: 'ID', width: 25 },
-                  { field: 'name', headerName: 'Nombre', width: 150 },
-                  { field: 'objetive', headerName: 'Objetivo', width: 130 },
-                  { field: 'periodicity', headerName: 'Periodicidad', width: 130 },
-                  { field: 'weight', headerName: 'Peso', width: 50 },
-                  { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
-                  { field: 'user', headerName: 'Usuario', width: 130 }]}
-                pageSize={5}
-                rowsPerPageOptions={25}
-                deleteButton={true}
-                checkboxSelection={true}
-              />
           </Stack>
             
         </Box>

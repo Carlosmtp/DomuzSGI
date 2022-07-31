@@ -71,6 +71,16 @@ api.get("/get/process/indicators", async (req, res) => {
   res.json(indicators);
 });
 
+api.delete("/delete/process/indicator", async (req, res) => {
+  const id = parseInt(req.body.indicator_id);
+  const del = await prisma.process_indicators.delete({
+    where : {
+      id: id,
+    },
+  })
+  res.json("Indicador Eliminado")
+})
+
 ///////////////////////// Periodic Records ///////////////////////
 api.post("/add/periodic_record", async (req, res) => {
   const data = req.body;

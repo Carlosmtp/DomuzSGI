@@ -227,7 +227,7 @@ model process_indicators {
 
 model periodic_records {
   id                    Int                @id @default(autoincrement())
-  id_process_indicators process_indicators @relation(fields: [indicatorId], references: [id])
+  id_process_indicators process_indicators @relation(fields: [indicatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   indicatorId           Int
   record_date           DateTime           @db.Date()
   expected_value        Int

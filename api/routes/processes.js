@@ -145,4 +145,19 @@ api.get("/get/last_record/", async (req, res) => {
   })
   res.json(lastRecord)
 })
+
+///////////////////////// Reports ///////////////////////
+api.get("/get/last_report/", async (req, res) => {
+  const processId = req.query.process_id;
+  const lastReport = await prisma.process_reports.findFirst({
+    where: {
+      processId: parseInt(processId),
+    },
+    orderBy: [
+      {date : 'desc'}
+    ]
+  })
+  res.json(lastReport)
+})
+
 module.exports = api;

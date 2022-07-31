@@ -71,6 +71,11 @@ api.get("/get/process/indicators", async (req, res) => {
   res.json(indicators);
 });
 
+api.get("/get/periodicities", async (req, res) => {
+  const periodicities = await prisma.periodicities.findMany();
+  res.json(periodicities);
+})
+
 api.delete("/delete/process/indicator", async (req, res) => {
   const id = parseInt(req.body.indicator_id);
   const del = await prisma.process_indicators.delete({

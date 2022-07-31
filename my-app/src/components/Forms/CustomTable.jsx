@@ -73,7 +73,7 @@ const CustomTable = ({
           return (
             <IconButton
               onClick={() => {
-                if(deleteFunction !== null){
+                if(deleteFunction !== undefined){
                   if(select.length === 0){
                     setOpen(true)
                     setSeverity("error")
@@ -90,8 +90,14 @@ const CustomTable = ({
                     }
                   }                  
                 }else{
-                  const selectedIDs = new Set(select);
-                  setRows((r) => r.filter((x) => !selectedIDs.has(x.id)));
+                  if(select.length === 0){
+                    setOpen(true)
+                    setSeverity("error")
+                    setValidationMsg('Por favor seleccione la fila que desea eliminar')
+                  }else{
+                    const selectedIDs = new Set(select);
+                    setRows((r) => r.filter((x) => !selectedIDs.has(x.id)));
+                  }                  
                 }                
               }}
             >
@@ -181,6 +187,7 @@ const CustomTable = ({
             autoFocus
             margin="dense"
             id="confirm"
+            color="secondary"
             onChange={handleInputChange}
             type="email"
             fullWidth
@@ -188,8 +195,8 @@ const CustomTable = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button variant='outlined' onClick={handleCloseDialog}>Cancel</Button>
-          <Button variant='outlined' onClick={deleteFeedback}>Eliminar permanentemente</Button>
+          <Button variant="contained" color="secondary" onClick={handleCloseDialog}>Cancel</Button>
+          <Button variant="contained" color="secondary" onClick={deleteFeedback}>Eliminar permanentemente</Button>
         </DialogActions>
       </Dialog>
       <DataGrid

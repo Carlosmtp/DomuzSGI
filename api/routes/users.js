@@ -44,6 +44,8 @@ api.post("/login", async (req, res) => {
         person_id: login.person_id,
         name: login.name,
         lastname: login.lastname,
+        mail: login.mail,
+        phone: login.phone,
         rol: login.user.rolId,
         secret: login.user.password,
       });

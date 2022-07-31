@@ -208,7 +208,7 @@ model processes {
   description     String                     @db.VarChar(250)
   goal            Float
   indicators      process_indicators[]
-  periodic_record process_periodic_records[]
+  periodic_record process_reports[]
 }
 
 model process_indicators {
@@ -236,11 +236,11 @@ model periodic_records {
   efficiency            Float
 }
 
-model process_periodic_records {
+model process_reports {
   id           Int       @id @default(autoincrement())
   date         DateTime  @db.Date()
   efficiency   Float
   id_processes processes @relation(fields: [processId], references: [id])
   processId    Int
-  goal Float?
+  goal         Float
 }

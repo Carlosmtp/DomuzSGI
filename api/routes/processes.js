@@ -30,12 +30,7 @@ api.post("/update/proccess", async (req, res) => {
     where : {
       id : data.id
     },
-    data: {
-      name: data.name,
-      description: data.description,
-      efficiency: data.efficiency,
-      goal : data.goal,
-      },
+    data: data
   });
   res.json(process);
 });

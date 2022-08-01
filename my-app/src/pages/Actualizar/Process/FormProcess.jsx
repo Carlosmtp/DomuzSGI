@@ -1,11 +1,12 @@
 import { AccountCircle } from '@mui/icons-material'
-import { InputAdornment, TextField } from '@mui/material'
+import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
+import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const FormProcess = ({ name, setName,
-                        description, setDescription,
+                        description, setDescription, initialValue, setGoal
                     }) => {
 
     const handleInputChange = ({target}) => {
@@ -56,6 +57,12 @@ const FormProcess = ({ name, setName,
                     multiline
                     rows={5}
                     />
+            </FormItem>
+            <FormItem phone={12} computer={12}> 
+                <Typography>Meta del Proceso</Typography>
+                    <Box pl={2} pr={2}>
+                        <CustomSlider id="denominator" setHook={setGoal} valorPorDefecto={initialValue} maximo={100} escala={1}/>
+                    </Box>                 
             </FormItem>
         </FormContainer>
     )

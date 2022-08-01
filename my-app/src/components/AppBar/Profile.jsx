@@ -30,7 +30,8 @@ const Profile = () => {
         setAnchorEl(null);
         switch (index) {
             case 0:
-                console.log('ir al perfil')
+
+                console.log(login)
                 break;
             case 1:
                 RemoveCookie('usrin')

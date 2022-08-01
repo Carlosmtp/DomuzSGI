@@ -8,36 +8,48 @@ import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 
 const Process = () => {
-  const { lastObject } = useContext(AppContext)
-  //console.log(lastObject)
+  const { lastObject, setProcesses } = useContext(AppContext)
 
+  //console.log(lastObject)
   const [nameProcess,setNameProcess] = useState(lastObject.name)
   const [descriptionProcess,setDescriptionProcess] = useState(lastObject.description)
+  const [goal,setGoal] = useState(lastObject.goal*100)
 
   const [nameIndicator,setNameIndicator] = useState('')
   const [objective,setObjective] = useState('')
   const [periodicity,setPeriodicity] = useState('')
-  const [weight,setWeight] = useState(0.5)
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
   const [indicators, setIndicators] = useState([])
 
   const addRow = (e) => {
+
+    
+
     if(nameIndicator==='' || objective==='' || periodicity==='' || inCharge==='' || user===''){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
     }else{
-      let aux = indicators.concat({
+      try {
+        let ind = {
+          name : nameIndicator,
+          objetive : objective,
+          periodicityId : periodicity,
+          in_charge : inCharge,
+          processId : lastObject.id,
+          userId : user.id,
+        }    
+
+        axios.post("/create/process/indicators", ind).then((res) => {
+          console.log('res',res)}
+        )
+
+        let aux = indicators.concat({
           id:"",
           name:nameIndicator,
           objetive: objective,
-          periodicity: periodicity,
-          in_charge: inCharge,
-          weight: weight,
-          user:user.label,
-          userId:user.id
         } )
         for (let i = 0; i < aux.length; i++) {
           aux[i].id = i + 1;      
@@ -48,42 +60,52 @@ const Process = () => {
         setPeriodicity('')
         setInCharge('')
         setUser('')
+
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(nameIndicator + 'ha sido añadido correctamente.')
+      } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+      }
+
+
+      
     }
     
     //console.log("Table: ",indicators)
   }
 
+  //Update process
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(indicators.length===0){
+    let aux = {
+      id : lastObject.id,
+      name : nameProcess,
+      description : descriptionProcess,
+      goal : goal/100
+    }
+    console.log('aux',aux)
+    try {
+      axios.post("/update/proccess", aux).then((res) => {
+        console.log('res',res)},
+        axios.get("get/processes")
+          .then((proc) => {       
+            console.log('process',proc.data)
+            setProcesses(proc.data)
+            setOpen(true)
+            setSeverity("success")
+            setValidationMsg(nameProcess+' ha sido actualizado exitosamente.')
+          })
+        )
+        
+
+    } catch (error) {
       setOpen(true)
       setSeverity("error")
-      setValidationMsg('Debe existir al menos 1 indicador para crear el proceso.')
-    }else{
-      let aux = []
-      for (let i = 0; i < indicators.length; i++) {
-        aux = aux.concat({
-            name : indicators[i].name,
-            objetive : indicators[i].objetive,
-            periodicity : indicators[i].periodicity,
-            in_charge : indicators[i].in_charge,
-            weight : indicators[i].weight,
-            userId : indicators[i].userId
-          }
-        )      
-      }
-      axios.post("create/process",
-      {
-        name: nameProcess,
-        description: descriptionProcess,
-        indicators: aux
-      })
-      setOpen(true)
-      setSeverity("success")
-      setValidationMsg(nameProcess+' ha sido creado exitosamente.')
-      setNameProcess('')
-      setDescriptionProcess('')
-    }    
+      setValidationMsg('Algo ha salido mal.')
+    }   
   }
   
   useEffect(()=>{
@@ -131,7 +153,12 @@ const Process = () => {
                      setName={setNameProcess}
                      description={descriptionProcess}
                      setDescription={setDescriptionProcess}
+                     initialValue={lastObject.goal*100}
+                     setGoal={setGoal}
                        />
+      </Grid>
+      <Grid item justify="center" align="right" xs={12}>         
+            <Button variant="contained" color='secondary' type="submit">Actualizar Proceso</Button>
       </Grid>
       <Grid item xs={12} sm={12}>
         <Box p={{xs:2,sm:3}} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 3}}>  
@@ -141,7 +168,7 @@ const Process = () => {
                 [
                   { field: 'id', headerName: 'ID', width: 25 },
                   { field: 'name', headerName: 'Nombre', width: 150 },
-                  { field: 'objetive', headerName: 'Objetivo', width: 150 }
+                  { field: 'objetive', headerName: 'Objetivo', width: 300 }
                 ]}
                 pageSize={5}
                 rowsPerPageOptions={25}
@@ -158,8 +185,6 @@ const Process = () => {
                             setObjective={setObjective}
                             periodicity={periodicity}                        
                             setPeriodicity={setPeriodicity}
-                            weight={weight}                         
-                            setWeight={setWeight}
                             inCharge={inCharge}                         
                             setInCharge={setInCharge}
                             user={user}                         
@@ -172,11 +197,8 @@ const Process = () => {
           </Stack>
             
         </Box>
-      </Grid>
+      </Grid>     
       
-      <Grid item justify="center" align="right" xs={12}>         
-            <Button variant="contained" color='secondary' type="submit">Crear Proceso</Button>
-      </Grid>
     </Grid>
   )
 }

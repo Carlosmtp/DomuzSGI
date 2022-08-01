@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 
 const User = () => {
 
-  const { lastObject } = useContext(AppContext)
+  const { lastObject, setProcesses } = useContext(AppContext)
 
   //console.log('lastObject',lastObject)
   const [name, setName] = useState(lastObject.firstName);
@@ -41,6 +41,7 @@ const User = () => {
       }
     try {
       axios.post("update/user", newUser).then((res) => {console.log(res)})
+      setProcesses([])
       setOpen(true)
       setSeverity("success")
       setValidationMsg(name+' ha sido actualizado exitosamente.')

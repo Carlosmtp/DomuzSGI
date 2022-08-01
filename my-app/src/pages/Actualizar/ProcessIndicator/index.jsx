@@ -15,15 +15,15 @@ const ProcessIndicator = () => {
   //console.log("lastObject",lastObject)
   const [name,setName] = useState(lastObject.name)
   const [objective,setObjective] = useState(lastObject.objetive)
-  const [periodicity,setPeriodicity] = useState(lastObject.periodicity)
+  const [periodicity,setPeriodicity] = useState(lastObject.periodicityId)
   const [inCharge,setInCharge] = useState(lastObject.in_charge)
-  const [user,setUser] = useState('')
+  const [user,setUser] = useState("")
 
   const [date,setDate] = useState(actualDate)
   const [year,setYear] = useState(new Date().getFullYear())
   const [month,setMonth] = useState("")
   
-  const [goal,setGoal] = useState(0.5)
+  const [goal,setGoal] = useState(0.5) 
   const [weight,setWeight] = useState(0.5)
   const [numerator,setNumerator] = useState(50)
   const [denominator,setDenominator] = useState(50)
@@ -49,16 +49,18 @@ const ProcessIndicator = () => {
           score: calculateScore(aux[i].archieved_value,aux[i].expected_value)
         })              
       }
-      console.log("obj", obj)
+      //console.log("obj", obj)
       setRows(obj)
       setloading(false)
     })
 
     axios.get("/get/user?user_id="+lastObject.userId)
     .then((res) => {
-      let aux = res.data
-      console.log(aux.name)
-      setUser(aux.name+' '+aux.lastname)
+      let aux = {
+        id : lastObject.userId,
+        label : res.data.name + ' ' + res.data.lastname
+      }       
+      setUser(aux)
     })
     
   },[year,lastObject.userId,lastObject.id])
@@ -97,6 +99,29 @@ const ProcessIndicator = () => {
       return "Mes inválido."
     }
   }  
+
+  const updateIndicator = (e) => {
+    e.preventDefault()
+    let aux = {
+      id:lastObject.id,
+      name: name,
+      objetive: objective,
+      periodicityId: periodicity,
+      in_charge: inCharge,
+      userId: user.id,
+      processId: lastObject.processId
+    }
+    try {
+      axios.post("update/process/indicator", aux).then((res) => {console.log(res)})
+      setOpen(true)
+      setSeverity("success")
+      setValidationMsg(name+' ha sido actualizado exitosamente.')
+    } catch (error) {
+      setOpen(true)
+      setSeverity("error")
+      setValidationMsg('Algo ha salido mal.')
+    }  
+  }
 
   const updateRowRegister = (e) => {
     e.preventDefault();
@@ -243,7 +268,7 @@ const handleClose = (event, reason) => {
                         /> 
         </Grid>
         <Grid item justify="center" align="right" xs={12} pt={2}>         
-              <Button variant="contained" color='secondary' type="submit" onClick={ProcessIndicator}>Actualizar Indicador</Button>
+              <Button variant="contained" color='secondary' type="submit" onClick={updateIndicator}>Actualizar Indicador</Button>
         </Grid>
       </Box>  
       <Grid item xs={12} sm={12}>

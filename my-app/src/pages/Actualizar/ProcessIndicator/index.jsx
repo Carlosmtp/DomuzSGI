@@ -159,45 +159,40 @@ const ProcessIndicator = () => {
 
   const addRowRegister = (e) => {
     e.preventDefault();
-    if(date==='' || numerator==='' || denominator===''){
-      setOpen(true)
-      setSeverity("error")
-      setValidationMsg('No pueden haber campos en blanco para crear un registro.')
-    }else{
-      let crear = true
-      for(let i = 0; i < rows.length; i++){
-        if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
-          crear = false
-          setOpen(true)
-          setSeverity("error")
-          setValidationMsg("Ya existe un registro en la fecha indicada.")
-        }
+    
+    let crear = true
+    for(let i = 0; i < rows.length; i++){
+      if(rows[i].date.substring(0, 7)===date.substring(0, 7)){
+        crear = false
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg("Ya existe un registro en la fecha indicada.")
       }
-      if(crear){
-         //CREAR AQUI LA CONEXION
-        let aux = rows.concat({
-          id: "",
-          date: date,
-          month: parseToMonth(date),          
-          weight: weight,
-          goal: goal,
-          numerator: numerator,
-          denominator: denominator,
-          score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
-        })
-        for (let i = 0; i < aux.length; i++) {
-          aux[i].id = i + 1;      
-        }
-
-          setOpen(true)
-          setSeverity("success")
-          setValidationMsg('Se ha creado el registro correctamente.')
-
-        //CREAR AQUI LA CONEXION
-
-        console.log(aux)
-        setRows(aux)
+    }
+    if(crear){
+       //CREAR AQUI LA CONEXION
+      let aux = rows.concat({
+        id: "",
+        date: date,
+        month: parseToMonth(date),          
+        weight: weight,
+        goal: goal,
+        numerator: numerator,
+        denominator: denominator,
+        score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
+      })
+      for (let i = 0; i < aux.length; i++) {
+        aux[i].id = i + 1;      
       }
+
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg('Se ha creado el registro correctamente.')
+
+      //CREAR AQUI LA CONEXION
+
+      console.log(aux)
+      setRows(aux)
     }   
   }
 

@@ -50,9 +50,11 @@ const CustomTable = ({
 
   const deleteFeedback = () => {
     if(confirm === 'CONFIRMAR'){
-      deleteFunction()
-      handleCloseDialog()
-      setConfirm('')
+        deleteFunction(rows[select[0]-1])
+        const selectedIDs = new Set(select);
+        setRows((r) => r.filter((x) => !selectedIDs.has(x.id)))
+        handleCloseDialog()
+        setConfirm('')
       }
       else{
         setOpen(true)
@@ -85,8 +87,14 @@ const CustomTable = ({
                       setValidationMsg('Solo puedes eliminar 1 fila a la vez. Seleccionadas: '+select.length)
                     }else{
                     //Siempre debe empezar con un id desde 1
-                    setOpenDialog(true)
-                    console.log(rows[select[0]-1].name)
+                    if(rows.length === 1){
+                      setOpen(true)
+                      setSeverity("error")
+                      setValidationMsg('Debe existir al menos un indicador en un proceso.')
+                    }else{
+                      setOpenDialog(true)
+                      console.log(rows[select[0]-1].name)
+                    }                    
                     }
                   }                  
                 }else{

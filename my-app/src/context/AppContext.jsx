@@ -32,7 +32,7 @@ export const AppProvider = ({ children }) => {
           setloading(false)
           setProcesses(res.data)
         })        
-      },[])
+      },[processes])
 
       //
       

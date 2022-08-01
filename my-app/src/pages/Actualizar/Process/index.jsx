@@ -23,10 +23,7 @@ const Process = () => {
 
   const [indicators, setIndicators] = useState([])
 
-  const addRow = (e) => {
-
-    
-
+  const addRow = (e) => {   
     if(nameIndicator==='' || objective==='' || periodicity==='' || inCharge==='' || user===''){
       setOpen(true)
       setSeverity("error")
@@ -43,7 +40,7 @@ const Process = () => {
         }    
 
         axios.post("/create/process/indicators", ind).then((res) => {
-          console.log('res',res)}
+          console.log('creado_ind',res)}
         )
 
         let aux = indicators.concat({
@@ -61,6 +58,8 @@ const Process = () => {
         setInCharge('')
         setUser('')
 
+        //ACTUALIZAR PROCESOS
+        setProcesses([])
         setOpen(true)
         setSeverity("success")
         setValidationMsg(nameIndicator + 'ha sido añadido correctamente.')
@@ -68,13 +67,29 @@ const Process = () => {
         setOpen(true)
         setSeverity("error")
         setValidationMsg('Algo ha salido mal.')
-      }
-
-
-      
+      }      
     }
-    
-    //console.log("Table: ",indicators)
+  }
+
+  const delete_row = (ind) => {
+    let aux = {
+      indicator_id: ind.indId
+    }
+    console.log(aux)
+    try {
+      axios.delete("/delete/process/indicator", aux).then((res) => {
+        console.log('res',res)})
+
+        //ACTUALIZAR PROCESOS
+        setProcesses([])
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
+    } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+    }    
   }
 
   //Update process
@@ -89,18 +104,14 @@ const Process = () => {
     console.log('aux',aux)
     try {
       axios.post("/update/proccess", aux).then((res) => {
-        console.log('res',res)},
-        axios.get("get/processes")
-          .then((proc) => {       
-            console.log('process',proc.data)
-            setProcesses(proc.data)
-            setOpen(true)
-            setSeverity("success")
-            setValidationMsg(nameProcess+' ha sido actualizado exitosamente.')
-          })
-        )
-        
-
+        console.log('res',res)
+        //ACTUALIZAR PROCESOS
+          setProcesses([])
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameProcess+' ha sido actualizado exitosamente.')
+        }
+      )        
     } catch (error) {
       setOpen(true)
       setSeverity("error")
@@ -111,11 +122,12 @@ const Process = () => {
   useEffect(()=>{
     //Start Rows
     for (let i = 0; i < lastObject.indicators.length; i++) {
-      
+      console.log(lastObject.indicators[i] )
       let aux = []
       for (let i = 0; i < lastObject.indicators.length; i++) {
         aux = aux.concat({
           id:i+1,
+          indId: lastObject.indicators[i].id,
           name:lastObject.indicators[i].name,
           objetive: lastObject.indicators[i].objetive,
         } )     
@@ -154,7 +166,9 @@ const Process = () => {
                      description={descriptionProcess}
                      setDescription={setDescriptionProcess}
                      initialValue={lastObject.goal*100}
+                     goal={goal}
                      setGoal={setGoal}
+                     units={'%'}
                        />
       </Grid>
       <Grid item justify="center" align="right" xs={12}>         
@@ -174,7 +188,7 @@ const Process = () => {
                 rowsPerPageOptions={25}
                 deleteButton={true}
                 checkboxSelection={true}
-                deleteFunction={()=>{console.log('Pal Lobby')}}
+                deleteFunction={delete_row}
               />
             <Typography color='main.light'>Añadir indicador</Typography>
             <Box p={{xs:2,sm:4}} sx={{ border: 1, borderRadius: '16px', borderColor: 'secondary.main', }}> 

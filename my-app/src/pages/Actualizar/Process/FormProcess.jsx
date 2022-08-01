@@ -6,7 +6,7 @@ import FormItem from '../../../components/Forms/FormItem'
 import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const FormProcess = ({ name, setName,
-                        description, setDescription, initialValue, setGoal
+                        description, setDescription, initialValue, goal, setGoal
                     }) => {
 
     const handleInputChange = ({target}) => {
@@ -61,7 +61,7 @@ const FormProcess = ({ name, setName,
             <FormItem phone={12} computer={12}> 
                 <Typography>Meta del Proceso</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="denominator" setHook={setGoal} valorPorDefecto={initialValue} maximo={100} escala={1}/>
+                        <CustomSlider id="denominator" hook={goal} setHook={setGoal} valorPorDefecto={initialValue} maximo={100} escala={1}/>
                     </Box>                 
             </FormItem>
         </FormContainer>

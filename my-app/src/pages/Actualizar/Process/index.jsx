@@ -40,29 +40,31 @@ const Process = () => {
         }    
 
         axios.post("/create/process/indicators", ind).then((res) => {
-          console.log('creado_ind',res)}
+          console.log('creado_ind',res)
+          let aux = indicators.concat({
+            id:"",
+            name:nameIndicator,
+            objetive: objective,
+          } )
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+          setIndicators(aux)
+          setNameIndicator('')
+          setObjective('')
+          setPeriodicity('')
+          setInCharge('')
+          setUser('')
+  
+          //ACTUALIZAR PROCESOS
+          setProcesses([])
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameIndicator + ' ha sido añadido correctamente.')
+        }          
         )
 
-        let aux = indicators.concat({
-          id:"",
-          name:nameIndicator,
-          objetive: objective,
-        } )
-        for (let i = 0; i < aux.length; i++) {
-          aux[i].id = i + 1;      
-        }
-        setIndicators(aux)
-        setNameIndicator('')
-        setObjective('')
-        setPeriodicity('')
-        setInCharge('')
-        setUser('')
-
-        //ACTUALIZAR PROCESOS
-        setProcesses([])
-        setOpen(true)
-        setSeverity("success")
-        setValidationMsg(nameIndicator + 'ha sido añadido correctamente.')
+        
       } catch (error) {
         setOpen(true)
         setSeverity("error")
@@ -75,7 +77,6 @@ const Process = () => {
     let aux = {
       indicator_id: ind.indId
     }
-    console.log(aux)
     try {
       axios.delete("/delete/process/indicator", aux).then((res) => {
         console.log('res',res)})
@@ -101,7 +102,6 @@ const Process = () => {
       description : descriptionProcess,
       goal : goal/100
     }
-    console.log('aux',aux)
     try {
       axios.post("/update/proccess", aux).then((res) => {
         console.log('res',res)
@@ -122,7 +122,7 @@ const Process = () => {
   useEffect(()=>{
     //Start Rows
     for (let i = 0; i < lastObject.indicators.length; i++) {
-      console.log(lastObject.indicators[i] )
+      //console.log(lastObject.indicators[i] )
       let aux = []
       for (let i = 0; i < lastObject.indicators.length; i++) {
         aux = aux.concat({

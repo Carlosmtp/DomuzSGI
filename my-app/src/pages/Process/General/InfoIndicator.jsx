@@ -9,8 +9,7 @@ import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 
 const InfoIndicator = ( { indicator }) => {
-  let navigate = useNavigate() 
-
+  let navigate = useNavigate()
   const { setLastObject } = useContext(AppContext)
 
   const [user, setUser] = useState(indicator.userId)

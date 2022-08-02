@@ -95,10 +95,13 @@ api.post("/add/periodic_record", async (req, res) => {
       expected_value: data.expected_value,
       archieved_value: data.archieved_value,
       record_date: new Date(data.record_date),
-    }
-  })
+      goal: data.goal,
+      weight: data.weight,
+      efficiency: data.archieved_value / data.expected_value,
+    },
+  });
   res.json(record);
-})
+});
 
 api.get("/get/periodic_records/", async (req, res) => {
   const year = req.query.year;

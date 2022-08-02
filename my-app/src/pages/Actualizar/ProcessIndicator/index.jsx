@@ -10,7 +10,7 @@ import { AppContext } from '../../../context/AppContext'
 const actualDate = new Date().toISOString().substring(0, 10);
 
 const ProcessIndicator = () => {
-  const { lastObject } = useContext(AppContext)
+  const { lastObject, setProcesses } = useContext(AppContext)
 
   //console.log("lastObject",lastObject)
   const [name,setName] = useState(lastObject.name)
@@ -46,7 +46,9 @@ const ProcessIndicator = () => {
           month: parseToMonth(aux[i].record_date),
           numerator: aux[i].archieved_value,
           denominator: aux[i].expected_value,
-          score: calculateScore(aux[i].archieved_value,aux[i].expected_value)
+          score: calculateScore(aux[i].archieved_value,aux[i].expected_value),
+          goal: aux[i].goal,
+          weight: aux[i].weight
         })              
       }
       //console.log("obj", obj)
@@ -170,29 +172,47 @@ const ProcessIndicator = () => {
       }
     }
     if(crear){
-       //CREAR AQUI LA CONEXION
-      let aux = rows.concat({
-        id: "",
-        date: date,
-        month: parseToMonth(date),          
-        weight: weight,
-        goal: goal,
-        numerator: numerator,
-        denominator: denominator,
-        score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
-      })
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
+      let obj = {
+        indicator_id : lastObject.id,
+        record_date : date,
+        expected_value : numerator,
+        archieved_value : denominator,
+        goal : goal,
+        weight : weight
       }
+      console.log(obj)
+      /*
+      try {
+        axios.post("/add/periodic_record", obj).then((res) => {
+          console.log(res)
+          setProcesses([])
 
+          let aux = rows.concat({
+            id: "",
+            date: date,
+            month: parseToMonth(date),          
+            weight: weight,
+            goal: goal,
+            numerator: numerator,
+            denominator: denominator,
+            score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
+          })
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+    
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg('Se ha creado el registro correctamente.')
+          setRows(aux)
+        })
+      } catch (error) {
         setOpen(true)
-        setSeverity("success")
-        setValidationMsg('Se ha creado el registro correctamente.')
-
-      //CREAR AQUI LA CONEXION
-
-      console.log(aux)
-      setRows(aux)
+        setSeverity("error")
+        setValidationMsg("Ha ocurrido un error.")
+      } 
+      */
+           
     }   
   }
 
@@ -291,16 +311,11 @@ const handleClose = (event, reason) => {
                 <UFormRegister year={year}
                               setYear={setYear}  
                               month={month}
-                              setMonth={setMonth} 
-                              weight={weight}                         
-                              setWeight={setWeight}
-                              goal={goal}                         
-                              setGoal={setGoal}                            
-                              numerator={numerator} 
+                              setMonth={setMonth}                       
+                              setWeight={setWeight}                   
+                              setGoal={setGoal}      
                               setNumerator={setNumerator} 
-                              denominator={denominator} 
-                              setDenominator={setDenominator}        
-                              score={score} 
+                              setDenominator={setDenominator}   
                               setScore={setScore}                                      
                           />     
               </Grid>

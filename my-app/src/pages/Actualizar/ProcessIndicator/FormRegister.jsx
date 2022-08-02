@@ -10,8 +10,8 @@ import { Selector } from '../../../components/Forms/Selector'
 //const actualDate = new Date().toISOString().substring(0, 10);
 
 const UFormRegister = ({ year, setYear,
-                        month, setMonth,                        
-                        setGoal,                        
+                        month, setMonth,                
+                        setGoal,                 
                         setWeight,
                         setNumerator,
                         setDenominator
@@ -98,13 +98,13 @@ const UFormRegister = ({ year, setYear,
                 <FormItem phone={12} computer={12}> 
                     <Typography>Peso</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="numerator" setHook={setWeight} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                        <CustomSlider id="numerator" setHook={setWeight} valorPorDefecto={50} maximo={1} escala={0.01}/>
                     </Box>                  
                 </FormItem> 
                 <FormItem phone={12} computer={12}> 
                     <Typography>Meta</Typography>
                     <Box pl={2} pr={2}>
-                        <CustomSlider id="goal" setHook={setGoal} valorPorDefecto={0.5} maximo={1} escala={0.01}/>
+                        <CustomSlider id="goal" setHook={setGoal} valorPorDefecto={50} maximo={1} escala={0.01}/>
                     </Box>                 
                 </FormItem>   
                 <FormItem phone={12} computer={12}> 

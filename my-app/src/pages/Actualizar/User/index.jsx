@@ -5,23 +5,22 @@ import FormPersonal from "../../Create/User/FormPersonal";
 import FormRole from "../../Create/User/FormRole";
 import { AppContext } from "../../../context/AppContext";
 import axios from "axios";
-import { useNavigate } from "react-router";
 const bcrypt = require("bcryptjs");
 
 const User = () => {
 
-  const { lastObject, setProcesses } = useContext(AppContext)
+  const { lastObject, setProcesses, login } = useContext(AppContext)
 
   //console.log('lastObject',lastObject)
-  const [name, setName] = useState(lastObject.firstName);
-  const [lastname, setLastname] = useState(lastObject.lastName);
+  const [name, setName] = useState(lastObject.name);
+  const [lastname, setLastname] = useState(lastObject.lastname);
   const [idPerson, setIdPerson] = useState(lastObject.person_id);
   const [password, setPassword] = useState("");
   const [mail, setMail] = useState(lastObject.mail);
   const [phone, setPhone] = useState(lastObject.phone);
 
   const [idRole, setIdRole] = useState([]);
-  const [startRole, setStartRole] = useState(lastObject.id_users)
+  const [startRole, setStartRole] = useState(lastObject.id)
 
   /*const [typeUser,setTypeUser] = useState(1)  */
 

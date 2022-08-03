@@ -18,7 +18,7 @@ export const Periodicity = ({ hook, setHook }) => {
   return (
     <Selector
         idSelector="select-periodicity" 
-        labelSelector="Periodicidad" 
+        labelSelector="Frecuencia" 
         id="periodicity" 
         hook={hook} 
         setHook={setHook}

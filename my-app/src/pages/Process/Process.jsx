@@ -22,7 +22,7 @@ const Process = ( {title, description, id }) => {
           
           <Grid item pt={{xs:1, sm:2}} pb={{xs:1, sm:2}} pl={{xs:2, sm:3}} pr={{xs:2, sm:3}} align="left" >
             <Typography variant="body2" color="black" align="justify" height={{xs:40, sm:80}} widht={{xs:100, sm:200}}>
-              { description }
+              { description.substr(0, 60) }...
             </Typography>
             {/*<Button size="small" color="primary">
               Ver más...

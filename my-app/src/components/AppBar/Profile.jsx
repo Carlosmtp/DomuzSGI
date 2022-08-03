@@ -12,7 +12,7 @@ const options = [
   ];
 
 const Profile = () => {
-    const { login, setLogin } = useContext(AppContext)
+    const { login, setLogin, setLastObject } = useContext(AppContext)
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -30,8 +30,8 @@ const Profile = () => {
         setAnchorEl(null);
         switch (index) {
             case 0:
-
-                console.log(login)
+                setLastObject(login)
+                navigate("/app/actualizar/usuario")
                 break;
             case 1:
                 RemoveCookie('usrin')

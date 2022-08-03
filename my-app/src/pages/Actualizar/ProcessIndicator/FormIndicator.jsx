@@ -87,7 +87,7 @@ const FormIndicator = ({ name, setName,
                         fullWidth
                         id="inCharge"
                         color="secondary"
-                        label="Persona a cargo"
+                        label="Responsable medición"
                         name="inCharge"                
                         value={inCharge}
                         onChange={handleInputChange}

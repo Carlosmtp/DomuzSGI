@@ -5,8 +5,8 @@ const axios = require('axios').default;
 
 const columns = [
   { field: 'person_id', headerName: 'Identificación', width: 150 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'name', headerName: 'First name', width: 130 },
+  { field: 'lastname', headerName: 'Last name', width: 130 },
   { field: 'rol', headerName: 'Rol', width: 130 },
   { field: 'mail', headerName: 'Mail', width: 180 },
   { field: 'phone', headerName: 'Phone', width: 130 },
@@ -31,11 +31,10 @@ const User = () => {
       //console.log(aux[0])
       for(let i=0;i<aux.length;i++){
         obj.push({
-          id: i+1,
-          id_users: aux[i].id,
+          id: aux[i].id,
           person_id: aux[i].id_people.person_id,
-          firstName: aux[i].id_people.name,
-          lastName: aux[i].id_people.lastname,
+          name: aux[i].id_people.name,
+          lastname: aux[i].id_people.lastname,
           rol: aux[i].id_roles.name,
           mail: aux[i].id_people.mail,
           phone: aux[i].id_people.phone
@@ -59,8 +58,7 @@ const User = () => {
         editButton={true}
         editFunction={update}
         checkboxSelection={true}/>        
-  )
-  
+  )  
 }
 
 export default User

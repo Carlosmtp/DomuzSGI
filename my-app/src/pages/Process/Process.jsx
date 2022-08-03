@@ -15,7 +15,7 @@ const Process = ( {title, description, id }) => {
     <Grid item xs={12} sm={3} >    
       <Box bgcolor="white" sx={{ boxShadow: 3 }}>
         <Grid container>                 
-            <ImageButton image={"https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg"} title={title} actionFunction={() => {
+            <ImageButton image={"https://picsum.photos/30"+id} title={title} actionFunction={() => {
                                     setLastObject(processes[id])
                                     navigate("/app/procesos/"+processes[id].name)
                                   }}/>

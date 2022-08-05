@@ -18,7 +18,9 @@ import Darkmode from '../Darkmode.jsx';
 import Processes from './Processes.jsx';
 import SecondaryListItems from './SecondaryListItems.jsx';
 import Profile from './Profile.jsx';
+import { Avatar } from '@mui/material';
 
+import logo from "../../assets/logosmall.png";
 
 const drawerWidth = 240;
 
@@ -94,29 +96,35 @@ export const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
+            <Avatar sx={{ bgcolor: 'white', width: 50, height: 50, "&:hover": {cursor: "pointer"}  }} alt="Logo Domuz" src={logo} onClick={()=> window.open("https://www.domuz.com.co/nosotros/", "_blank")}/>
             <Typography
+              pl={2}
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1, display: { xs: "none", sm:"block" } }}              
             >
-              Sistema de Gestión Integral: DOMUZ
+              Sistema de Gestión Integral
             </Typography>
             <Typography
+              pl={2}
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1, display: { xs: "block", sm:"none" } }}              
             >
-              SGI: DOMUZ
+              SGI
             </Typography>
-            <IconButton color="inherit">
+            {/*
+            <IconButton color="inherit">              
               <Badge badgeContent={4} color="info">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+              */}
+            
             <Profile />
             
           </Toolbar>

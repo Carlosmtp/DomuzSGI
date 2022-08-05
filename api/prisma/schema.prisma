@@ -188,6 +188,7 @@ model action_plans {
   id             Int         @id @default(autoincrement())
   name           String      @db.VarChar(50)
   description    String      @db.VarChar(250)
+  delivery_date  DateTime    @db.Date()
   id_initiatives initiatives @relation(fields: [initiativeId], references: [id])
   initiativeId   Int
   id_users       users       @relation(fields: [userId], references: [id])

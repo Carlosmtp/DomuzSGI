@@ -84,4 +84,65 @@ api.get("/get/objectives/initiatives", async (req, res) => {
   res.json(initiatives);
 });
 
+//////////////////////////// Action Plans //////////////////////////////////
+api.post("/create/action_plan", async (req, res) => {
+  const data = req.body;
+  const actionPlan = await prisma.action_plans.create({
+    data: {
+      name: data.name,
+      description: data.description,
+      initiativeId: data.initiativeId,
+      delivery_date: new Date(data.delivery_date),
+      stateId: data.stateId,
+      userId: data.userId,
+    },
+  });
+  res.json(actionPlan);
+});
+
+api.post("/update/action_plan", async (req, res) => {
+  const data = req.body;
+  const actionPlan = await prisma.action_plans.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      name: data.name,
+      description: data.description,
+      initiativeId: data.initiativeId,
+      delivery_date: new Date(data.delivery_date),
+      stateId: data.stateId,
+      userId: data.userId,
+    },
+  });
+  res.json(actionPlan);
+});
+
+api.get("/get/action_plans", async (req, res) => {
+  const actionPlans = await prisma.action_plans.findMany();
+  res.json(actionPlans);
+});
+
+api.delete("/delete/action_plan", async (req, res) => {
+  const data = req.body;
+  const actionPlan = await prisma.action_plans.delete({
+    where: {
+      id: data.id,
+    },
+  });
+  res.json(actionPlan);
+});
+
+//////////////////////////// Plan States //////////////////////////////////
+api.post("/create/plan_state", async (req, res) => {
+  const data = req.body;
+  const state = await prisma.plan_states.create({ data: data });
+  res.json(state);
+});
+
+api.get("/get/plan_states", async (req, res) => {
+  const states = await prisma.plan_states.findMany();
+  res.json(states);
+});
+
 module.exports = api;

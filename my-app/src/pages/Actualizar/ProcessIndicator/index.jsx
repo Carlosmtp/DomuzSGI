@@ -46,9 +46,9 @@ const ProcessIndicator = () => {
           month: parseToMonth(aux[i].record_date),
           numerator: aux[i].archieved_value,
           denominator: aux[i].expected_value,
-          score: calculateScore(aux[i].archieved_value,aux[i].expected_value),
-          goal: aux[i].goal,
-          weight: aux[i].weight
+          score: (aux[i].efficiency*100+"").substr(0, 5)+"%",
+          goal: (aux[i].goal*100+"").substr(0, 5)+"%",
+          weight: (aux[i].weight*100+"").substr(0, 5)+"%"
         })              
       }
       //console.log("obj", obj)
@@ -297,7 +297,7 @@ const handleClose = (event, reason) => {
                           { field: 'goal', headerName: 'Meta', width: 65 },
                           { field: 'numerator', headerName: 'Valor real', width: 100 },
                           { field: 'denominator', headerName: 'Valor esperado', width: 110 },
-                          { field: 'score', headerName: 'Resultado', width: 75 }]}
+                          { field: 'score', headerName: 'Eficiencia', width: 75 }]}
                         pageSize={12}
                         rowsPerPageOptions={12}
                         hideFooter

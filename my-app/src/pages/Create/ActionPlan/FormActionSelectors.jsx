@@ -15,23 +15,14 @@ const FormActionSelector = ({
       //<Stack spacing={2}>
     return (
         <FormContainer>
-          <FormItem phone={12} computer={6}>
+          <FormItem phone={12} computer={12}>
                 <Stack direction="column" m={-1}>
                     <Periodicity 
                             hook={user} 
                             setHook={setUser}
                             />
-                    
                 </Stack>
-            </FormItem> 
-            <FormItem phone={12} computer={6}>
-                <Stack direction="column" m={-1}>
-                    <Periodicity
-                            hook={planState} 
-                            setHook={SetPlanState}
-                            />                    
-                </Stack>
-            </FormItem>            
+            </FormItem>           
         </FormContainer>
     )
 }

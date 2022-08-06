@@ -95,7 +95,7 @@ api.post("/add/periodic_record", async (req, res) => {
       record_date: new Date(data.record_date),
       goal: data.goal,
       weight: data.weight,
-      efficiency: data.archieved_value / data.expected_value,
+      efficiency: data.expected_value === 0 ? 1 : data.archieved_value / data.expected_value,
     },
   });
 

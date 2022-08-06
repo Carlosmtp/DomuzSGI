@@ -19,7 +19,7 @@ const SecondaryListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Administración" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={()=>navigate('/app/ver/reportes')}>
         <ListItemIcon>
             <DashboardIcon />
         </ListItemIcon>

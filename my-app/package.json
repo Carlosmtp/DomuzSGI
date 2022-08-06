@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.14.0",
+    "@devexpress/dx-react-chart": "^3.0.4",
+    "@devexpress/dx-react-chart-material-ui": "^3.0.4",
+    "@devexpress/dx-react-core": "^3.0.4",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",

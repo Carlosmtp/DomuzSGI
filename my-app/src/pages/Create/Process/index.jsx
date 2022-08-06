@@ -63,7 +63,7 @@ const Process = () => {
         aux = aux.concat({
             name : indicators[i].name,
             objetive : indicators[i].objetive,
-            periodicityId : indicators[i].periodicity,
+            periodicityId : indicators[i].periodicityId,
             in_charge : indicators[i].in_charge,
             userId : indicators[i].userId
           }
@@ -88,7 +88,7 @@ const Process = () => {
         setOpen(true)
         setSeverity("success")
         setValidationMsg('Ha ocurrido un error inesperado.')
-      }
+      }      
       
     }    
   }
@@ -154,7 +154,6 @@ const Process = () => {
                   { field: 'id', headerName: 'ID', width: 25 },
                   { field: 'name', headerName: 'Nombre', width: 150 },
                   { field: 'objetive', headerName: 'Objetivo', width: 130 },
-                  { field: 'periodicityId', headerName: 'Periodicidad', width: 130 },
                   { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
                   { field: 'user', headerName: 'Usuario', width: 130 }]}
                 pageSize={5}

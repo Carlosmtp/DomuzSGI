@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import Objectives from './Objectives';
 import User from './User'
 import Process from './Process'
+import Reports from './Reports'
 
 const routes = (id) => {
     switch (id) {
@@ -12,7 +13,9 @@ const routes = (id) => {
       case "objetivos":
         return <Objectives /> 
       case "procesos":
-        return <Process /> 
+        return <Process />
+      case "reportes":
+        return <Reports /> 
       default:
         break;
     }

@@ -237,12 +237,19 @@ api.get("/get/last_record/", async (req, res) => {
 ///////////////////////// Reports ///////////////////////
 api.get("/get/last_report/", async (req, res) => {
   const processId = req.query.process_id;
-  const lastReport = await prisma.process_reports.findFirst({
-    where: {
-      processId: parseInt(processId),
-    },
-    orderBy: [{ date: "desc" }],
-  });
+  year = req.query.year
+  var clauses = {where: {}}
+  if(processId !== undefined){
+    clauses.where.processId = parseInt(processId)
+  }
+  if(year !== undefined){
+    clauses.where.date = {
+      gte: new Date(year + "-jan-01"),
+      lte: new Date(year + "-dec-31"),
+    }
+  }
+  clauses.orderBy = [{ date: "desc" }]
+  const lastReport = await prisma.process_reports.findFirst(clauses);
   res.json(lastReport);
 });
 

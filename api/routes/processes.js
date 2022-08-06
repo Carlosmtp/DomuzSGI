@@ -298,4 +298,16 @@ async function autoInsertReport(idIndicator, date) {
   return report;
 }
 
+api.get("/get/reports/", async (req, res) => {
+  var clause = {where: {}}
+  year = req.query.year
+  if(year !== undefined){
+    clause.where.date = {
+      gte: new Date(year + "-jan-01"),
+      lte: new Date(year + "-dec-31"),
+    }
+  }
+  const reports = await prisma.process_reports.findMany(clause)
+  res.json(reports)
+});
 module.exports = api;

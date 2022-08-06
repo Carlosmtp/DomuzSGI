@@ -2,29 +2,32 @@ import React, { useEffect } from "react";
 import { Paper } from '@mui/material';
 import { ArgumentAxis, ValueAxis, Chart, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 import axios from "axios";
+import { useState } from "react";
   
   
 const Report = () => {
 
-  let data = [
-    { argument: 'Ene', value: 0 },
-    { argument: 'Feb', value: 0 },
-    { argument: 'Mar', value: 0 },
-    { argument: 'Abr', value: 0 },
-    { argument: 'May', value: 0 },
-    { argument: 'Jun', value: 0},
-    { argument: 'Jul', value: 0},
-    { argument: 'Ago', value: 0},
-    { argument: 'Sep', value: 0},
-    { argument: 'Oct', value: 0},
-    { argument: 'Nov', value: 0},
-    { argument: 'Dic', value: 0},
-  ]
+  const [data,setData] = useState ([])
+
   useEffect(()=>{
     axios.get("get/reports?year=2022")
     .then((res) => {
       let obj = [[],[],[],[],[],[],[],[],[],[],[],[]]
       let aux = res.data
+      let months = [
+        { argument: 'Ene', value: 0 },
+        { argument: 'Feb', value: 0 },
+        { argument: 'Mar', value: 0 },
+        { argument: 'Abr', value: 0 },
+        { argument: 'May', value: 0 },
+        { argument: 'Jun', value: 0},
+        { argument: 'Jul', value: 0},
+        { argument: 'Ago', value: 0},
+        { argument: 'Sep', value: 0},
+        { argument: 'Oct', value: 0},
+        { argument: 'Nov', value: 0},
+        { argument: 'Dic', value: 0}
+      ]
       //console.log(aux[0].efficiency)
       for (let i = 0; i < aux.length; i++) {
         switch (aux[i].date.substring(5,7)) {
@@ -74,7 +77,10 @@ const Report = () => {
           ac = ac + obj[i][j]
         }            
         obj[i] = obj[i].length > 0 ? ac/obj[i].length : 0
+        //Maybe remove
+        months[i].value = obj[i]
       }
+      setData(months)
       console.log(obj)
     })        
   },[])

@@ -23,7 +23,7 @@ const ProcessIndicator = () => {
   const [year,setYear] = useState(new Date().getFullYear())
   const [month,setMonth] = useState("")
   
-  const [goal,setGoal] = useState(0.5) 
+  const [goal,setGoal] = useState(0.5)
   const [weight,setWeight] = useState(0.5)
   const [numerator,setNumerator] = useState(50)
   const [denominator,setDenominator] = useState(50)
@@ -41,7 +41,7 @@ const ProcessIndicator = () => {
       for (let i = 0; i < aux.length; i++) {
         //Set Month
         obj.push({
-          id: i+1,
+          id: aux[i].id,
           date: aux[i].record_date,
           month: parseToMonth(aux[i].record_date),
           numerator: aux[i].archieved_value,
@@ -133,28 +133,42 @@ const ProcessIndicator = () => {
       setValidationMsg('No pueden haber campos en blanco para actualizar un registro.')
     }else{
       let error = true
-      for(let i = 0; i < rows.length; i++){
-        
-        if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
-          error = false
-          rows[i].month = parseToMonth(date)          
-          rows[i].weight = weight
-          rows[i].goal = goal
-          rows[i].numerator = numerator
-          rows[i].denominator = denominator
-          rows[i].score =  calculateScore(parseFloat(numerator),parseFloat(denominator))
-          let aux = rows.concat()
-          setRows(aux)
-
+      for(let i = 0; i < rows.length; i++){  
+        try {
+          if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
+          let obj = {
+            id : rows[i].id,
+            indicator_id : lastObject.id,
+            record_date : date,
+            expected_value : denominator,
+            archieved_value : numerator,
+            goal : goal,
+            weight : weight
+          }            
+          axios.post("/update/periodic_record", obj).then((res) => {
+            console.log(res)
+            setProcesses([])
+            error = false
+            rows[i].month = parseToMonth(date)          
+            rows[i].weight = (weight*100+"").substr(0, 5)+"%"
+            rows[i].goal = (goal*100+"").substr(0, 5)+"%"
+            rows[i].numerator = numerator
+            rows[i].denominator = denominator
+            rows[i].score =  ((numerator/denominator)*100+"").substr(0, 5)+"%"
+            let aux = rows.concat()
+            setRows(aux)
+            
+  
+            setOpen(true)
+            setSeverity("success")
+            setValidationMsg('Se ha actualizado el registro correctamente.')
+            })
+          }
+        } catch (r) {
           setOpen(true)
-          setSeverity("success")
-          setValidationMsg('Se ha actualizado el registro correctamente.')
-        }
-      }
-      if(error){
-        setOpen(true)
-        setSeverity("error")
-        setValidationMsg('No se encontró un registro que actualizar.')
+          setSeverity("error")
+          setValidationMsg('No se encontró un registro que actualizar.')
+        }     
       }
     }    
   }
@@ -175,13 +189,13 @@ const ProcessIndicator = () => {
       let obj = {
         indicator_id : lastObject.id,
         record_date : date,
-        expected_value : numerator,
-        archieved_value : denominator,
+        expected_value : denominator,
+        archieved_value : numerator,
         goal : goal,
         weight : weight
       }
-      console.log(obj)
-      /*
+      //console.log(obj)
+      
       try {
         axios.post("/add/periodic_record", obj).then((res) => {
           console.log(res)
@@ -211,7 +225,7 @@ const ProcessIndicator = () => {
         setSeverity("error")
         setValidationMsg("Ha ocurrido un error.")
       } 
-      */
+      
            
     }   
   }

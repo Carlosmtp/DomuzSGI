@@ -237,12 +237,19 @@ api.get("/get/last_record/", async (req, res) => {
 ///////////////////////// Reports ///////////////////////
 api.get("/get/last_report/", async (req, res) => {
   const processId = req.query.process_id;
-  const lastReport = await prisma.process_reports.findFirst({
-    where: {
-      processId: parseInt(processId),
-    },
-    orderBy: [{ date: "desc" }],
-  });
+  year = req.query.year
+  var clauses = {where: {}}
+  if(processId !== undefined){
+    clauses.where.processId = parseInt(processId)
+  }
+  if(year !== undefined){
+    clauses.where.date = {
+      gte: new Date(year + "-jan-01"),
+      lte: new Date(year + "-dec-31"),
+    }
+  }
+  clauses.orderBy = [{ date: "desc" }]
+  const lastReport = await prisma.process_reports.findFirst(clauses);
   res.json(lastReport);
 });
 
@@ -307,15 +314,19 @@ async function autoInsertReport(idIndicator, date) {
 }
 
 api.get("/get/reports/", async (req, res) => {
-  var clause = {where: {}}
+  var clauses = {where: {}}
   year = req.query.year
+  process_id= req.query.process_id
   if(year !== undefined){
-    clause.where.date = {
+    clauses.where.date = {
       gte: new Date(year + "-jan-01"),
       lte: new Date(year + "-dec-31"),
     }
   }
-  const reports = await prisma.process_reports.findMany(clause)
+  if(process_id !== undefined){
+    clauses.where.processId = parseInt(process_id)
+  }
+  const reports = await prisma.process_reports.findMany(clauses)
   res.json(reports)
 });
 module.exports = api;

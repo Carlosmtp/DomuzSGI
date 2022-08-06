@@ -134,8 +134,8 @@ const ProcessIndicator = () => {
     }else{
       let error = true
       for(let i = 0; i < rows.length; i++){  
-        try {
-          if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
+        if(rows[i].date.substring(5, 7)===month.substring(0, 2)){
+          error = false
           let obj = {
             id : rows[i].id,
             indicator_id : lastObject.id,
@@ -144,11 +144,14 @@ const ProcessIndicator = () => {
             archieved_value : numerator,
             goal : goal,
             weight : weight
-          }            
-          axios.post("/update/periodic_record", obj).then((res) => {
+          }
+          //AQUI
+          console.log('Enviando a BD: ',obj)
+          //AQUI
+          try {              
+          /*axios.post("/update/periodic_record", obj).then((res) => {
             console.log(res)
             setProcesses([])
-            error = false
             rows[i].month = parseToMonth(date)          
             rows[i].weight = (weight*100+"").substr(0, 5)+"%"
             rows[i].goal = (goal*100+"").substr(0, 5)+"%"
@@ -156,19 +159,24 @@ const ProcessIndicator = () => {
             rows[i].denominator = denominator
             rows[i].score =  ((numerator/denominator)*100+"").substr(0, 5)+"%"
             let aux = rows.concat()
-            setRows(aux)
-            
+            setRows(aux)            
   
             setOpen(true)
             setSeverity("success")
             setValidationMsg('Se ha actualizado el registro correctamente.')
-            })
+            })*/
+            
+          } catch (r) {
+            setOpen(true)
+            setSeverity("error")
+            setValidationMsg('Ha ocurrido un error.')
           }
-        } catch (r) {
-          setOpen(true)
-          setSeverity("error")
-          setValidationMsg('No se encontró un registro que actualizar.')
-        }     
+        }            
+      }
+      if(error){
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('No se encontró un registro que actualizar.')
       }
     }    
   }

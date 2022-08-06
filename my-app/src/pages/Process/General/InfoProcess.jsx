@@ -1,9 +1,21 @@
 
 import { Box, Divider, Grid, Stack, Typography } from '@mui/material'
+import axios from 'axios'
 //import { Button } from '@mui/material';
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const InfoProcess = ( {title, description, goal}) => {
+  const [efficiency, setEfficiency] = useState()
+
+  useEffect(()=>{
+    axios.get('/get/last_report?process_id=1').then((res)=>{
+      let aux = res.data
+      setEfficiency(aux.efficiency >= 1 ? aux.efficiency*100+"%" : (aux.efficiency*100+"").substr(0, 2)+"%")
+    })
+  },[])
+
   return (
     <Grid item xs={12} sm={12} >  
     <Typography variant='h4' align='center' pb={2} >{title}</Typography> 
@@ -28,7 +40,7 @@ const InfoProcess = ( {title, description, goal}) => {
             <Box bgcolor='secondary.main' p={{xs:1, sm:2}} sx={{ borderRadius: '16px', border: 1, borderColor:'secondary.light', boxShadow: 2 }}>
                 <Stack direction={{xs:"row", sm:"column"}} spacing={{xs:1, sm:3}}>
                     <Box flex={6}>
-                        <Typography variant='h5' color='White' align='center'>Núm%</Typography>
+                        <Typography variant='h5' color='White' align='center'>{efficiency}</Typography>
                         <Typography color='White' align='center'>Eficiencia:</Typography>
                     </Box>
                     <Divider light/>

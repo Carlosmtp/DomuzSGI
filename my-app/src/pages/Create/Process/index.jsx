@@ -10,12 +10,11 @@ const Process = () => {
 
   const [nameProcess,setNameProcess] = useState('')
   const [descriptionProcess,setDescriptionProcess] = useState('')
-  const [efficiency,setEfficiency] = useState(0.5)
+  const [goal,setGoal] = useState(50)
 
   const [nameIndicator,setNameIndicator] = useState('')
   const [objective,setObjective] = useState('')
   const [periodicity,setPeriodicity] = useState('')
-  const [weight,setWeight] = useState(0.5)
   const [inCharge,setInCharge] = useState('')
   const [user,setUser] = useState('')
 
@@ -33,7 +32,6 @@ const Process = () => {
           objetive: objective,
           periodicity: periodicity,
           in_charge: inCharge,
-          weight: weight,
           user:user.label,
           userId:user.id
         } )
@@ -65,7 +63,6 @@ const Process = () => {
             objetive : indicators[i].objetive,
             periodicity : indicators[i].periodicity,
             in_charge : indicators[i].in_charge,
-            weight : indicators[i].weight,
             userId : indicators[i].userId
           }
         )      
@@ -74,7 +71,7 @@ const Process = () => {
       {
         name: nameProcess,
         description: descriptionProcess,
-        efficiency: efficiency,
+        goal: goal,
         indicators: aux
       })
       setOpen(true)
@@ -108,13 +105,15 @@ const Process = () => {
         </Alert>
       </Snackbar>
       <Grid item xs={12} sm={12}>
-        <Typography variant="h6" pb={3} color='secondary'>Datos del Proceso</Typography>
+      <Typography variant="h6" pb={3} color='secondary'>Datos del Proceso</Typography>
         <FormProcess name={nameProcess}
                      setName={setNameProcess}
                      description={descriptionProcess}
                      setDescription={setDescriptionProcess}
-                     efficiency={efficiency}
-                     setEfficiency={setEfficiency}
+                     initialValue={50}
+                     goal={goal}
+                     setGoal={setGoal}
+                     units={'%'}
                        />
       </Grid>
       <Grid item xs={12} sm={12}>
@@ -130,8 +129,6 @@ const Process = () => {
                             setObjective={setObjective}
                             periodicity={periodicity}                        
                             setPeriodicity={setPeriodicity}
-                            weight={weight}                         
-                            setWeight={setWeight}
                             inCharge={inCharge}                         
                             setInCharge={setInCharge}
                             user={user}                         
@@ -147,7 +144,6 @@ const Process = () => {
                   { field: 'name', headerName: 'Nombre', width: 150 },
                   { field: 'objetive', headerName: 'Objetivo', width: 130 },
                   { field: 'periodicity', headerName: 'Periodicidad', width: 130 },
-                  { field: 'weight', headerName: 'Peso', width: 50 },
                   { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
                   { field: 'user', headerName: 'Usuario', width: 130 }]}
                 pageSize={5}

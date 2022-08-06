@@ -6,7 +6,9 @@ import FormItem from '../../../components/Forms/FormItem'
 import CustomSlider from '../../../components/Forms/CustomSlider'
 
 const FormProcess = ({ name, setName,
-                        description, setDescription, initialValue, goal, setGoal
+                        description, setDescription, 
+                        initialValue, 
+                        goal, setGoal
                     }) => {
 
     const handleInputChange = ({target}) => {

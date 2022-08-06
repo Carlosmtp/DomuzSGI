@@ -152,14 +152,15 @@ const ProcessIndicator = () => {
             weight : uWeight
           }
           //AQUI
-          console.log('Enviando a BD: ',obj)
+          //console.log('Enviando a BD: ',obj)
           //AQUI
           
           try {              
             axios.post("/update/periodic_record", obj).then((res) => {
-            console.log(res)
+            //console.log(res)
             setProcesses([])
-            rows[i].month = parseToMonth(month)        
+            console.log(month.substring(0,1))
+            rows[i].month = parseToMonth(month.substring(0,1))        
             rows[i].weight = (uWeight*100+"").substr(0, 5)+"%"
             rows[i].goal = (uGoal*100+"").substr(0, 5)+"%"
             rows[i].numerator = uNumerator

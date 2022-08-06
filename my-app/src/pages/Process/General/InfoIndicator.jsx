@@ -35,7 +35,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].jan = aux[i].archieved_value
               //eficiencia
-              obj[2].jan = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].jan = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '02':
               //esperado
@@ -43,7 +43,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].feb = aux[i].archieved_value
               //eficiencia
-              obj[2].feb = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].feb = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '03':
               //esperado
@@ -51,7 +51,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].mar = aux[i].archieved_value
               //eficiencia
-              obj[2].mar = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].mar = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '04':
               //esperado
@@ -59,7 +59,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].apr = aux[i].archieved_value
               //eficiencia
-              obj[2].apr = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].apr = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '05':
               //esperado
@@ -67,7 +67,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].may = aux[i].archieved_value
               //eficiencia
-              obj[2].may = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].may = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '06':
               //esperado
@@ -75,7 +75,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].jun = aux[i].archieved_value
               //eficiencia
-              obj[2].jun = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].jun = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '07':
               //esperado
@@ -83,7 +83,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].jul = aux[i].archieved_value
               //eficiencia
-              obj[2].jul = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].jul = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '08':
               //esperado
@@ -91,7 +91,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].ago = aux[i].archieved_value
               //eficiencia
-              obj[2].ago = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].ago = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '09':
               //esperado
@@ -99,7 +99,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].sep = aux[i].archieved_value
               //eficiencia
-              obj[2].sep = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].sep = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '10':
               //esperado
@@ -107,7 +107,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].oct = aux[i].archieved_value
               //eficiencia
-              obj[2].oct = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].oct = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '11':
               //esperado
@@ -115,7 +115,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].nov = aux[i].archieved_value
               //eficiencia
-              obj[2].nov = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].nov = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             case '12':
               //esperado
@@ -123,7 +123,7 @@ const InfoIndicator = ( { indicator }) => {
               //real
               obj[1].dec = aux[i].archieved_value
               //eficiencia
-              obj[2].dec = aux[i].archieved_value / aux[i].expected_value * 100 + "%"
+              obj[2].dec = aux[i].efficiency === 1 ? aux[i].efficiency*100+"%" : (aux[i].efficiency*100+"").substr(0, 2)+"%"
               break;
             default:
               break;

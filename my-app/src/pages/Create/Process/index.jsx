@@ -1,13 +1,15 @@
 
 import { Alert, Box, Button, Grid, Snackbar, Stack, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import FormProcess from './FormProcess'
 import FormIndicator from './FormIndicator'
 import axios from 'axios'
 import CustomTable from '../../../components/Forms/CustomTable'
+import { AppContext } from '../../../context/AppContext'
 
 const Process = () => {
 
+  const { setProcesses } = useContext(AppContext)
   const [nameProcess,setNameProcess] = useState('')
   const [descriptionProcess,setDescriptionProcess] = useState('')
   const [goal,setGoal] = useState(50)
@@ -30,7 +32,7 @@ const Process = () => {
           id:"",
           name:nameIndicator,
           objetive: objective,
-          periodicity: periodicity,
+          periodicityId: periodicity,
           in_charge: inCharge,
           user:user.label,
           userId:user.id
@@ -61,27 +63,36 @@ const Process = () => {
         aux = aux.concat({
             name : indicators[i].name,
             objetive : indicators[i].objetive,
-            periodicity : indicators[i].periodicity,
+            periodicityId : indicators[i].periodicity,
             in_charge : indicators[i].in_charge,
             userId : indicators[i].userId
           }
         )      
       }
-      axios.post("create/process",
-      {
+      let obj = {
         name: nameProcess,
         description: descriptionProcess,
-        goal: goal,
+        goal: goal/100,
         indicators: aux
-      })
-      setOpen(true)
-      setSeverity("success")
-      setValidationMsg(nameProcess+' ha sido creado exitosamente.')
-      setNameProcess('')
-      setDescriptionProcess('')
+      }
+      console.log(obj)
+      try {
+        axios.post("create/process",obj).then((res)=>{
+          console.log(res)
+          setProcesses([])
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameProcess+' ha sido creado exitosamente.')
+        })
+      } catch (error) {
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg('Ha ocurrido un error inesperado.')
+      }
+      
     }    
   }
-  
+   
 //Validación
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
@@ -143,7 +154,7 @@ const Process = () => {
                   { field: 'id', headerName: 'ID', width: 25 },
                   { field: 'name', headerName: 'Nombre', width: 150 },
                   { field: 'objetive', headerName: 'Objetivo', width: 130 },
-                  { field: 'periodicity', headerName: 'Periodicidad', width: 130 },
+                  { field: 'periodicityId', headerName: 'Periodicidad', width: 130 },
                   { field: 'in_charge', headerName: 'Persona a cargo', width: 160 },
                   { field: 'user', headerName: 'Usuario', width: 130 }]}
                 pageSize={5}

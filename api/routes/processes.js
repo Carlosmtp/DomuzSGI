@@ -3,14 +3,13 @@ const express = require("express");
 const prisma = new PrismaClient();
 const api = express.Router();
 
-api.post("/create/proccess", async (req, res) => {
+api.post("/create/process", async (req, res) => {
   const data = req.body;
   const process = await prisma.processes.create({
     data: {
       name: data.name,
       description: data.description,
-      efficiency: data.efficiency,
-      goal: DataTransfer.goal,
+      goal: data.goal,
       indicators: {
         createMany: {
           data: data.indicators,
@@ -95,7 +94,7 @@ api.post("/add/periodic_record", async (req, res) => {
       record_date: new Date(data.record_date),
       goal: data.goal,
       weight: data.weight,
-      efficiency: data.archieved_value / data.expected_value,
+      efficiency: data.expected_value === 0 ? 1 : data.archieved_value / data.expected_value,
     },
   });
 

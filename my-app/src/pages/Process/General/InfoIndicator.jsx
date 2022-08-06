@@ -15,6 +15,7 @@ const InfoIndicator = ( { indicator }) => {
   const [user, setUser] = useState(indicator.userId)
 
   const [rows,setRows] = useState([])
+  const [infoRows,setInfoRows] = useState([])
   const [loading,setloading] = useState(true)
 
   useEffect(()=>{
@@ -139,6 +140,20 @@ const InfoIndicator = ( { indicator }) => {
       //console.log(res)
       setUser(res.data)
     })
+
+    axios.get("/get/last_record?indicator_id="+indicator.id).then((res)=>{
+      let aux = res.data      
+      let obj = [{
+        id:1,
+        weight : aux.weight,
+        goal : aux.goal,
+        periodicity : ''
+      }]
+      setInfoRows(obj)
+      console.log(res.data)
+      //setUser(res.data)
+    })
+    
     //si algo se daña quita userId del array
   },[indicator.userId,indicator.id])
 
@@ -154,7 +169,7 @@ const InfoIndicator = ( { indicator }) => {
               <Typography variant='h5' pt={1}>{user.name}</Typography> 
             </Grid>        
         <Grid item xs={12} sm={8} >   
-            <CustomTable rows={[]} columns={
+            <CustomTable rows={infoRows} columns={
                       [
                         { field: 'weight', headerName: 'Peso', width: 75 },
                         { field: 'goal', headerName: 'Meta', width: 75 },
@@ -180,18 +195,18 @@ const InfoIndicator = ( { indicator }) => {
             <CustomTable rows={rows} columns={
                       [
                         { field: 'id', headerName: '', width: 100 },
-                        { field: 'jan', headerName: 'ENE', width: 60 },
-                        { field: 'feb', headerName: 'FEB', width: 60 },
-                        { field: 'mar', headerName: 'MAR', width: 60 },
-                        { field: 'apr', headerName: 'ABR', width: 60 },
-                        { field: 'may', headerName: 'MAY', width: 60 },
-                        { field: 'jun', headerName: 'JUN', width: 60 },
-                        { field: 'jul', headerName: 'JUL', width: 60 },
-                        { field: 'ago', headerName: 'AGO', width: 60 },
-                        { field: 'sep', headerName: 'SEP', width: 60 },
-                        { field: 'oct', headerName: 'OCT', width: 60 },
-                        { field: 'nov', headerName: 'NOV', width: 60 },
-                        { field: 'dec', headerName: 'DEC', width: 60 }]}
+                        { field: 'jan', headerName: 'ENE', width: 80 },
+                        { field: 'feb', headerName: 'FEB', width: 80 },
+                        { field: 'mar', headerName: 'MAR', width: 80 },
+                        { field: 'apr', headerName: 'ABR', width: 80 },
+                        { field: 'may', headerName: 'MAY', width: 100 },
+                        { field: 'jun', headerName: 'JUN', width: 80 },
+                        { field: 'jul', headerName: 'JUL', width: 80 },
+                        { field: 'ago', headerName: 'AGO', width: 80 },
+                        { field: 'sep', headerName: 'SEP', width: 80 },
+                        { field: 'oct', headerName: 'OCT', width: 80 },
+                        { field: 'nov', headerName: 'NOV', width: 80 },
+                        { field: 'dec', headerName: 'DEC', width: 80 }]}
                       pageSize={3}
                       rowsPerPageOptions={25}
                       hideFooter

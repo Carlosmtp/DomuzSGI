@@ -23,11 +23,17 @@ const ProcessIndicator = () => {
   const [year,setYear] = useState(new Date().getFullYear())
   const [month,setMonth] = useState("")
   
-  const [goal,setGoal] = useState(0.5)
-  const [weight,setWeight] = useState(0.5)
-  const [numerator,setNumerator] = useState(50)
-  const [denominator,setDenominator] = useState(50)
-  const [score,setScore] = useState('')
+  const [cGoal,cSetGoal] = useState(0.5)
+  const [cWeight,cSetWeight] = useState(0.5)
+  const [cNumerator,cSetNumerator] = useState(50)
+  const [cDenominator,cSetDenominator] = useState(50)
+  const [cScore,cSetScore] = useState('')
+
+  const [uGoal,uSetGoal] = useState(0.5)
+  const [uWeight,uSetWeight] = useState(0.5)
+  const [uNumerator,uSetNumerator] = useState(50)
+  const [uDenominator,uSetDenominator] = useState(50)
+  const [uScore,uSetScore] = useState('')
 
   //Llamar desde BD
   const [rows,setRows] = useState([])
@@ -140,31 +146,31 @@ const ProcessIndicator = () => {
             id : rows[i].id,
             indicator_id : lastObject.id,
             record_date : date,
-            expected_value : denominator,
-            archieved_value : numerator,
-            goal : goal,
-            weight : weight
+            expected_value : uDenominator,
+            archieved_value : uNumerator,
+            goal : uGoal,
+            weight : uWeight
           }
           //AQUI
           console.log('Enviando a BD: ',obj)
           //AQUI
           try {              
-          /*axios.post("/update/periodic_record", obj).then((res) => {
+            axios.post("/update/periodic_record", obj).then((res) => {
             console.log(res)
             setProcesses([])
             rows[i].month = parseToMonth(date)          
-            rows[i].weight = (weight*100+"").substr(0, 5)+"%"
-            rows[i].goal = (goal*100+"").substr(0, 5)+"%"
-            rows[i].numerator = numerator
-            rows[i].denominator = denominator
-            rows[i].score =  ((numerator/denominator)*100+"").substr(0, 5)+"%"
+            rows[i].weight = (uWeight*100+"").substr(0, 5)+"%"
+            rows[i].goal = (uGoal*100+"").substr(0, 5)+"%"
+            rows[i].numerator = uNumerator
+            rows[i].denominator = uDenominator
+            rows[i].score =  ((uNumerator/uDenominator)*100+"").substr(0, 5)+"%"
             let aux = rows.concat()
             setRows(aux)            
   
             setOpen(true)
             setSeverity("success")
             setValidationMsg('Se ha actualizado el registro correctamente.')
-            })*/
+            })
             
           } catch (r) {
             setOpen(true)
@@ -197,10 +203,10 @@ const ProcessIndicator = () => {
       let obj = {
         indicator_id : lastObject.id,
         record_date : date,
-        expected_value : denominator,
-        archieved_value : numerator,
-        goal : goal,
-        weight : weight
+        expected_value : cDenominator,
+        archieved_value : cNumerator,
+        goal : cGoal,
+        weight : cWeight
       }
       //console.log(obj)
       
@@ -213,11 +219,11 @@ const ProcessIndicator = () => {
             id: "",
             date: date,
             month: parseToMonth(date),          
-            weight: weight,
-            goal: goal,
-            numerator: numerator,
-            denominator: denominator,
-            score:  calculateScore(parseFloat(numerator),parseFloat(denominator))
+            weight: cWeight,
+            goal: cGoal,
+            numerator: cNumerator,
+            denominator: cDenominator,
+            score:  calculateScore(parseFloat(cNumerator),parseFloat(cDenominator))
           })
           for (let i = 0; i < aux.length; i++) {
             aux[i].id = i + 1;      
@@ -242,17 +248,17 @@ const ProcessIndicator = () => {
     e.preventDefault();
     if(name==='' ||
        objective==='' ||
-       goal==='' ||
+       uGoal==='' ||
        periodicity==='' ||
        inCharge==='' ||
-       weight==='' ||
+       uWeight==='' ||
        user===''){
       setOpen(true)
       setSeverity("error")  
       setValidationMsg('No pueden haber campos en blanco para actualizar un indicador.')
     }else{
-      console.log(goal)
-      console.log(weight)
+      console.log(uGoal)
+      console.log(uWeight)
       /*axios.post("actualizar/indicador-de-proceso",
       {
         name : name,
@@ -333,12 +339,12 @@ const handleClose = (event, reason) => {
                 <UFormRegister year={year}
                               setYear={setYear}  
                               month={month}
-                              setMonth={setMonth}                       
-                              setWeight={setWeight}                   
-                              setGoal={setGoal}      
-                              setNumerator={setNumerator} 
-                              setDenominator={setDenominator}   
-                              setScore={setScore}                                      
+                              setMonth={setMonth}                        
+                              setWeight={uSetWeight}                   
+                              setGoal={uSetGoal}       
+                              setNumerator={uSetNumerator}
+                              setDenominator={uSetDenominator}  
+                              setScore={uSetScore}                                      
                           />     
               </Grid>
               <Grid pb={2} item justify="center" align="center" xs={12}>             
@@ -350,16 +356,16 @@ const handleClose = (event, reason) => {
                 <Typography pb={1}>Crear Registro</Typography>
                 <CFormRegister date={date}
                               setDate={setDate}  
-                              weight={weight}                         
-                              setWeight={setWeight}
-                              goal={goal}                         
-                              setGoal={setGoal}                             
-                              numerator={numerator} 
-                              setNumerator={setNumerator} 
-                              denominator={denominator} 
-                              setDenominator={setDenominator}        
-                              score={score} 
-                              setScore={setScore}                                      
+                              weight={cWeight}                         
+                              setWeight={cSetWeight}
+                              goal={cGoal}                         
+                              setGoal={cSetGoal}                             
+                              numerator={cNumerator} 
+                              setNumerator={cSetNumerator} 
+                              denominator={cDenominator} 
+                              setDenominator={cSetDenominator}        
+                              score={cScore} 
+                              setScore={cSetScore}                                      
                           />     
               </Grid>
               <Grid pb={2} item justify="center" align="center" xs={12}>             

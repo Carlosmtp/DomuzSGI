@@ -1,5 +1,5 @@
 
-import { Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import axios from 'axios'
 //import { Button } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
@@ -158,61 +158,63 @@ const InfoIndicator = ( { indicator }) => {
   },[indicator.userId,indicator.id])
 
   return (
-    <Grid container spacing={2} pt={1} pb={2}>
-      <Grid item xs={12} sm={12}>   
-        <Typography variant='h6' align='left' >{indicator.name}</Typography> 
-        
-        
-      </Grid> 
-        <Grid item xs={12} sm={2} align='center'>
-              <CustomAvatar id={user.rol} size={120}/>
-              <Typography variant='h5' pt={1}>{user.name}</Typography> 
-            </Grid>        
-        <Grid item xs={12} sm={8} >   
-            <CustomTable rows={infoRows} columns={
-                      [
-                        { field: 'weight', headerName: 'Peso', width: 75 },
-                        { field: 'goal', headerName: 'Meta', width: 75 },
-                        { field: 'periodicity', headerName: 'Periodicidad', width: 110  }]}
-                      pageSize={1}
-                      rowsPerPageOptions={25}
-                      hideFooter={true}
-                      height={180}
-                      loading={loading}
-                    />
-          </Grid> 
-          <Grid item xs={12} sm={2} align='center'>
-            <Button onClick={()=>{
-              setLastObject(indicator)
-              navigate('/app/actualizar/indicador-de-proceso')
-              }}
-              variant="contained"
-              color='secondary'
-              > Editar Indicador </Button>
-            </Grid>
+    <Box bgcolor='background.default' sx={{ borderRadius: '16px', boxShadow: 2, mb: 4, pl:3, pr:3 }}>
+      <Grid container spacing={2} pt={1} pb={2}>
+        <Grid item xs={12} sm={12}>   
+          <Typography variant='h6' align='left' >{indicator.name}</Typography> 
           
-          <Grid item xs={12} sm={12} >
-            <CustomTable rows={rows} columns={
-                      [
-                        { field: 'id', headerName: '', width: 100 },
-                        { field: 'jan', headerName: 'ENE', width: 70 },
-                        { field: 'feb', headerName: 'FEB', width: 70 },
-                        { field: 'mar', headerName: 'MAR', width: 70 },
-                        { field: 'apr', headerName: 'ABR', width: 70 },
-                        { field: 'may', headerName: 'MAY', width: 70 },
-                        { field: 'jun', headerName: 'JUN', width: 70 },
-                        { field: 'jul', headerName: 'JUL', width: 70 },
-                        { field: 'ago', headerName: 'AGO', width: 70 },
-                        { field: 'sep', headerName: 'SEP', width: 70 },
-                        { field: 'oct', headerName: 'OCT', width: 70 },
-                        { field: 'nov', headerName: 'NOV', width: 70 },
-                        { field: 'dec', headerName: 'DEC', width: 70 }]}
-                      pageSize={3}
-                      rowsPerPageOptions={25}
-                      hideFooter
-                    />
-          </Grid>
-    </Grid> 
+          
+        </Grid> 
+          <Grid item xs={12} sm={2} align='center'>
+                <CustomAvatar id={user.rol} size={120}/>
+                <Typography variant='h5' pt={1}>{user.name}</Typography> 
+              </Grid>        
+          <Grid item xs={12} sm={8} >   
+              <CustomTable rows={infoRows} columns={
+                        [
+                          { field: 'weight', headerName: 'Peso', width: 75 },
+                          { field: 'goal', headerName: 'Meta', width: 75 },
+                          { field: 'periodicity', headerName: 'Periodicidad', width: 110  }]}
+                        pageSize={1}
+                        rowsPerPageOptions={25}
+                        hideFooter={true}
+                        height={180}
+                        loading={loading}
+                      />
+            </Grid> 
+            <Grid item xs={12} sm={2} align='center'>
+              <Button onClick={()=>{
+                setLastObject(indicator)
+                navigate('/app/actualizar/indicador-de-proceso')
+                }}
+                variant="contained"
+                color='secondary'
+                > Editar Indicador </Button>
+              </Grid>
+            
+            <Grid item xs={12} sm={12} >
+              <CustomTable rows={rows} columns={
+                        [
+                          { field: 'id', headerName: '', width: 100 },
+                          { field: 'jan', headerName: 'ENE', width: 70 },
+                          { field: 'feb', headerName: 'FEB', width: 70 },
+                          { field: 'mar', headerName: 'MAR', width: 70 },
+                          { field: 'apr', headerName: 'ABR', width: 70 },
+                          { field: 'may', headerName: 'MAY', width: 70 },
+                          { field: 'jun', headerName: 'JUN', width: 70 },
+                          { field: 'jul', headerName: 'JUL', width: 70 },
+                          { field: 'ago', headerName: 'AGO', width: 70 },
+                          { field: 'sep', headerName: 'SEP', width: 70 },
+                          { field: 'oct', headerName: 'OCT', width: 70 },
+                          { field: 'nov', headerName: 'NOV', width: 70 },
+                          { field: 'dec', headerName: 'DEC', width: 70 }]}
+                        pageSize={3}
+                        rowsPerPageOptions={25}
+                        hideFooter
+                      />
+            </Grid>
+      </Grid> 
+    </Box>                          
   )
 }
 export default InfoIndicator

@@ -145,7 +145,7 @@ const ProcessIndicator = () => {
           let obj = {
             id : rows[i].id,
             indicator_id : lastObject.id,
-            record_date : date,
+            record_date : year+'-'+month.substring(0,2)+'-28T00:00:00.000Z',
             expected_value : uDenominator,
             archieved_value : uNumerator,
             goal : uGoal,
@@ -154,11 +154,12 @@ const ProcessIndicator = () => {
           //AQUI
           console.log('Enviando a BD: ',obj)
           //AQUI
+          
           try {              
             axios.post("/update/periodic_record", obj).then((res) => {
             console.log(res)
             setProcesses([])
-            rows[i].month = parseToMonth(date)          
+            rows[i].month = parseToMonth(month)        
             rows[i].weight = (uWeight*100+"").substr(0, 5)+"%"
             rows[i].goal = (uGoal*100+"").substr(0, 5)+"%"
             rows[i].numerator = uNumerator
@@ -177,6 +178,7 @@ const ProcessIndicator = () => {
             setSeverity("error")
             setValidationMsg('Ha ocurrido un error.')
           }
+                 
         }            
       }
       if(error){

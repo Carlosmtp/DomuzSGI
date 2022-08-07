@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CustomTable from '../../../components/Forms/CustomTable';
+import { useNavigate } from 'react-router';
 const axios = require('axios').default;
 
 const columns = [
@@ -9,8 +10,14 @@ const columns = [
 
 const Objectives = () => {
 
+  let navigate = useNavigate();
+
   const [rows,setRows] = useState([])
   const [loading,setloading] = useState(true)
+
+  const update = () =>{
+    navigate("/app/actualizar/objetivo")
+  }
 
   useEffect(()=>{
     axios.get("get/objectives")
@@ -39,6 +46,7 @@ const Objectives = () => {
         rowsPerPageOptions={5}
         loading={loading}
         editButton={true}
+        editFunction={update}
         checkboxSelection={true}/>
   )
   

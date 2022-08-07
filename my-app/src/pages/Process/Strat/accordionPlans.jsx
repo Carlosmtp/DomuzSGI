@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CardPlan from './cardPlan'
+import CardPlan from './CardPlan'
 
-const accordionPlans = ( {title}) => {
+const AccordionPlans = ( {title, plans, access}) => {
   return (
     <Accordion>
                 <AccordionSummary
@@ -15,13 +15,16 @@ const accordionPlans = ( {title}) => {
                         backgroundColor: "secondary.dark"
                     }}
                 >
-                    <Typography>{title}</Typography>
+                    <Typography color='white'>{title}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                    <CardPlan />
+                <AccordionDetails
+                    sx={{
+                        backgroundColor: "background.default"
+                    }}>
+                    {plans.map((e,i) => <CardPlan plan={e} key={i} index={i} access={access}/>)}
                 </AccordionDetails>
             </Accordion>
   )
 }
 
-export default accordionPlans
+export default AccordionPlans

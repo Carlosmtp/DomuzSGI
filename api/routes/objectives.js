@@ -139,6 +139,9 @@ api.get("/get/action_plan", async (req, res) => {
   const actionPlan = await prisma.action_plans.findUnique({
     where: {
       id: parseInt(id)
+    },
+    include: {
+      id_plan_states: true
     }
   });
   res.json(actionPlan);

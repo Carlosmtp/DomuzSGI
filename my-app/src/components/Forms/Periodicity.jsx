@@ -10,7 +10,7 @@ export const Periodicity = ({ hook, setHook }) => {
     axios.get("/get/periodicities/")
     .then((res) => {
         setLoadedPeriod(res.data)
-      console.log(res.data)
+      //console.log(res.data)
     })  
   },[])
   

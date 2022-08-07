@@ -147,8 +147,8 @@ export const Navbar = () => {
         
         <Divider />
         <List component="nav">
-          <Darkmode />
           <Processes />
+          <Darkmode />          
           {
             /*
               <Divider sx={{ my: 1 }} />

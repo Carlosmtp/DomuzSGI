@@ -5,6 +5,7 @@ import Processes from './Process'
 import { AppContext } from '../../context/AppContext'
 import { useParams } from 'react-router';
 import General from './General'
+import Strat from './Strat'
 
 const Process = () => {
     const { id } = useParams();
@@ -25,7 +26,8 @@ const Process = () => {
             </Grid> 
           </Box>
         )
-    
+      case 'Gestión Estratégica':
+        return <Strat title={id} />
       default:
         return <General title={id}/>
     }

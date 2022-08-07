@@ -27,6 +27,17 @@ api.post("/create/objective", async (req, res) => {
   res.json(objective);
 });
 
+api.post("/update/objective", async (req, res) => {
+  const data = req.body
+  const objetive = await prisma.objetives.update({
+    where: {
+      id: data.id,
+    },
+    data: data
+  });
+  res.json(objetive);
+});
+
 api.get("/get/objectives", async (req, res) => {
   const objectives = await prisma.objetives.findMany({
     include: {

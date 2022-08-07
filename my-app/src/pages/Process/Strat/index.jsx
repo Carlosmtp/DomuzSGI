@@ -2,7 +2,7 @@ import { Fab, Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import InfoProcess from '../General/InfoProcess'
 import InfoIndicator from '../General/InfoIndicator'
-import CheckProcess from '../Strat/checkProcess'
+import CheckPlan from '../Strat/checkPlan'
 import EditIcon from '@mui/icons-material/Edit';
 import { AppContext } from '../../../context/AppContext'
 import { useNavigate } from 'react-router'
@@ -38,7 +38,7 @@ const General = () => {
           <InfoProcess title={lastObject.name} description={lastObject.description} goal={lastObject.goal}/>
         </Grid>
         <Grid item xs={12} sm={12}>      
-          <CheckProcess />
+          <CheckPlan />
         </Grid>
         <Grid item xs={12} sm={12}>
         {lastObject.indicators.map((e,i) =>

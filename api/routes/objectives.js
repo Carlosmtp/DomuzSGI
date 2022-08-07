@@ -134,6 +134,15 @@ api.get("/get/action_plans", async (req, res) => {
   res.json(actionPlans);
 });
 
+api.get("/get/action_plan", async (req, res) => {
+  const id = req.query.action_plan_id;
+  const actionPlan = await prisma.action_plans.findUnique({
+    where: {
+      id: parseInt(id)
+    }
+  });
+  res.json(actionPlan);
+})
 api.delete("/delete/action_plan", async (req, res) => {
   const data = req.body;
   const actionPlan = await prisma.action_plans.delete({

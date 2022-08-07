@@ -255,6 +255,7 @@ api.get("/get/last_report/", async (req, res) => {
 
 async function autoInsertReport(idIndicator, date) {
   const dateToRecord = date.split("-");
+  const dateToStart = dateToRecord[0] + "-" + dateToRecord[1] + "-01";
   const dateToSearch = dateToRecord[0] + "-" + dateToRecord[1] + "-31";
 
   const id_p = await prisma.process_indicators.findUnique({
@@ -300,7 +301,13 @@ async function autoInsertReport(idIndicator, date) {
   //console.log(sum_1);
   //console.log(sum_2);
   //console.log(processEfficency);
-
+  const clearReports = await prisma.process_reports.deleteMany({
+    where : {
+      date: {
+        gte: new Date(dateToStart),
+        lte: new Date(dateToSearch),
+      }}
+    });
   const report = await prisma.process_reports.create({
     data: {
       processId: id_p.processId,

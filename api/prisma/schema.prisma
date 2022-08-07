@@ -171,7 +171,8 @@ model objetive_indicators {
   objectiveId  Int
   name         String    @db.VarChar(50)
   goal         Float
-  periodicity  String    @db.VarChar(50)
+  id_periodicity periodicities      @relation(fields: [periodicityId], references: [id])
+  periodicityId  Int
 }
 
 //the following models are missing the relationships
@@ -230,6 +231,7 @@ model periodicities {
   id                 Int                  @id @default(autoincrement())
   name               String               @db.VarChar()
   process_indicators process_indicators[]
+  objetive_indicator objetive_indicators[]
 }
 
 model periodic_records {

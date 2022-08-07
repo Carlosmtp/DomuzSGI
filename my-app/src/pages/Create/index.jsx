@@ -8,6 +8,25 @@ import Proyect from './Proyect'
 import User from './User'
 import ActionPlan from './ActionPlan'
 
+let nombre = (id) => {
+  switch (id) {
+    case "usuario":
+      return "usuario"
+    case "proceso":
+      return "proceso"
+    case "proyecto":
+      return "proyecto"
+    case "empresa":
+      return "empresa"
+    case "objetivo":
+      return "objetivo"
+    case "plan":
+      return "plan de acción" 
+    default:
+      break;
+  }
+}
+
 const routes = (id) => {
   switch (id) {
     case "usuario":
@@ -21,9 +40,7 @@ const routes = (id) => {
     case "objetivo":
       return <Objective />
     case "plan":
-      return <ActionPlan />
-    
-  
+      return <ActionPlan />  
     default:
       break;
   }
@@ -36,7 +53,7 @@ const Create = () => {
   return (
     <Box>
       <Typography variant="h4">
-        Crear {id}
+        Crear {nombre(id)}
       </ Typography>
       <Box pt={3} pl={3} pr={3}>
         {routes(id)}

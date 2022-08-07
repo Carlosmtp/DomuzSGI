@@ -49,7 +49,7 @@ const Administration = () => {
             <CardAdmin Icon={BusinessCenterIcon} color={deepPurple} title='EMPRESAS' created='0' link_create="/app/crear/empresa"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={PersonIcon} color={indigo} title='PLAN DE ACCIÓN' created='0'/>
+            <CardAdmin Icon={PersonIcon} color={indigo} title='PLAN DE ACCIÓN' link_create="/app/crear/plan" created='0'/>
           </Grid>
         </Grid>        
       </ Box>

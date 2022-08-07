@@ -15,47 +15,53 @@ const Action_Plan = () => {
 
   const [user,setUser] = useState('')
   const [planState,SetPlanState] = useState('')
-  const [value,setValue] = useState('')
+
+  const actualDate = new Date().toISOString().substring(0, 10);
+  const [value,setValue] = useState(actualDate)
   
   const handleSubmit = (e) => {
     e.preventDefault()
     //CONEXIÓN CON LA BD.
-      console.log( nameInit,nameAP)
+      console.log(nameInit)
+      console.log(nameAP)
+      console.log(descriptionAP)
+      console.log(user)
+      console.log(planState)
+      console.log(value)
   }
-
-  console.log('nameInit',nameInit)
 
   return (
     <Grid container component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>
-       <Grid item xs={12} sm={12}>
+       
+      <Grid item xs={12} sm={12}>
         <Box p={2} sx={{ border: 2, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent' }}>  
           <Typography variant="h6" pb={3} color='secondary'>Iniciativas</Typography>  
-          <FormActionInitiative nameInit={nameInit}
-                          setNameInit={setNameInit}                    
+          <FormActionInitiative initiative={nameInit}
+                                setInitiative={setNameInit}                    
                           />
         </Box>
       </Grid>
 
       <Grid item xs={12} sm={12}>
         <Typography variant="h6" pb={3} color='secondary'>Datos del Plan de Accion</Typography>  
-        <FormActionPlan    nameAP={nameAP}
-                          setNameAP={setNameAP}
-                          descriptionAP={descriptionAP}
-                          setDescriptionAP={setDescriptionAP}                      
-                                    />
+        <FormActionPlan name={nameAP} 
+                        setName={setNameAP}
+                        description={descriptionAP} 
+                        setDescription={setDescriptionAP}
+        />
       </Grid>
 
       <Grid item xs={12} sm={12}>
         <Typography variant="h6" pb={3} color='secondary'>Responsable y Estado del plan</Typography>  
-        <FormActionSelector   user={user}
-                          setUser={setUser}
-                          planState={planState}
-                          SetPlanState={SetPlanState}                      
-                                    />
+        <FormActionSelector user={user}
+                            setUser={setUser}
+                            planState={planState}
+                            SetPlanState={SetPlanState}                      
+        />
       </Grid>
 
       <Grid item xs={12} sm={12}>
-        <Typography variant="h6" pb={3} color='secondary'>Fecha limite del plan</Typography>  
+        <Typography variant="h6" pb={3} color='secondary'>Fecha límite del plan</Typography>  
         <FormActionDate   value={value}
                           setValue={setValue}                      
                                     />

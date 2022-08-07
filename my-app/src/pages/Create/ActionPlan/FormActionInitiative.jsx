@@ -1,40 +1,39 @@
-import { Stack } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
-import { Periodicity } from '../../../components/Forms/Periodicity'
 
-const FormActionInitiative = ({
-                        initiative, setInitiative
+const FormActionInitiative = ({ initiative, setInitiative }) => {
 
-                    }) => {
-
-/*
-      const handleInputChange = ({target}) => {
-    switch (target.id) {
-        case "initiative":
-            setInitiative(target.value)
-            break;
-        default:
-            console.log("Necesitas crear el respectivo handleInput")
-            break;
-        }      
-      }
-      //<Stack spacing={2}>                  
-*/
+    const [loadedInitiatives, setLoadedInitiatives] = useState([])
+  
+    useEffect(()=>{
+        axios.get("get/objectives/initiatives")
+        .then((res) => {
+          let obj = []
+          let aux = res.data
+          for(let i=0;i<aux.length;i++){        
+            obj.push({
+              id: aux[i].id,
+              label: aux[i].name
+            })        
+          }
+          setLoadedInitiatives(obj)
+        })        
+      },[])
 
     return (
         <FormContainer>
           <FormItem phone={12} computer={12}>
-                <Stack direction="column" m={-1}>
-                <Periodicity 
-                        hook={initiative} 
+            <CustomAutocomplete label="Iniciativa"
+                        hook={initiative}
                         setHook={setInitiative}
-                        />
-                </Stack>
-            </FormItem>                    
+                        array_elements={loadedInitiatives}/>
+          </FormItem>            
         </FormContainer>
     )
 }
 
 export default FormActionInitiative
+

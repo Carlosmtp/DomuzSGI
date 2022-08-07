@@ -5,7 +5,7 @@ import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
 const FormActionPlan = ({ name, setName,
-                            description, setDescription
+                          description, setDescription
                     }) => {
 
 const handleInputChange = ({target}) => {
@@ -29,30 +29,38 @@ const handleInputChange = ({target}) => {
                     <Stack spacing={2}>
                         <TextField
                             required
-                            color="secondary"
+                            fullWidth
                             id="name"
+                            color='secondary'
                             label="Nombre"
                             name="name"                
                             value={name}
                             onChange={handleInputChange}
                             InputProps={{
                                 startAdornment: (
-                                    <InputAdornment position="start">
+                                <InputAdornment position="start">
                                     <AccountCircle />
-                                    </InputAdornment>)}}/>
+                                </InputAdornment>
+                                ),
+                            }}
+                        />
                         <TextField
                             required
-                            color="secondary"
+                            fullWidth
                             id="description"
+                            color='secondary'
                             label="Descripción"
                             name="description"                
                             value={description}
                             onChange={handleInputChange}
                             InputProps={{
                                 startAdornment: (
-                                    <InputAdornment position="start">
+                                <InputAdornment position="start">
                                     <AccountCircle />
-                                    </InputAdornment>)}}/>
+                                </InputAdornment>
+                                ),
+                            }}
+                        />
                     </Stack>
                 </Box>
             </FormItem>                     

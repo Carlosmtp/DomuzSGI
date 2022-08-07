@@ -4,6 +4,7 @@ import React from 'react'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
+const actualDate = new Date().toISOString().substring(0, 10);
 
 const FormActionDate = ({
   date, setDate
@@ -25,21 +26,19 @@ const handleInputChange = ({target}) => {
       <FormContainer>
           <FormItem phone={12} computer={12}>
               <Box p={2} sx={{ border: 2, borderRadius: '16px', borderColor: 'secondary.main' }}>          
-                  <Stack spacing={2}>
-                      <TextField
-                          required
-                          color="secondary"
-                          id="date"
-                          label="Fecha Limite"
-                          name="date"                
-                          value={date}
-                          onChange={handleInputChange}
-                          InputProps={{
-                              startAdornment: (
-                                  <InputAdornment position="start">
-                                  <AccountCircle />
-                                  </InputAdornment>)}}/>
-                  </Stack>
+              <TextField
+                    fullWidth
+                    id="date"
+                    color="secondary"
+                    label="Fecha"
+                    name="date"
+                    type="date"
+                    defaultValue={actualDate}
+                    onChange={handleInputChange}
+                    InputLabelProps={{
+                    shrink: true,
+                    }}
+                /> 
               </Box>
           </FormItem>                     
       </FormContainer>

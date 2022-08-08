@@ -63,6 +63,16 @@ api.get("/get/objectives/perspectives", async (req, res) => {
   res.json(perspectives);
 });
 
+api.get("/get/objectives/perspective/:id", async (req, res) => {
+  const id = req.params.id;
+  const perspective = await prisma.perspective.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  res.json(perspective);
+});
+
 //////////////////////////// Indicators //////////////////////////////////
 
 api.post("/create/objective/indicators", async (req, res) => {

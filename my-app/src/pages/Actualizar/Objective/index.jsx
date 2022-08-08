@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 
 const Objective = () => {
   
-  const { lastObject, setObjective } = useContext(AppContext)
+  const { lastObject } = useContext(AppContext)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
   const [perspective,setPerspective] = useState('')
@@ -38,7 +38,7 @@ const Objective = () => {
       try {
         let ini = [
           {
-            objectiveId: lastObject.id,
+            objectiveId: lastObject.objective_id,
             name: nameInit,
             description: descriptionInit
           }
@@ -81,32 +81,48 @@ const Objective = () => {
       try {
         let ind = [
           {
-            "objectiveId": lastObject.id,
-            "name": "Conquistar el Universo",
-            "description": "Volver a el univeso una dictadura Terraplanista"
-          }
-        ]
-
-        console.log(ind)
-        //axios.post("/create/objective/initiatives", ind)
-        let aux = indicators.concat({
-          id:"",
-          name:nameInd,
-          goal:goal,
-          periodicityId:periodicity
-        } )
-        for (let i = 0; i < aux.length; i++) {
-          aux[i].id = i + 1;      
+          objectiveId: lastObject.objective_id,
+          name: nameInd,
+          goal: goal,
+          periodicityId: periodicity
         }
-        setIndicators(aux)
-        setNameInd('')
-        setPeriodicity('')
+      ]
+        console.log(ind)
+        axios.post("/create/objective/indicators", ind).then((res)=>{
+          let aux = indicators.concat({
+            id:"",
+            name:nameInd,
+            goal:goal
+          } )
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameInd+' ha sido creado exitosamente.')
+          setIndicators(aux)
+          setNameInd('')
+          setPeriodicity('')
+        })
+        
       } catch (error) {
         
-      }
-
-      
+      }      
     }    
+  }
+
+  const delete_ind = (ind) => {
+    try {
+        axios.delete("/delete/objective/indicator", {id:2}).then((res) => {
+        console.log('res',res)})
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
+    } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+    } 
   }
 
   const handleSubmit = (e) => {
@@ -141,7 +157,7 @@ const Objective = () => {
         })      
       }
       const updatedObjective = {
-                          id: lastObject.id,
+                          id: lastObject.objective_id,
                           prespectiveId:perspective.id,
                           name:name,
                           description:description,
@@ -240,13 +256,13 @@ const Objective = () => {
                   [
                     { field: 'id', headerName: 'ID', width: 15 },
                     { field: 'name', headerName: 'Nombre', width: 100 },
-                    { field: 'goal', headerName: 'Meta', width: 70 },
-                    { field: 'periodicity', headerName: 'Periodicidad', width: 100 }]
+                    { field: 'goal', headerName: 'Meta', width: 70 }]
                 }
                   pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
-                  checkboxSelection={true}/>
+                  checkboxSelection={true}
+                  deleteFunction={delete_ind}/>
           </Grid>
           <Grid item pt={2}>
             <FormObjIndicator name={nameInd}

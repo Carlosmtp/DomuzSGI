@@ -28,7 +28,8 @@ const Objectives = () => {
       console.log(aux)
       for(let i=0;i<aux.length;i++){
         obj.push({
-          id: aux[i].id,
+          id: i+1,
+          objective_id: aux[i].id,
           name: aux[i].name,
           description: aux[i].description,
           prespectiveId: aux[i].prespectiveId,

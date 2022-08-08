@@ -225,16 +225,18 @@ api.get("/get/action_plans/perpective/:id", async (req, res) => {
   });
 
   let actionPlans = [];
-  let aux = 0;
-  for (let i = 0; i < objcs.objectives.length; i++) {
-    for (let j = 0; j < objcs.objectives[i].initiatives.length; j++) {
-      for (
-        let k = 0;
-        k < objcs.objectives[i].initiatives[j].plans.length;
-        k++
-      ) {
-        actionPlans[aux] = objcs.objectives[i].initiatives[j].plans[k];
-        aux++;
+  if (objcs != null) {
+    let aux = 0;
+    for (let i = 0; i < objcs.objectives.length; i++) {
+      for (let j = 0; j < objcs.objectives[i].initiatives.length; j++) {
+        for (
+          let k = 0;
+          k < objcs.objectives[i].initiatives[j].plans.length;
+          k++
+        ) {
+          actionPlans[aux] = objcs.objectives[i].initiatives[j].plans[k];
+          aux++;
+        }
       }
     }
   }

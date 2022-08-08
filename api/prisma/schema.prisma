@@ -11,7 +11,7 @@ generator dbml {
 
 generator erd {
   provider = "prisma-erd-generator"
-  output = "ERD.png"
+  output = "ERD.svg"
 }
 
 datasource db {

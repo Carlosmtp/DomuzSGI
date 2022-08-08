@@ -7,16 +7,17 @@ import FormInitiative from './FormInitiative'
 import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 const Objective = () => {
   
   const { lastObject, setObjective } = useContext(AppContext)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
-  const [perspective,setPerspective] = useState(lastObject.prespectiveId)
-  console.log(lastObject.prespectiveId)
-  console.log(perspective)
-  console.log("..........")
+  const [perspective,setPerspective] = useState()
+  //console.log(lastObject.prespectiveId)
+  //console.log(perspective)
+  //console.log("..........")
 
   const [nameInit,setNameInit] = useState('')
   const [descriptionInit ,setDescriptionInit] = useState('')
@@ -58,18 +59,30 @@ const Objective = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
     }else{
-      let aux = indicators.concat({
-        id:"",
-        name:nameInd,
-        goal:goal,
-        periodicityId:periodicity
-      } )
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
+      try {
+        let ind = {
+          id_objetives : lastObject.id
+        }
+
+        console.log(ind)
+        //axios.post("/create/objective/initiatives", ind)
+        let aux = indicators.concat({
+          id:"",
+          name:nameInd,
+          goal:goal,
+          periodicityId:periodicity
+        } )
+        for (let i = 0; i < aux.length; i++) {
+          aux[i].id = i + 1;      
+        }
+        setIndicators(aux)
+        setNameInd('')
+        setPeriodicity('')
+      } catch (error) {
+        
       }
-      setIndicators(aux)
-      setNameInd('')
-      setPeriodicity('')
+
+      
     }    
   }
 
@@ -126,6 +139,14 @@ const Objective = () => {
     }    
   }
   
+  useEffect(()=>{
+    axios.get('/get/objectives/perspective/'+lastObject.prespectiveId).then((res)=>{
+      console.log(res.data)
+      //setPerspective(res.data)
+    })
+  },[])
+
+  //Validación
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [validationMsg, setValidationMsg] = useState('');

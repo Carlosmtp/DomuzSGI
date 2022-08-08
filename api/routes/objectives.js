@@ -79,6 +79,22 @@ api.get("/get/objectives/indicators", async (req, res) => {
   res.json(indicators);
 });
 
+api.post("/update/objective/indicator", async (req, res) => {
+  const data = req.body;
+  const indicator = await prisma.objetive_indicators.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      name: data.name,
+      objectiveId: data.objectiveId,
+      goal: data.goal,
+      periodicityId: data.periodicityId,
+    },
+  });
+  res.json(indicator);
+});
+
 //////////////////////////// Initiatives //////////////////////////////////
 
 api.post("/create/objective/initiatives", async (req, res) => {
@@ -93,6 +109,21 @@ api.post("/create/objective/initiatives", async (req, res) => {
 api.get("/get/objectives/initiatives", async (req, res) => {
   const initiatives = await prisma.initiatives.findMany();
   res.json(initiatives);
+});
+
+api.post("/update/objective/initiative", async (req, res) => {
+  const data = req.body;
+  const initiative = await prisma.initiatives.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      name: data.name,
+      objectiveId: data.objectiveId,
+      description: data.description,
+    },
+  });
+  res.json(initiative);
 });
 
 //////////////////////////// Action Plans //////////////////////////////////

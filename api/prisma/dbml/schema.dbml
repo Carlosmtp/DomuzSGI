@@ -1,0 +1,301 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table roles {
+  id Int [pk, increment]
+  name String [not null]
+  description String [not null]
+  users users [not null]
+}
+
+Table people {
+  id Int [pk, increment]
+  person_id String [unique, not null]
+  name String [not null]
+  lastname String [not null]
+  mail String [not null]
+  phone String [not null]
+  user users
+}
+
+Table users {
+  id Int [pk, increment]
+  password String [not null]
+  id_people people [not null]
+  personId Int [unique, not null]
+  id_roles roles [not null]
+  rolId Int [not null]
+  projects projects [not null]
+  plans action_plans [not null]
+  indicator process_indicators [not null]
+}
+
+Table companies {
+  id Int [pk, increment]
+  nit String [unique, not null]
+  name String [not null]
+  projects projects [not null]
+}
+
+Table projects {
+  id Int [pk, increment]
+  front_proyect_id String [not null]
+  id_users users [not null]
+  userId Int [not null]
+  id_companies companies [not null]
+  companieId Int [not null]
+  id_project_states project_states [not null]
+  stateId Int [not null]
+  id_portfolios portfolios [not null]
+  portfolioId Int [not null]
+  name String [not null]
+  longitude String [not null]
+  latitude String [not null]
+  baselines baselines [not null]
+  reports reports [not null]
+}
+
+Table project_states {
+  id Int [pk, increment]
+  name String [not null]
+  projects projects [not null]
+}
+
+Table aux_portfolios {
+  id Int [pk, increment]
+  id_clasification clasification [not null]
+  clasificationId Int [not null]
+  id_type type [not null]
+  typeId Int [not null]
+  porfolio portfolios [not null]
+
+  indexes {
+    (clasificationId, typeId) [unique]
+  }
+}
+
+Table clasification {
+  id Int [pk, increment]
+  name String [not null]
+  auxPorfolio aux_portfolios [not null]
+}
+
+Table type {
+  id Int [pk, increment]
+  name String [not null]
+  auxPorfolio aux_portfolios [not null]
+}
+
+Table portfolios {
+  id Int [pk, increment]
+  name String [not null]
+  id_aux_portfolios aux_portfolios [not null]
+  auxId Int [not null]
+  project projects [not null]
+}
+
+Table baselines {
+  id Int [pk, increment]
+  id_projects projects [not null]
+  projectId Int [not null]
+  baseline Int [not null]
+  start_date DateTime [not null]
+  end_date DateTime [not null]
+  real_start_date DateTime [not null]
+  reports reports [not null]
+}
+
+Table reports {
+  id Int [pk, increment]
+  id_projects projects [not null]
+  projectId Int [not null]
+  id_baseline baselines [not null]
+  baselineId Int [not null]
+  state_date DateTime [not null]
+  planned_time Int [not null]
+  current_time Int [not null]
+  planned_cost Int [not null]
+  current_cost Int [not null]
+  planned_reach Int [not null]
+  current_reach Int [not null]
+  end_variation Int [not null]
+  total_budget_abl Int [not null]
+  total_budnet_projected Int [not null]
+  projected_end_date DateTime [not null]
+  request_made Int [not null]
+  request_accepted Int [not null]
+  achievements archievements [not null]
+  difficulties difficulties [not null]
+}
+
+Table archievements {
+  id Int [pk, increment]
+  archiebement String [not null]
+  id_reports reports [not null]
+  reportId Int [not null]
+}
+
+Table difficulties {
+  id Int [pk, increment]
+  difficulty String [not null]
+  id_reports reports [not null]
+  reportId Int [not null]
+}
+
+Table perspective {
+  id Int [pk, increment]
+  name String [not null]
+  objectives objetives [not null]
+}
+
+Table objetives {
+  id Int [pk, increment]
+  id_perspective perspective [not null]
+  prespectiveId Int [not null]
+  name String [not null]
+  description String [not null]
+  indicators objetive_indicators [not null]
+  initiatives initiatives [not null]
+}
+
+Table objetive_indicators {
+  id Int [pk, increment]
+  id_objetives objetives [not null]
+  objectiveId Int [not null]
+  name String [not null]
+  goal Float [not null]
+  id_periodicity periodicities [not null]
+  periodicityId Int [not null]
+}
+
+Table initiatives {
+  id Int [pk, increment]
+  id_objetives objetives [not null]
+  objectiveId Int [not null]
+  name String [not null]
+  description String [not null]
+  plans action_plans [not null]
+}
+
+Table action_plans {
+  id Int [pk, increment]
+  name String [not null]
+  description String [not null]
+  delivery_date DateTime [not null]
+  id_initiatives initiatives [not null]
+  initiativeId Int [not null]
+  id_users users [not null]
+  userId Int [not null]
+  id_plan_states plan_states [not null]
+  stateId Int [not null]
+}
+
+Table plan_states {
+  id Int [pk, increment]
+  name String [not null]
+  plans action_plans [not null]
+}
+
+Table processes {
+  id Int [pk, increment]
+  name String [not null]
+  description String [not null]
+  goal Float [not null]
+  indicators process_indicators [not null]
+  periodic_record process_reports [not null]
+}
+
+Table process_indicators {
+  id Int [pk, increment]
+  name String [not null]
+  objetive String [not null]
+  id_periodicity periodicities [not null]
+  periodicityId Int [not null]
+  in_charge String [not null]
+  id_processes processes [not null]
+  processId Int [not null]
+  id_users users [not null]
+  userId Int [not null]
+  records periodic_records [not null]
+}
+
+Table periodicities {
+  id Int [pk, increment]
+  name String [not null]
+  process_indicators process_indicators [not null]
+  objetive_indicator objetive_indicators [not null]
+}
+
+Table periodic_records {
+  id Int [pk, increment]
+  id_process_indicators process_indicators [not null]
+  indicatorId Int [not null]
+  record_date DateTime [not null]
+  expected_value Int [not null]
+  archieved_value Int [not null]
+  goal Float [not null]
+  weight Float [not null]
+  efficiency Float [not null]
+}
+
+Table process_reports {
+  id Int [pk, increment]
+  date DateTime [not null]
+  efficiency Float [not null]
+  id_processes processes [not null]
+  processId Int [not null]
+  goal Float [not null]
+}
+
+Ref: users.personId - people.id
+
+Ref: users.rolId > roles.id
+
+Ref: projects.userId > users.id
+
+Ref: projects.companieId > companies.id
+
+Ref: projects.stateId > project_states.id
+
+Ref: projects.portfolioId > portfolios.id
+
+Ref: aux_portfolios.clasificationId > clasification.id
+
+Ref: aux_portfolios.typeId > type.id
+
+Ref: portfolios.auxId > aux_portfolios.id
+
+Ref: baselines.projectId > projects.id
+
+Ref: reports.projectId > projects.id
+
+Ref: reports.baselineId > baselines.id
+
+Ref: archievements.reportId > reports.id
+
+Ref: difficulties.reportId > reports.id
+
+Ref: objetives.prespectiveId > perspective.id
+
+Ref: objetive_indicators.objectiveId > objetives.id
+
+Ref: objetive_indicators.periodicityId > periodicities.id
+
+Ref: initiatives.objectiveId > objetives.id
+
+Ref: action_plans.initiativeId > initiatives.id
+
+Ref: action_plans.userId > users.id
+
+Ref: action_plans.stateId > plan_states.id
+
+Ref: process_indicators.periodicityId > periodicities.id
+
+Ref: process_indicators.processId > processes.id
+
+Ref: process_indicators.userId > users.id
+
+Ref: periodic_records.indicatorId > process_indicators.id [delete: Cascade]
+
+Ref: process_reports.processId > processes.id

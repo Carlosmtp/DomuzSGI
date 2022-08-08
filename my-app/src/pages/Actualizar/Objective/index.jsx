@@ -87,6 +87,8 @@ const Objective = () => {
       let auxInit = []
       for (let i = 0; i < initiatives.length; i++) {
         auxInit = auxInit.concat({
+          id : initiatives[i].id,
+          objectiveId : initiatives[i].objectiveId,
           name : initiatives[i].name,
           description : initiatives[i].description
         })      
@@ -95,6 +97,8 @@ const Objective = () => {
       let auxInd = []
       for (let i = 0; i < indicators.length; i++) {
         auxInd = auxInd.concat({
+          id : indicators[i].id,
+          objectiveId : indicators[i].objectiveId,
           name : indicators[i].name,
           goal : indicators[i].goal,
           periodicityId : indicators[i].periodicityId
@@ -105,8 +109,6 @@ const Objective = () => {
                           prespectiveId:perspective.id,
                           name:name,
                           description:description,
-                          indicators:auxInd,
-                          initiatives:auxInit
                         }
       console.log(updatedObjective)
       try {

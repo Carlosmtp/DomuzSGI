@@ -333,7 +333,7 @@ const handleClose = (event, reason) => {
                         />
           </Grid>  
           <Grid item xs={12} sm={4}>
-            <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 }}> 
+            <Box sx={{ border: 2, borderRadius: '16px', borderColor: 'background.default', boxShadow: 3 , mb:2}}> 
               <Grid item align="center" p={2} ml={-1} xs={12}>
                 <Typography pb={1}>Actualizar Registro</Typography>
                 <UFormRegister year={year}

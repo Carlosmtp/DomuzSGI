@@ -54,7 +54,7 @@ const Objective = () => {
         id:"",
         name:nameInd,
         goal:goal,
-        periodicity:periodicity
+        periodicityId:periodicity
       } )
       for (let i = 0; i < aux.length; i++) {
         aux[i].id = i + 1;      
@@ -85,11 +85,18 @@ const Objective = () => {
         auxInd = auxInd.concat({
           name : indicators[i].name,
           goal : indicators[i].goal,
-          periodicity : indicators[i].periodicity
+          periodicityId : indicators[i].periodicityId
         })      
       }
       //CONEXIÓN CON LA BD
-      //console.log(
+      console.log({
+          name:name,
+          description:description,
+          prespectiveId:perspective.id,
+          indicators:auxInd,
+          initiatives:auxInit
+        })
+
       axios.post("create/objective",      
         {
           name:name,

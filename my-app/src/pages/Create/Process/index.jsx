@@ -86,10 +86,9 @@ const Process = () => {
         })
       } catch (error) {
         setOpen(true)
-        setSeverity("success")
+        setSeverity("error")
         setValidationMsg('Ha ocurrido un error inesperado.')
       }      
-      
     }    
   }
    

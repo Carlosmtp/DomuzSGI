@@ -5,9 +5,7 @@ import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
 
-const FormActionSelector = ({ user, setUser,
-                              planState, SetPlanState
-                            }) => {
+const FormActionSelector = ({ user, setUser }) => {
 
     const [loadedUsers, setLoadedUsers] = useState([])
   
@@ -28,18 +26,12 @@ const FormActionSelector = ({ user, setUser,
 
     return (
         <FormContainer>
-          <FormItem phone={12} computer={6}>
+          <FormItem phone={12} computer={12}>
             <CustomAutocomplete label="Usuario"
                         hook={user}
                         setHook={setUser}
                         array_elements={loadedUsers}/>
-          </FormItem>      
-          <FormItem phone={12} computer={6}>
-            <CustomAutocomplete label="Estado"
-                        hook={planState}
-                        setHook={SetPlanState}
-                        array_elements={loadedUsers}/>
-          </FormItem>      
+          </FormItem>     
         </FormContainer>
     )
 }

@@ -151,9 +151,6 @@ const ProcessIndicator = () => {
             goal : uGoal,
             weight : uWeight
           }
-          //AQUI
-          //console.log('Enviando a BD: ',obj)
-          //AQUI
           
           try {              
             axios.post("/update/periodic_record", obj).then((res) => {

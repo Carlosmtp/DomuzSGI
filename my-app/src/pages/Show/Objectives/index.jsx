@@ -5,7 +5,8 @@ const axios = require('axios').default;
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
-  { field: 'name', headerName: 'Nombre', width: 130 },
+  { field: 'name', headerName: 'Nombre', width: 260 },
+  { field: 'description', headerName: 'Descripción', width: 615 }
 ];
 
 const Objectives = () => {
@@ -28,12 +29,18 @@ const Objectives = () => {
       for(let i=0;i<aux.length;i++){
         obj.push({
           id: aux[i].id,
-          name: aux[i].name,          
+          name: aux[i].name,
+          description: aux[i].description,
+          perspectiveId: aux[i].perspectiveId,
+          indicators: aux[i].indicators,
+          initiatives: aux[i].initiatives    
         })        
       }
       setRows(obj)
+      console.log("Objetivos:")
+      console.log(obj)
+      console.log("-----------")
       setloading(false)
-      //console.log(res.data.length)
     })        
   },[])
 

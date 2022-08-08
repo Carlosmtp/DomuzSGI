@@ -12,9 +12,13 @@ const Objective = () => {
   
   const { lastObject, setObjective } = useContext(AppContext)
 
+  console.log("..........")
+  console.log(lastObject)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
-  const [perspective,setPerspective] = useState(lastObject.perspective)
+  const [perspective,setPerspective] = useState(lastObject.perspectiveId)
+  console.log(lastObject.perspectiveId)
+  console.log("..........")
 
   const [nameInit,setNameInit] = useState('')
   const [descriptionInit ,setDescriptionInit] = useState('')
@@ -23,8 +27,8 @@ const Objective = () => {
   const [goal,setGoal] = useState(0.5)
   const [periodicity,setPeriodicity]= useState('')
 
-  const [initiatives,setInitiatives] = useState([])
-  const [indicators,setIndicators] = useState([])
+  const [initiatives,setInitiatives] = useState(lastObject.initiatives)
+  const [indicators,setIndicators] = useState(lastObject.indicators)
 
   const addRowInit = (e) => {
     if(nameInit==='' || descriptionInit===''){
@@ -60,7 +64,7 @@ const Objective = () => {
         id:"",
         name:nameInd,
         goal:goal,
-        periodicity:periodicity
+        periodicityId:periodicity
       } )
       for (let i = 0; i < aux.length; i++) {
         aux[i].id = i + 1;      
@@ -91,12 +95,12 @@ const Objective = () => {
         auxInd = auxInd.concat({
           name : indicators[i].name,
           goal : indicators[i].goal,
-          periodicity : indicators[i].periodicity
+          periodicityId : indicators[i].periodicityId
         })      
       }
       //CONEXIÓN CON LA BD
       //console.log(
-      axios.post("create/objective",      
+      axios.post("update/objective",      
         {
           name:name,
           description:description,
@@ -110,33 +114,6 @@ const Objective = () => {
     }    
   }
   
-  useEffect(()=>{
-    //Start Rows
-    let aux1 = initiatives.concat({
-      id:"",
-      name:nameInit,
-      description:descriptionInit
-    } )
-    for (let i = 0; i < aux1.length; i++) {
-      aux1[i].id = i + 1;      
-    }
-    setInitiatives(aux1)
-    setNameInit('')
-    setDescriptionInit('')
-
-    let aux2 = indicators.concat({
-      id:"",
-      name:nameInd,
-      goal:goal,
-      periodicity:periodicity
-    } )
-    for (let i = 0; i < aux2.length; i++) {
-      aux2[i].id = i + 1;      
-    }
-    setIndicators(aux2)
-  }
-  ,[lastObject.initiatives, lastObject.indicators])
-
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [validationMsg, setValidationMsg] = useState('');

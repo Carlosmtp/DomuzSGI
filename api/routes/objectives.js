@@ -95,6 +95,16 @@ api.post("/update/objective/indicator", async (req, res) => {
   res.json(indicator);
 });
 
+api.delete("/delete/objective/indicator", async (req, res) => {
+  const data = req.body;
+  const indicator = await prisma.objetive_indicators.delete({
+    where: {
+      id: data.id,
+    },
+  });
+  res.json(indicator);
+});
+
 //////////////////////////// Initiatives //////////////////////////////////
 
 api.post("/create/objective/initiatives", async (req, res) => {
@@ -107,7 +117,11 @@ api.post("/create/objective/initiatives", async (req, res) => {
 });
 
 api.get("/get/objectives/initiatives", async (req, res) => {
-  const initiatives = await prisma.initiatives.findMany();
+  const initiatives = await prisma.initiatives.findMany({
+    include: {
+      plans: true,
+    },
+  });
   res.json(initiatives);
 });
 
@@ -124,6 +138,33 @@ api.post("/update/objective/initiative", async (req, res) => {
     },
   });
   res.json(initiative);
+});
+
+api.delete("/delete/objective/initiative", async (req, res) => {
+  const data = req.body;
+  const InitPlans = await prisma.initiatives.findUnique({
+    where: {
+      id: data.id,
+    },
+    select: {
+      plans: true,
+    },
+  });
+  if (InitPlans.plans.length == 0) {
+    const initiative = await prisma.initiatives.delete({
+      where: {
+        id: data.id,
+      },
+    });
+    res.json(initiative);
+    //res.json({ msg: "Igual a 0" });
+  } else {
+    res.json({
+      error:
+        "ERROR: no se puede eliminar la iniciativa pues hay planes asociados a esta.",
+      wtf: InitPlans.plans,
+    });
+  }
 });
 
 //////////////////////////// Action Plans //////////////////////////////////
@@ -182,6 +223,7 @@ api.get("/get/action_plan", async (req, res) => {
   });
   res.json(actionPlan);
 });
+
 api.delete("/delete/action_plan", async (req, res) => {
   const data = req.body;
   const actionPlan = await prisma.action_plans.delete({

@@ -67,7 +67,7 @@ api.get("/get/objectives/perspective/:id", async (req, res) => {
   const id = req.params.id;
   const perspective = await prisma.perspective.findUnique({
     where: {
-      id: id,
+      id: parseInt(id),
     },
   });
   res.json(perspective);

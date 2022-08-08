@@ -14,7 +14,7 @@ const Objective = () => {
   const { lastObject, setObjective } = useContext(AppContext)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
-  const [perspective,setPerspective] = useState()
+  const [perspective,setPerspective] = useState('')
   //console.log(lastObject.prespectiveId)
   //console.log(perspective)
   //console.log("..........")
@@ -35,21 +35,40 @@ const Objective = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir una iniciativa.')
     }else{
-      let aux = initiatives.concat({
-        id:"",
-        name:nameInit,
-        description:descriptionInit
-      } )
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
-      }
-      setInitiatives(aux)
-      setNameInit('')
-      setDescriptionInit('')
+      try {
+        let ini = [
+          {
+            objectiveId: lastObject.id,
+            name: nameInit,
+            description: descriptionInit
+          }
+        ]
 
-      setOpen(true)
-      setSeverity("success")
-      setValidationMsg(nameInit + ' ha sido añadido correctamente.')
+        axios.post("/create/objective/initiatives", ini).then((res)=>{
+          console.log(res)
+          let aux = initiatives.concat({
+            id:"",
+            name:nameInit,
+            description:descriptionInit
+          } )
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+          setInitiatives(aux)
+          setNameInit('')
+          setDescriptionInit('')
+    
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameInit + ' ha sido añadido correctamente.')
+        })        
+      } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Ha ocurrido un error.')
+      }
+
+      
     }
   }
 
@@ -60,9 +79,13 @@ const Objective = () => {
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
     }else{
       try {
-        let ind = {
-          id_objetives : lastObject.id
-        }
+        let ind = [
+          {
+            "objectiveId": lastObject.id,
+            "name": "Conquistar el Universo",
+            "description": "Volver a el univeso una dictadura Terraplanista"
+          }
+        ]
 
         console.log(ind)
         //axios.post("/create/objective/initiatives", ind)
@@ -142,9 +165,10 @@ const Objective = () => {
   useEffect(()=>{
     axios.get('/get/objectives/perspective/'+lastObject.prespectiveId).then((res)=>{
       console.log(res.data)
-      //setPerspective(res.data)
+      let aux = res.data
+      setPerspective(aux.name)
     })
-  },[])
+  },[lastObject.prespectiveId])
 
   //Validación
   const [open, setOpen] = useState(false);
@@ -191,7 +215,7 @@ const Objective = () => {
                     { field: 'name', headerName: 'Nombre', width: 140 },
                     { field: 'description', headerName: 'Descripción', width: 130 }]
                 }
-                pageSize={5}
+                  pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
                   checkboxSelection={true}/>
@@ -219,7 +243,7 @@ const Objective = () => {
                     { field: 'goal', headerName: 'Meta', width: 70 },
                     { field: 'periodicity', headerName: 'Periodicidad', width: 100 }]
                 }
-                  pageSize={5}
+                  pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
                   checkboxSelection={true}/>

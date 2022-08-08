@@ -37,7 +37,7 @@ const CustomAutocomplete = ({ label, hook, setHook, array_elements }) => {
             renderInput={(params) => <TextField {...params} label={label} />}    
             value={hook}   
             isOptionEqualToValue={(option, value) =>
-              value === undefined || value === "" || option.id === value.id
+              value === undefined || value === "" || option.id === value.id || option.name === value.name
             }  
             onChange={handleChange}
         />     

@@ -130,7 +130,12 @@ api.post("/update/action_plan", async (req, res) => {
 });
 
 api.get("/get/action_plans", async (req, res) => {
-  const actionPlans = await prisma.action_plans.findMany();
+  var clauses = {where: {}}
+  const userId = req.query.userid;
+  if(userId !== undefined) {
+    clauses.where.userId = parseInt(userId)
+  }
+  const actionPlans = await prisma.action_plans.findMany(clauses);
   res.json(actionPlans);
 });
 

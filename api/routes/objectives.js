@@ -105,6 +105,16 @@ api.post("/update/objective/indicator", async (req, res) => {
   res.json(indicator);
 });
 
+api.get("/get/objectives/indicator/:id", async (req, res) => {
+  const id = req.params.id;
+  const indicator = await prisma.objetive_indicators.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.json(indicator);
+});
+
 api.delete("/delete/objective/indicator", async (req, res) => {
   const data = req.body;
   const indicator = await prisma.objetive_indicators.delete({

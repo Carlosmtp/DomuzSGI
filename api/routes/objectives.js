@@ -28,12 +28,12 @@ api.post("/create/objective", async (req, res) => {
 });
 
 api.post("/update/objective", async (req, res) => {
-  const data = req.body
+  const data = req.body;
   const objetive = await prisma.objetives.update({
     where: {
       id: data.id,
     },
-    data: data
+    data: data,
   });
   res.json(objetive);
 });
@@ -130,10 +130,10 @@ api.post("/update/action_plan", async (req, res) => {
 });
 
 api.get("/get/action_plans", async (req, res) => {
-  var clauses = {where: {}}
+  var clauses = { where: {} };
   const userId = req.query.userid;
-  if(userId !== undefined) {
-    clauses.where.userId = parseInt(userId)
+  if (userId !== undefined) {
+    clauses.where.userId = parseInt(userId);
   }
   const actionPlans = await prisma.action_plans.findMany(clauses);
   res.json(actionPlans);
@@ -143,14 +143,14 @@ api.get("/get/action_plan", async (req, res) => {
   const id = req.query.action_plan_id;
   const actionPlan = await prisma.action_plans.findUnique({
     where: {
-      id: parseInt(id)
+      id: parseInt(id),
     },
     include: {
-      id_plan_states: true
-    }
+      id_plan_states: true,
+    },
   });
   res.json(actionPlan);
-})
+});
 api.delete("/delete/action_plan", async (req, res) => {
   const data = req.body;
   const actionPlan = await prisma.action_plans.delete({
@@ -171,6 +171,43 @@ api.post("/create/plan_state", async (req, res) => {
 api.get("/get/plan_states", async (req, res) => {
   const states = await prisma.plan_states.findMany();
   res.json(states);
+});
+
+// Funcion para los planes de accion perspective
+api.get("/get/action_plans/perpective/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const objcs = await prisma.perspective.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      objectives: {
+        include: {
+          initiatives: {
+            include: {
+              plans: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  let actionPlans = [];
+  let aux = 0;
+  for (let i = 0; i < objcs.objectives.length; i++) {
+    for (let j = 0; j < objcs.objectives[i].initiatives.length; j++) {
+      for (
+        let k = 0;
+        k < objcs.objectives[i].initiatives[j].plans.length;
+        k++
+      ) {
+        actionPlans[aux] = objcs.objectives[i].initiatives[j].plans[k];
+        aux++;
+      }
+    }
+  }
+  res.json(actionPlans);
 });
 
 module.exports = api;

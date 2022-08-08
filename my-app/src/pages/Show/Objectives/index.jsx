@@ -31,15 +31,12 @@ const Objectives = () => {
           id: aux[i].id,
           name: aux[i].name,
           description: aux[i].description,
-          perspectiveId: aux[i].perspectiveId,
+          prespectiveId: aux[i].prespectiveId,
           indicators: aux[i].indicators,
           initiatives: aux[i].initiatives    
         })        
       }
       setRows(obj)
-      console.log("Objetivos:")
-      console.log(obj)
-      console.log("-----------")
       setloading(false)
     })        
   },[])

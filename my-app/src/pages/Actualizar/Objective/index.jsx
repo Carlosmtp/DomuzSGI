@@ -1,6 +1,6 @@
 
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
-import React, { useContext, useEffect, useState  } from 'react'
+import React, { useContext, useState  } from 'react'
 import FormObjective from './FormObjective'
 import FormObjIndicator from './FormObjIndicator'
 import FormInitiative from './FormInitiative'
@@ -11,13 +11,11 @@ import axios from 'axios'
 const Objective = () => {
   
   const { lastObject, setObjective } = useContext(AppContext)
-
-  console.log("..........")
-  console.log(lastObject)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
-  const [perspective,setPerspective] = useState(lastObject.perspectiveId)
-  console.log(lastObject.perspectiveId)
+  const [perspective,setPerspective] = useState(lastObject.prespectiveId)
+  console.log(lastObject.prespectiveId)
+  console.log(perspective)
   console.log("..........")
 
   const [nameInit,setNameInit] = useState('')
@@ -77,7 +75,11 @@ const Objective = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(initiatives.length===0 || indicators.length===0){
+    if(initiatives.length===0 || 
+      indicators.length===0 ||
+      name === '' ||
+      description === '' ||
+      perspective === null){
       setOpen(true)
       setSeverity("error")
       setValidationMsg('Debe existir al menos 1 iniciativa y 1 indicador para crear el objetivo estratégico.')
@@ -98,19 +100,27 @@ const Objective = () => {
           periodicityId : indicators[i].periodicityId
         })      
       }
-      //CONEXIÓN CON LA BD
-      //console.log(
-      axios.post("update/objective",      
-        {
-          name:name,
-          description:description,
-          prespectiveId:perspective.id,
-          indicators:auxInd,
-          initiatives:auxInit
-        })
-      setOpen(true)
-      setSeverity("success")
-      setValidationMsg(name+' ha sido actualizado exitosamente.')
+      const updatedObjective = {
+                          id: lastObject.id,
+                          prespectiveId:perspective.id,
+                          name:name,
+                          description:description,
+                          indicators:auxInd,
+                          initiatives:auxInit
+                        }
+      console.log(updatedObjective)
+      try {
+        axios.post("update/objective", updatedObjective).then((res) => {
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(name+' ha sido actualizado exitosamente.')
+      })
+      }
+      catch{
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Ha ocurrido un error inesperado.')
+      }  
     }    
   }
   
@@ -144,6 +154,9 @@ const Objective = () => {
                         perspective={perspective}
                         setPerspective={setPerspective}                     
                                     />
+        <Grid item justify="center" align="right" xs={12} pt={2}>       
+          <Button variant="contained" color='secondary' type="submit">Actualizar Objetivo</Button>
+        </Grid>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 2 }}>
@@ -201,9 +214,6 @@ const Objective = () => {
             <Button variant="contained" color='secondary' onClick={addRowInd}>Añadir Indicador</Button>
           </Grid>
         </Box>
-      </Grid>
-      <Grid item justify="center" align="right" xs={12}>       
-        <Button variant="contained" color='secondary' type="submit">Actualizar Objetivo</Button>
       </Grid>
     </Grid>
   )

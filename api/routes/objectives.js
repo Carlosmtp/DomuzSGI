@@ -145,6 +145,18 @@ api.get("/get/objectives/initiatives", async (req, res) => {
   res.json(initiatives);
 });
 
+api.get("/get/objective/initiative", async (req, res) => {
+  const initiatives = await prisma.initiatives.findUnique({
+    where: {
+      id: parseInt(req.query.id),
+    },
+    include: {
+      plans: true,
+    },
+  });
+  res.json(initiatives);
+});
+
 api.post("/update/objective/initiative", async (req, res) => {
   const data = req.body;
   const initiative = await prisma.initiatives.update({

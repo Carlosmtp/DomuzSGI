@@ -254,6 +254,8 @@ model periodic_records {
   goal                  Float
   weight                Float
   efficiency            Float
+
+  @@unique([indicatorId,record_date])
 }
 
 model process_reports {
@@ -263,4 +265,6 @@ model process_reports {
   id_processes processes @relation(fields: [processId], references: [id])
   processId    Int
   goal         Float
+
+  @@unique([date,processId])
 }

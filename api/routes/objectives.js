@@ -210,7 +210,29 @@ api.post("/create/action_plan", async (req, res) => {
       userId: data.userId,
     },
   });
-  res.json(actionPlan);
+  //console.log(data.delivery_date.split("-"));
+  const perico = await autoInsertReport(data.delivery_date.split("-"));
+  //res.json(actionPlan);
+  res.json({ plan: actionPlan, periodic: perico[0], report: perico[1] });
+});
+
+api.post("/approve/action_plan", async (req, res) => {
+  const id = parseInt(req.query.id);
+  const actionPlan = await prisma.action_plans.update({
+    where: {
+      id: id,
+    },
+    data: {
+      stateId: 2,
+    },
+  });
+
+  const perico = await autoUpdateReport(
+    actionPlan.delivery_date.toJSON().split("-"),
+    "aprrove"
+  );
+  //console.log(actionPlan.delivery_date.toJSON().split("-"))
+  res.json({ plan: actionPlan, periodic: perico[0], report: perico[1] });
 });
 
 api.post("/update/action_plan", async (req, res) => {
@@ -285,13 +307,19 @@ api.get("/get/action_plan", async (req, res) => {
 });
 
 api.delete("/delete/action_plan", async (req, res) => {
-  const data = req.body;
+  const id = parseInt(req.query.id)
   const actionPlan = await prisma.action_plans.delete({
     where: {
-      id: data.id,
+      id: id,
     },
   });
-  res.json(actionPlan);
+
+  const perico = await autoUpdateReport(
+    actionPlan.delivery_date.toJSON().split("-"),
+    "delete"
+  );
+  //console.log(actionPlan.delivery_date.toJSON().split("-"))
+  res.json({ plan: actionPlan, periodic: perico[0], report: perico[1] });
 });
 
 //////////////////////////// Plan States //////////////////////////////////
@@ -344,5 +372,130 @@ api.get("/get/action_plans/perpective/:id", async (req, res) => {
   }
   res.json(actionPlans);
 });
+
+async function autoInsertReport(date) {
+  const peridic = await prisma.periodic_records.upsert({
+    where: {
+      indicatorId_record_date: {
+        indicatorId: 7,
+        record_date: new Date(date[0] + "-" + date[1] + "-31"),
+      },
+    },
+    update: {
+      expected_value: {
+        increment: 1,
+      },
+    },
+    create: {
+      indicatorId: 7,
+      archieved_value: 0,
+      expected_value: 1,
+      record_date: new Date(date[0] + "-" + date[1] + "-31"),
+      goal: 0.75,
+      weight: 1,
+      efficiency: 0,
+    },
+  });
+
+  const report = await prisma.process_reports.upsert({
+    where: {
+      date_processId: {
+        date: new Date(date[0] + "-" + date[1] + "-31"),
+        processId: 3,
+      },
+    },
+    update: {
+      efficiency: peridic.efficiency / peridic.goal,
+    },
+    create: {
+      processId: 3,
+      date: new Date(date[0] + "-" + date[1] + "-31"),
+      goal: 0.75,
+      efficiency: 0,
+    },
+  });
+
+  return [peridic, report];
+}
+
+async function autoUpdateReport(date, action) {
+  const aux = await prisma.periodic_records.findUnique({
+    where: {
+      indicatorId_record_date: {
+        indicatorId: 7,
+        record_date: new Date(date[0] + "-" + date[1] + "-31"),
+      },
+    },
+  });
+
+  if (action == "aprrove") {
+    const peridic = await prisma.periodic_records.update({
+      where: {
+        id: aux.id,
+      },
+      data: {
+        archieved_value: {
+          increment: 1,
+        },
+        efficiency: (aux.archieved_value + 1) / aux.expected_value,
+      },
+    });
+
+    const report = await prisma.process_reports.update({
+      where: {
+        date_processId: {
+          date: new Date(date[0] + "-" + date[1] + "-31"),
+          processId: 3,
+        },
+      },
+      data: {
+        efficiency: peridic.efficiency / peridic.goal,
+      },
+    });
+
+    return [peridic, report];
+  } else {
+    if (aux.expected_value == 1) {
+      const peridic = await prisma.periodic_records.delete({
+        where: { id: aux.id },
+      });
+      const report = await prisma.process_reports.delete({
+        where: {
+          date_processId: {
+            date: new Date(date[0] + "-" + date[1] + "-31"),
+            processId: 3,
+          },
+        },
+      });
+      return [peridic, report];
+    } else {
+      const peridic = await prisma.periodic_records.update({
+        where: {
+          id: aux.id,
+        },
+        data: {
+          expected_value: {
+            decrement: 1,
+          },
+          efficiency: aux.archieved_value / (aux.expected_value - 1),
+        },
+      });
+
+      const report = await prisma.process_reports.update({
+        where: {
+          date_processId: {
+            date: new Date(date[0] + "-" + date[1] + "-31"),
+            processId: 3,
+          },
+        },
+        data: {
+          efficiency: peridic.efficiency / peridic.goal,
+        },
+      });
+
+      return [peridic, report];
+    }
+  }
+}
 
 module.exports = api;

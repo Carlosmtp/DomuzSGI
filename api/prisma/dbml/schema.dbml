@@ -237,6 +237,10 @@ Table periodic_records {
   goal Float [not null]
   weight Float [not null]
   efficiency Float [not null]
+
+  indexes {
+    (indicatorId, record_date) [unique]
+  }
 }
 
 Table process_reports {
@@ -246,6 +250,10 @@ Table process_reports {
   id_processes processes [not null]
   processId Int [not null]
   goal Float [not null]
+
+  indexes {
+    (date, processId) [unique]
+  }
 }
 
 Ref: users.personId - people.id

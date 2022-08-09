@@ -75,13 +75,12 @@ api.get("/get/objectives/perspective/:id", async (req, res) => {
 
 //////////////////////////// Indicators //////////////////////////////////
 
-api.post("/create/objective/indicators", async (req, res) => {
+api.post("/create/objective/indicator", async (req, res) => {
   const data = req.body;
-  const count = await prisma.objetive_indicators.createMany({
+  const indicator = await prisma.objetive_indicators.create({
     data: data,
-    skipDuplicates: true,
   });
-  res.json(count);
+  res.json(indicator);
 });
 
 api.get("/get/objectives/indicators", async (req, res) => {
@@ -127,13 +126,12 @@ api.delete("/delete/objective/indicator", async (req, res) => {
 
 //////////////////////////// Initiatives //////////////////////////////////
 
-api.post("/create/objective/initiatives", async (req, res) => {
+api.post("/create/objective/initiative", async (req, res) => {
   const data = req.body;
-  const count = await prisma.initiatives.createMany({
+  const initiative = await prisma.initiatives.create({
     data: data,
-    skipDuplicates: true,
   });
-  res.json(count);
+  res.json(initiative);
 });
 
 api.get("/get/objectives/initiatives", async (req, res) => {

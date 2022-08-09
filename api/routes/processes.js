@@ -107,59 +107,6 @@ api.post("/add/periodic_record", async (req, res) => {
     },
   });
 
-  /* const id_p = await prisma.process_indicators.findUnique({
-    where: {
-      id: data.indicator_id,
-    },
-    select: {
-      processId: true,
-    },
-  });
-
-  const indics = await prisma.process_indicators.findMany({
-    where: {
-      processId: id_p.processId,
-    },
-    select: {
-      id: true,
-    },
-  });
-
-  let last = [];
-  for (let i = 0; i < indics.length; i++) {
-    last[i] = await prisma.periodic_records.findFirst({
-      where: {
-        indicatorId: indics[i].id,
-        record_date: {
-          lte: new Date(dateToSearch),
-        },
-      },
-      orderBy: [{ record_date: "desc" }],
-    });
-  }
-
-  let sum_1 = 0;
-  let sum_2 = 0;
-  last.forEach((e) => {
-    if (e != null) {
-      sum_1 += e.efficiency * e.weight;
-      sum_2 += e.goal * e.weight;
-    }
-  });
-  let processEfficency = sum_1 / sum_2;
-  //console.log(sum_1);
-  //console.log(sum_2);
-  //console.log(processEfficency);
-
-  const report = await prisma.process_reports.create({
-    data: {
-      processId: id_p.processId,
-      date: new Date(data.record_date),
-      efficiency: processEfficency,
-      goal: 0.5,
-    },
-  }); */
-
   const report = await autoInsertReport(data.indicator_id, data.record_date);
   res.json([record, report]);
 });

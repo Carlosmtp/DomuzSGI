@@ -232,7 +232,7 @@ api.post("/update/action_plan", async (req, res) => {
 });
 
 api.get("/get/action_plans", async (req, res) => {
-  var clauses = { where: {} };
+  var clauses = { where: {}, include:{id_plan_states:true} };
   const userId = req.query.userid;
   if (userId !== undefined) {
     clauses.where.userId = parseInt(userId);

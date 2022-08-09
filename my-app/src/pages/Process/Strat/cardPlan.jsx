@@ -1,10 +1,13 @@
 import { Button, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
+import { AppContext } from '../../../context/AppContext'
 
 const CardPlan = ({ plan, access }) => {
+    const { setLastObject, setProcesses } = useContext(AppContext)
+
     const [user, setUser] = useState('')
     const [options, setOptions] = useState()
 
@@ -32,6 +35,11 @@ const CardPlan = ({ plan, access }) => {
                     onClick = {()=>{
                         axios.post("approve/action_plan?id="+plan.id).then((res)=>{
                             console.log('actualizar plan a estado a aprobado', res.data) 
+                            axios.get('/get/process?id=3').then((res) => {
+                                console.log(res.data)
+                                setProcesses([])
+                                setLastObject(res.data)
+                            })
                         })
                         
                     }}

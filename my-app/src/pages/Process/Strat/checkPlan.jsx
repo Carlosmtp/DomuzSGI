@@ -12,12 +12,12 @@ const CheckPlan = () => {
     const [send, setSend] = useState([])
 
     useEffect(()=>{
-        axios.get('/get/action_plans')
+        axios.get('/get/action_plans/state?id=1')//Pendientes del mes y año
         .then((res) => {
             setReview(res.data)
         })
 
-        axios.get('/get/action_plans')
+        axios.get('/get/action_plans')//UserID no aprobados
         .then((res) => {
             setSend(res.data)
         })

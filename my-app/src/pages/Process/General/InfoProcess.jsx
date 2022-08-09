@@ -2,11 +2,13 @@
 import { Box, Divider, Grid, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 //import { Button } from '@mui/material';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { AppContext } from '../../../context/AppContext'
 
 const InfoProcess = ( {id, title, description, goal}) => {
+  const { processes } = useContext(AppContext)
   const [efficiency, setEfficiency] = useState()
 
   useEffect(()=>{
@@ -20,7 +22,7 @@ const InfoProcess = ( {id, title, description, goal}) => {
       
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[processes])
 
   return (
     <Grid item xs={12} sm={12} >  

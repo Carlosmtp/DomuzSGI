@@ -47,6 +47,9 @@ api.get("/get/process", async (req, res) => {
     where: {
       id: id,
     },
+    include: {
+      indicators:true,
+    }
   });
   res.json(processe);
 });

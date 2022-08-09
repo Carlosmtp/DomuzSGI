@@ -212,11 +212,11 @@ const ProcessIndicator = () => {
       
       try {
         axios.post("/add/periodic_record", obj).then((res) => {
-          console.log(res)
+          console.log(res.data)
           setProcesses([])
 
           let aux = rows.concat({
-            id: "",
+            id: res.data[0].id,
             date: date,
             month: parseToMonth(date),          
             weight: cWeight,
@@ -225,10 +225,7 @@ const ProcessIndicator = () => {
             denominator: cDenominator,
             score:  calculateScore(parseFloat(cNumerator),parseFloat(cDenominator))
           })
-          for (let i = 0; i < aux.length; i++) {
-            aux[i].id = i + 1;      
-          }
-    
+          
           setOpen(true)
           setSeverity("success")
           setValidationMsg('Se ha creado el registro correctamente.')

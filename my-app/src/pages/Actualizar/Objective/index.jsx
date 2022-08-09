@@ -111,15 +111,27 @@ const Objective = () => {
 
   const delete_ind = (ind) => {
     try {
-        let aux = {
-          id : ind.id_ind
-        }
-        console.log('Enviando', aux)
-        axios.delete("/delete/objective/indicator", aux).then((res) => {
-        console.log('res',res)})
+        axios.delete("/delete/objective/indicator?id="+ind.id_ind).then((res) => {
+        console.log('res',res)
         setOpen(true)
         setSeverity("success")
         setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
+      })        
+    } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+    } 
+  }
+
+  const delete_ini = (ini) => {
+    try {
+        axios.delete("/delete/objective/initiative?id="+ini.id_ini).then((res) => {
+        console.log('res',res)
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(ini.name + 'ha sido eliminado correctamente.')
+      })        
     } catch (error) {
         setOpen(true)
         setSeverity("error")
@@ -186,7 +198,6 @@ const Objective = () => {
       let aux = res.data
       setPerspective(aux.name)
     })
-
     let aux = []
     console.log('indicators',indicators)
     for (let i = 0; i < indicators.length; i++) {
@@ -209,7 +220,7 @@ const Objective = () => {
       })      
     }
     setInitiatives(auxInit)
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   //Validación
@@ -260,7 +271,8 @@ const Objective = () => {
                   pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
-                  checkboxSelection={true}/>
+                  checkboxSelection={true}
+                  deleteFunction={delete_ini}/>
           </Grid>
           <Grid item pt={2}>
             <FormInitiative name={nameInit}

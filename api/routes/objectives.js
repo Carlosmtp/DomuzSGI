@@ -378,7 +378,7 @@ async function autoInsertReport(date) {
     where: {
       indicatorId_record_date: {
         indicatorId: 7,
-        record_date: new Date(date[0] + "-" + date[1] + "-31"),
+        record_date: new Date(date[0] + "-" + date[1] + "-01"),
       },
     },
     update: {
@@ -390,7 +390,7 @@ async function autoInsertReport(date) {
       indicatorId: 7,
       archieved_value: 0,
       expected_value: 1,
-      record_date: new Date(date[0] + "-" + date[1] + "-31"),
+      record_date: new Date(date[0] + "-" + date[1] + "-01"),
       goal: 0.75,
       weight: 1,
       efficiency: 0,
@@ -400,7 +400,7 @@ async function autoInsertReport(date) {
   const report = await prisma.process_reports.upsert({
     where: {
       date_processId: {
-        date: new Date(date[0] + "-" + date[1] + "-31"),
+        date: new Date(date[0] + "-" + date[1] + "-01"),
         processId: 3,
       },
     },
@@ -409,7 +409,7 @@ async function autoInsertReport(date) {
     },
     create: {
       processId: 3,
-      date: new Date(date[0] + "-" + date[1] + "-31"),
+      date: new Date(date[0] + "-" + date[1] + "-01"),
       goal: 0.75,
       efficiency: 0,
     },
@@ -423,7 +423,7 @@ async function autoUpdateReport(date, action) {
     where: {
       indicatorId_record_date: {
         indicatorId: 7,
-        record_date: new Date(date[0] + "-" + date[1] + "-31"),
+        record_date: new Date(date[0] + "-" + date[1] + "-01"),
       },
     },
   });
@@ -444,7 +444,7 @@ async function autoUpdateReport(date, action) {
     const report = await prisma.process_reports.update({
       where: {
         date_processId: {
-          date: new Date(date[0] + "-" + date[1] + "-31"),
+          date: new Date(date[0] + "-" + date[1] + "-01"),
           processId: 3,
         },
       },
@@ -462,7 +462,7 @@ async function autoUpdateReport(date, action) {
       const report = await prisma.process_reports.delete({
         where: {
           date_processId: {
-            date: new Date(date[0] + "-" + date[1] + "-31"),
+            date: new Date(date[0] + "-" + date[1] + "-01"),
             processId: 3,
           },
         },
@@ -484,7 +484,7 @@ async function autoUpdateReport(date, action) {
       const report = await prisma.process_reports.update({
         where: {
           date_processId: {
-            date: new Date(date[0] + "-" + date[1] + "-31"),
+            date: new Date(date[0] + "-" + date[1] + "-01"),
             processId: 3,
           },
         },

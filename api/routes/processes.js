@@ -41,12 +41,22 @@ api.get("/get/processes", async (req, res) => {
   res.json(processes);
 });
 
+api.get("/get/process", async (req, res) => {
+  const id = parseInt(req.query.id);
+  const processe = await prisma.processes.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  res.json(processe);
+});
+
 ///////////////////////////// Indicator ///////////////////////////
 
 api.post("/create/process/indicators", async (req, res) => {
   const data = req.body;
   const indicator = await prisma.process_indicators.create({
-    data: data
+    data: data,
   });
   res.json(indicator);
 });
@@ -76,10 +86,11 @@ api.get("/get/periodicity", async (req, res) => {
   const id = req.query.periodicity_id;
   const periodicity = await prisma.periodicities.findUnique({
     where: {
-      id: parseInt(id)
-    }})
-    res.json(periodicity);
+      id: parseInt(id),
+    },
   });
+  res.json(periodicity);
+});
 
 api.delete("/delete/process/indicator", async (req, res) => {
   const id = parseInt(req.query.id);
@@ -102,7 +113,10 @@ api.post("/add/periodic_record", async (req, res) => {
       record_date: new Date(data.record_date),
       goal: data.goal,
       weight: data.weight,
-      efficiency: data.expected_value === 0 ? 1 : data.archieved_value / data.expected_value,
+      efficiency:
+        data.expected_value === 0
+          ? 1
+          : data.archieved_value / data.expected_value,
     },
   });
 
@@ -183,18 +197,18 @@ api.get("/get/last_record/", async (req, res) => {
 ///////////////////////// Reports ///////////////////////
 api.get("/get/last_report/", async (req, res) => {
   const processId = req.query.process_id;
-  year = req.query.year
-  var clauses = {where: {}}
-  if(processId !== undefined){
-    clauses.where.processId = parseInt(processId)
+  year = req.query.year;
+  var clauses = { where: {} };
+  if (processId !== undefined) {
+    clauses.where.processId = parseInt(processId);
   }
-  if(year !== undefined){
+  if (year !== undefined) {
     clauses.where.date = {
       gte: new Date(year + "-jan-01"),
       lte: new Date(year + "-dec-31"),
-    }
+    };
   }
-  clauses.orderBy = [{ date: "desc" }]
+  clauses.orderBy = [{ date: "desc" }];
   const lastReport = await prisma.process_reports.findFirst(clauses);
   res.json(lastReport);
 });
@@ -248,12 +262,13 @@ async function autoInsertReport(idIndicator, date) {
   //console.log(sum_2);
   //console.log(processEfficency);
   const clearReports = await prisma.process_reports.deleteMany({
-    where : {
+    where: {
       date: {
         gte: new Date(dateToStart),
         lte: new Date(dateToSearch),
-      }}
-    });
+      },
+    },
+  });
   const report = await prisma.process_reports.create({
     data: {
       processId: id_p.processId,
@@ -267,19 +282,19 @@ async function autoInsertReport(idIndicator, date) {
 }
 
 api.get("/get/reports/", async (req, res) => {
-  var clauses = {where: {}}
-  year = req.query.year
-  process_id= req.query.process_id
-  if(year !== undefined){
+  var clauses = { where: {} };
+  year = req.query.year;
+  process_id = req.query.process_id;
+  if (year !== undefined) {
     clauses.where.date = {
       gte: new Date(year + "-jan-01"),
       lte: new Date(year + "-dec-31"),
-    }
+    };
   }
-  if(process_id !== undefined){
-    clauses.where.processId = parseInt(process_id)
+  if (process_id !== undefined) {
+    clauses.where.processId = parseInt(process_id);
   }
-  const reports = await prisma.process_reports.findMany(clauses)
-  res.json(reports)
+  const reports = await prisma.process_reports.findMany(clauses);
+  res.json(reports);
 });
 module.exports = api;

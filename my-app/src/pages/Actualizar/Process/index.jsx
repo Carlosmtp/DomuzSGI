@@ -130,7 +130,7 @@ const Process = () => {
           indId: lastObject.indicators[i].id,
           name:lastObject.indicators[i].name,
           objetive: lastObject.indicators[i].objetive,
-        } )     
+        })
       }
       setIndicators(aux)
     }
@@ -146,7 +146,7 @@ const Process = () => {
       return;
     }
     setOpen(false);
-  };
+  }; 
 
   return (
     <Grid container  component="form" spacing={4} pl={{xs:0,sm:3}} pr={{xs:0,sm:3}} onSubmit={handleSubmit}>

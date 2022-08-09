@@ -7,16 +7,17 @@ import FormInitiative from './FormInitiative'
 import CustomTable from '../../../components/Forms/CustomTable'
 import { AppContext } from '../../../context/AppContext'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 const Objective = () => {
   
-  const { lastObject, setObjective } = useContext(AppContext)
+  const { lastObject } = useContext(AppContext)
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
-  const [perspective,setPerspective] = useState(lastObject.prespectiveId)
-  console.log(lastObject.prespectiveId)
-  console.log(perspective)
-  console.log("..........")
+  const [perspective,setPerspective] = useState('')
+  //console.log(lastObject)
+  //console.log(perspective)
+  //console.log("..........")
 
   const [nameInit,setNameInit] = useState('')
   const [descriptionInit ,setDescriptionInit] = useState('')
@@ -34,21 +35,38 @@ const Objective = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir una iniciativa.')
     }else{
-      let aux = initiatives.concat({
-        id:"",
-        name:nameInit,
-        description:descriptionInit
-      } )
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
-      }
-      setInitiatives(aux)
-      setNameInit('')
-      setDescriptionInit('')
+      try {
+        let ini = [
+          {
+            objectiveId: lastObject.objective_id,
+            name: nameInit,
+            description: descriptionInit
+          }
+        ]
 
-      setOpen(true)
-      setSeverity("success")
-      setValidationMsg(nameInit + ' ha sido añadido correctamente.')
+        axios.post("/create/objective/initiatives", ini).then((res)=>{
+          console.log(res.data)
+          let aux = initiatives.concat({
+            id:"",
+            name:nameInit,
+            description:descriptionInit
+          } )
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+          setInitiatives(aux)
+          setNameInit('')
+          setDescriptionInit('')
+    
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameInit + ' ha sido añadido correctamente.')
+        })        
+      } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Ha ocurrido un error.')
+      }      
     }
   }
 
@@ -58,19 +76,68 @@ const Objective = () => {
       setSeverity("error")
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
     }else{
-      let aux = indicators.concat({
-        id:"",
-        name:nameInd,
-        goal:goal,
-        periodicityId:periodicity
-      } )
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].id = i + 1;      
-      }
-      setIndicators(aux)
-      setNameInd('')
-      setPeriodicity('')
+      try {
+        let ind = [
+          {
+          objectiveId: lastObject.objective_id,
+          name: nameInd,
+          goal: goal,
+          periodicityId: periodicity
+        }
+      ]
+        console.log(ind)
+        axios.post("/create/objective/indicators", ind).then((res)=>{
+          console.log(res.data)
+          let aux = indicators.concat({
+            id:"",
+            name:nameInd,
+            goal:goal
+          } )
+          for (let i = 0; i < aux.length; i++) {
+            aux[i].id = i + 1;      
+          }
+          setOpen(true)
+          setSeverity("success")
+          setValidationMsg(nameInd+' ha sido creado exitosamente.')
+          setIndicators(aux)
+          setNameInd('')
+          setPeriodicity('')
+        })
+        
+      } catch (error) {
+        
+      }      
     }    
+  }
+
+  const delete_ind = (ind) => {
+    try {
+        axios.delete("/delete/objective/indicator?id="+ind.id_ind).then((res) => {
+        console.log('res',res)
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
+      })        
+    } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+    } 
+  }
+
+  const delete_ini = (ini) => {
+    try {
+        axios.delete("/delete/objective/initiative?id="+ini.id_ini).then((res) => {
+        console.log('res',res)
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(ini.name + 'ha sido eliminado correctamente.')
+      })        
+    } catch (error) {
+        setOpen(true)
+        setSeverity("error")
+        setValidationMsg('Algo ha salido mal.')
+    } 
   }
 
   const handleSubmit = (e) => {
@@ -102,10 +169,10 @@ const Objective = () => {
           name : indicators[i].name,
           goal : indicators[i].goal,
           periodicityId : indicators[i].periodicityId
-        })      
+        }) 
       }
       const updatedObjective = {
-                          id: lastObject.id,
+                          id: lastObject.objective_id,
                           prespectiveId:perspective.id,
                           name:name,
                           description:description,
@@ -126,6 +193,38 @@ const Objective = () => {
     }    
   }
   
+  useEffect(()=>{
+    axios.get('/get/objectives/perspective/'+lastObject.prespectiveId).then((res)=>{
+      //console.log(res.data)
+      let aux = res.data
+      setPerspective(aux.name)
+    })
+    let aux = []
+    console.log('indicators',indicators)
+    for (let i = 0; i < indicators.length; i++) {
+      aux.push({
+        id:i+1,
+        id_ind: indicators[i].id,
+        name: indicators[i].name,
+        goal:indicators[i].goal,
+      })
+    }
+    setIndicators(aux)
+    
+    let auxInit = []
+    for (let i = 0; i < initiatives.length; i++) {
+      auxInit.push({
+        id:i+1,
+        id_ini: initiatives[i].id,
+        name: initiatives[i].name,
+        description: initiatives[i].description
+      })      
+    }
+    setInitiatives(auxInit)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  //Validación
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [validationMsg, setValidationMsg] = useState('');
@@ -170,10 +269,11 @@ const Objective = () => {
                     { field: 'name', headerName: 'Nombre', width: 140 },
                     { field: 'description', headerName: 'Descripción', width: 130 }]
                 }
-                pageSize={5}
+                  pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
-                  checkboxSelection={true}/>
+                  checkboxSelection={true}
+                  deleteFunction={delete_ini}/>
           </Grid>
           <Grid item pt={2}>
             <FormInitiative name={nameInit}
@@ -195,13 +295,13 @@ const Objective = () => {
                   [
                     { field: 'id', headerName: 'ID', width: 15 },
                     { field: 'name', headerName: 'Nombre', width: 100 },
-                    { field: 'goal', headerName: 'Meta', width: 70 },
-                    { field: 'periodicity', headerName: 'Periodicidad', width: 100 }]
+                    { field: 'goal', headerName: 'Meta', width: 70 }]
                 }
-                  pageSize={5}
+                  pageSize={25}
                   rowsPerPageOptions={25}
                   deleteButton={true}
-                  checkboxSelection={true}/>
+                  checkboxSelection={true}
+                  deleteFunction={delete_ind}/>
           </Grid>
           <Grid item pt={2}>
             <FormObjIndicator name={nameInd}

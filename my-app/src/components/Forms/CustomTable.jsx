@@ -90,7 +90,7 @@ const CustomTable = ({
                     if(rows.length === 1){
                       setOpen(true)
                       setSeverity("error")
-                      setValidationMsg('Debe existir al menos un indicador en un proceso.')
+                      setValidationMsg('Debe existir al menos un existir un item.')
                     }else{
                       setOpenDialog(true)
                       console.log(rows[select[0]-1].name)

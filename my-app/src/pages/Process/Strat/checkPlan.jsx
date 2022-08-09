@@ -16,12 +16,17 @@ const CheckPlan = () => {
         .then((res) => {
             setReview(res.data)
         })
+
+        axios.get('/get/action_plans')
+        .then((res) => {
+            setSend(res.data)
+        })
       },[])
 
     return (
         <Box pb={2}>
             <AccordionPlans title={'Revisión'} plans={review} access={true}/>
-            <AccordionPlans title={'Mis planes'} plans={review} access={false}/>
+            <AccordionPlans title={'Mis planes'} plans={send} access={false}/>
         </Box>
     )
 }

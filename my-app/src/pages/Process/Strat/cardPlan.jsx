@@ -29,10 +29,16 @@ const CardPlan = ({ plan, access }) => {
                 <Button 
                     variant="contained"
                     color='secondary'
+                    onClick = {()=>{
+                        console.log('actualizar plan a estado a aprobado')
+                    }}
                     > Aceptar </Button>
                 <Button 
                     variant="contained"
                     color='info'
+                    onClick = {()=>{
+                        console.log('actualizar plan a estado a no aprobado')
+                    }}
                     > Rechazar </Button>
             </Grid>
         )
@@ -44,6 +50,19 @@ const CardPlan = ({ plan, access }) => {
                 <Button 
                     variant="contained"
                     color='secondary'
+                    onClick = {()=>{
+                        console.log('actualizar plan a estado a en espera')
+                        let obj = {
+                            id : plan.id, 
+                            name : plan.name,     
+                            description : plan.description,   
+                            delivery_date : plan.delivery_date,
+                            initiativeId : plan.initiativeId,
+                            userId :  plan.userId,
+                            stateId : 1
+                        }
+                        console.log(obj)
+                    }}
                     > Enviar </Button>
             </Grid>
         )

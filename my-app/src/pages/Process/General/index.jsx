@@ -11,7 +11,6 @@ const General = () => {
   let navigate = useNavigate() 
 
   const { lastObject } = useContext(AppContext)
-
   useEffect(()=>{
     if(lastObject.indicators === undefined){
       navigate("/app/procesos/inicio")

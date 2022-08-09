@@ -254,6 +254,23 @@ api.get("/get/action_plans/state", async (req, res) => {
   res.json(actionPlans);
 });
 
+api.get("/get/action_plans/mes", async (req, res) => {
+  const year = req.query.year;
+  const month = req.query.month;
+  const actionPlans = await prisma.action_plans.findMany({
+    where: {
+      delivery_date: {
+        gte: new Date(year + "-" + month + "-01"),
+        lte: new Date(year + "-" + month + "-31"),
+      },
+    },
+    include: {
+      id_plan_states: true,
+    },
+  });
+  res.json(actionPlans);
+});
+
 api.get("/get/action_plan", async (req, res) => {
   const id = req.query.action_plan_id;
   const actionPlan = await prisma.action_plans.findUnique({

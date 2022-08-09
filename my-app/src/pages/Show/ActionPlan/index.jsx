@@ -7,7 +7,7 @@ const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   { field: 'name', headerName: 'Nombre', width: 150 },
   { field: 'description', headerName: 'Descripción', width: 250 },
-  { field: 'user', headerName: 'Usuario', width: 100 },
+  { field: 'user', headerName: 'Responsable', width: 100 },
   { field: 'state', headerName: 'Estado', width: 100 },
 ];
 

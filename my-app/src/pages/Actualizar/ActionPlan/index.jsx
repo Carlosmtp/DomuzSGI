@@ -1,6 +1,6 @@
 
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FormActionPlan from './FormActionPlan'
 import FormActionInitiative from './FormActionInitiative'
 import FormActionSelector from './FormActionSelectors'
@@ -12,10 +12,10 @@ const Action_Plan = () => {
 
   const { lastObject, setActionPlan } = useContext(AppContext)
 
-  const [nameInit,setNameInit] = useState(lastObject.initiativeId)
+  const [nameInit,setNameInit] = useState('')
   const [nameAP,setNameAP] = useState(lastObject.name)
   const [descriptionAP ,setDescriptionAP] = useState(lastObject.description)
-  const [user,setUser] = useState(lastObject.user)
+  const [user,setUser] = useState('')
   const [value,setValue] = useState(lastObject.delivery_date)
   
   const [open, setOpen] = useState(false);
@@ -27,6 +27,16 @@ const Action_Plan = () => {
     }
     setOpen(false);
   };
+
+  useEffect(()=>{
+    axios.get('/get/user?user_id='+lastObject.user).then((res)=>{
+      let aux1 = res.data
+      setUser(aux1.name + " " + aux1.lastname)
+    })
+    axios.get('/get/objective/initiative?id='+lastObject.initiativeId).then((res)=>{
+        let aux2 = res.data
+        setNameInit(aux2.name)})
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault()

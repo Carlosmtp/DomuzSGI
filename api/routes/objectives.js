@@ -116,10 +116,10 @@ api.get("/get/objectives/indicator/:id", async (req, res) => {
 });
 
 api.delete("/delete/objective/indicator", async (req, res) => {
-  const data = req.body;
+  const id = parseInt(req.query.id);
   const indicator = await prisma.objetive_indicators.delete({
     where: {
-      id: data.id,
+      id: id,
     },
   });
   res.json(indicator);

@@ -45,7 +45,7 @@ const Objective = () => {
         ]
 
         axios.post("/create/objective/initiatives", ini).then((res)=>{
-          console.log(res)
+          console.log(res.data)
           let aux = initiatives.concat({
             id:"",
             name:nameInit,
@@ -87,6 +87,7 @@ const Objective = () => {
       ]
         console.log(ind)
         axios.post("/create/objective/indicators", ind).then((res)=>{
+          console.log(res.data)
           let aux = indicators.concat({
             id:"",
             name:nameInd,

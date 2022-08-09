@@ -6,6 +6,7 @@ import User from './User'
 import Process from './Process'
 import Reports from './Reports'
 import ActionPlan from './ActionPlan'
+import Companies from './Companies'
 
 let nombre = (id) => {
   switch (id) {
@@ -19,6 +20,8 @@ let nombre = (id) => {
       return "objetivo"
     case "plan":
       return "plan de acción"
+    case "empresa":
+        return "empresas"
     default:
       break;
   }
@@ -36,6 +39,8 @@ const routes = (id) => {
         return <Reports /> 
       case "plan":
         return <ActionPlan /> 
+      case "empresa":
+          return <Companies /> 
       default:
         break;
     }

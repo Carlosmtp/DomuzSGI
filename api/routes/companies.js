@@ -16,6 +16,7 @@ api.post("/create/company", async (req, res) => {
         } else {
             const company = await prisma.companies.create({
                 data: {
+                    id: '',
                     nit: data.nit,
                     name: data.name,
                 },

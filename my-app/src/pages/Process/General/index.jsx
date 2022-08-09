@@ -34,7 +34,7 @@ const General = () => {
           <EditIcon />
         </Fab>
         <Grid item xs={12} sm={12}>      
-          <InfoProcess title={lastObject.name} description={lastObject.description} goal={lastObject.goal}/>
+          <InfoProcess id={lastObject.id} title={lastObject.name} description={lastObject.description} goal={lastObject.goal}/>
         </Grid>
         <Grid item xs={12} sm={12}>
         {lastObject.indicators.map((e,i) =>

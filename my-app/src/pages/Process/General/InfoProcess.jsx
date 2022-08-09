@@ -6,11 +6,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
-const InfoProcess = ( {title, description, goal}) => {
+const InfoProcess = ( {id, title, description, goal}) => {
   const [efficiency, setEfficiency] = useState()
 
   useEffect(()=>{
-    axios.get('/get/last_report?process_id=1').then((res)=>{
+    axios.get('/get/last_report?process_id='+id).then((res)=>{
       let aux = res.data
       setEfficiency(aux.efficiency >= 1 ? (aux.efficiency*100+"").substr(0, 3)+"%" : (aux.efficiency*100+"").substr(0, 2)+"%")
     })

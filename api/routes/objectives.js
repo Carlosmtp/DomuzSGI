@@ -253,9 +253,9 @@ api.post("/update/action_plan", async (req, res) => {
   res.json(actionPlan);
 });
 
-api.get("/get/action_plans", async (req, res) => {
-  var clauses = { where: {}, include: { id_plan_states: true } };
-  const userId = req.query.userid;
+api.get("/get/action_plans/user", async (req, res) => {
+  var clauses = { where: { stateId: 3 } };
+  const userId = req.query.id;
   if (userId !== undefined) {
     clauses.where.userId = parseInt(userId);
   }
@@ -273,7 +273,7 @@ api.get("/get/action_plans/state", async (req, res) => {
       plans: true,
     },
   });
-  res.json(actionPlans);
+  res.json(actionPlans.plans);
 });
 
 api.get("/get/action_plans/mes", async (req, res) => {
@@ -307,7 +307,7 @@ api.get("/get/action_plan", async (req, res) => {
 });
 
 api.delete("/delete/action_plan", async (req, res) => {
-  const id = parseInt(req.query.id)
+  const id = parseInt(req.query.id);
   const actionPlan = await prisma.action_plans.delete({
     where: {
       id: id,

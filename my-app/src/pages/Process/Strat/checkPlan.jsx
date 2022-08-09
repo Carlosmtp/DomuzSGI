@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import AccordionPlans from './AccordionPlans'
 
 import { Box } from '@mui/system';
-import { AppContext } from '../../../context/AppContext';
+//import { AppContext } from '../../../context/AppContext';
 
 const CheckPlan = () => {
-    const { login } = useContext(AppContext)
+    //const { login } = useContext(AppContext)
 
     const [review, setReview] = useState([])
     const [send, setSend] = useState([])
@@ -21,6 +21,7 @@ const CheckPlan = () => {
         .then((res) => {
             setSend(res.data)
         })
+        
       },[])
 
     return (

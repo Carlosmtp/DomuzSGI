@@ -10,7 +10,7 @@ import axios from 'axios'
 
 const Action_Plan = () => {
 
-  const { lastObject, setActionPlan } = useContext(AppContext)
+  const { lastObject } = useContext(AppContext)
 
   const [nameInit,setNameInit] = useState('')
   const [nameAP,setNameAP] = useState(lastObject.name)
@@ -36,6 +36,7 @@ const Action_Plan = () => {
     axios.get('/get/objective/initiative?id='+lastObject.initiativeId).then((res)=>{
         let aux2 = res.data
         setNameInit(aux2.name)})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleSubmit = (e) => {

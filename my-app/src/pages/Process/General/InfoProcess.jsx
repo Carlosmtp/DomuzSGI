@@ -19,6 +19,7 @@ const InfoProcess = ( {id, title, description, goal}) => {
       }
       
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (

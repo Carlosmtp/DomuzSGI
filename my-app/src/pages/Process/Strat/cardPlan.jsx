@@ -19,7 +19,7 @@ const CardPlan = ({ plan, access }) => {
         }else{
             send()
         }
-       
+       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
 
         

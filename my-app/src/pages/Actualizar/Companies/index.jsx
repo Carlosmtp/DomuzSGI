@@ -7,7 +7,7 @@ import { AppContext } from '../../../context/AppContext'
 
 const Company = () => {
 
-  const { lastObject, setCompany } = useContext(AppContext)
+  const { lastObject } = useContext(AppContext)
 
   const [name,setName] = useState(lastObject.name)
   const [NIT,setNIT] = useState(lastObject.nit)

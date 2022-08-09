@@ -173,10 +173,10 @@ api.post("/update/objective/initiative", async (req, res) => {
 });
 
 api.delete("/delete/objective/initiative", async (req, res) => {
-  const data = req.body;
+  const id = parseInt(req.query.id);
   const InitPlans = await prisma.initiatives.findUnique({
     where: {
-      id: data.id,
+      id: id,
     },
     select: {
       plans: true,
@@ -185,7 +185,7 @@ api.delete("/delete/objective/initiative", async (req, res) => {
   if (InitPlans.plans.length == 0) {
     const initiative = await prisma.initiatives.delete({
       where: {
-        id: data.id,
+        id: id,
       },
     });
     res.json(initiative);

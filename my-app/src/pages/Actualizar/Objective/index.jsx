@@ -15,7 +15,7 @@ const Objective = () => {
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
   const [perspective,setPerspective] = useState('')
-  //console.log(lastObject.prespectiveId)
+  //console.log(lastObject)
   //console.log(perspective)
   //console.log("..........")
 
@@ -66,9 +66,7 @@ const Objective = () => {
         setOpen(true)
         setSeverity("error")
         setValidationMsg('Ha ocurrido un error.')
-      }
-
-      
+      }      
     }
   }
 
@@ -113,7 +111,11 @@ const Objective = () => {
 
   const delete_ind = (ind) => {
     try {
-        axios.delete("/delete/objective/indicator", {id:2}).then((res) => {
+        let aux = {
+          id : ind.id_ind
+        }
+        console.log('Enviando', aux)
+        axios.delete("/delete/objective/indicator", aux).then((res) => {
         console.log('res',res)})
         setOpen(true)
         setSeverity("success")
@@ -154,7 +156,7 @@ const Objective = () => {
           name : indicators[i].name,
           goal : indicators[i].goal,
           periodicityId : indicators[i].periodicityId
-        })      
+        }) 
       }
       const updatedObjective = {
                           id: lastObject.objective_id,
@@ -180,11 +182,35 @@ const Objective = () => {
   
   useEffect(()=>{
     axios.get('/get/objectives/perspective/'+lastObject.prespectiveId).then((res)=>{
-      console.log(res.data)
+      //console.log(res.data)
       let aux = res.data
       setPerspective(aux.name)
     })
-  },[lastObject.prespectiveId])
+
+    let aux = []
+    console.log('indicators',indicators)
+    for (let i = 0; i < indicators.length; i++) {
+      aux.push({
+        id:i+1,
+        id_ind: indicators[i].id,
+        name: indicators[i].name,
+        goal:indicators[i].goal,
+      })
+    }
+    setIndicators(aux)
+    
+    let auxInit = []
+    for (let i = 0; i < initiatives.length; i++) {
+      auxInit.push({
+        id:i+1,
+        id_ini: initiatives[i].id,
+        name: initiatives[i].name,
+        description: initiatives[i].description
+      })      
+    }
+    setInitiatives(auxInit)
+
+  },[])
 
   //Validación
   const [open, setOpen] = useState(false);

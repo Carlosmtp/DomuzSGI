@@ -130,7 +130,7 @@ const Process = () => {
           indId: lastObject.indicators[i].id,
           name:lastObject.indicators[i].name,
           objetive: lastObject.indicators[i].objetive,
-        } )     
+        })
       }
       setIndicators(aux)
     }

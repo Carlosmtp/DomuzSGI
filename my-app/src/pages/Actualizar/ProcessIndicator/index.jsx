@@ -49,7 +49,7 @@ const ProcessIndicator = () => {
         obj.push({
           id: aux[i].id,
           date: aux[i].record_date,
-          month: parseToMonth(aux[i].record_date),
+          month: parseToMonth(aux[i].record_date.substring(5,7)),
           numerator: aux[i].archieved_value,
           denominator: aux[i].expected_value,
           score: (aux[i].efficiency*100+"").substr(0, 5)+"%",
@@ -78,7 +78,10 @@ const ProcessIndicator = () => {
   }
 
   let parseToMonth = (e) => { 
-    switch (e.substring(5, 7)) {
+    
+    console.log("Switch:------------")
+    console.log(e)
+    switch (e) {
     case "01":
       return "Enero"
     case "02":
@@ -156,8 +159,11 @@ const ProcessIndicator = () => {
             axios.post("/update/periodic_record", obj).then((res) => {
             //console.log(res)
             setProcesses([])
-            console.log(month.substring(0,1))
-            rows[i].month = parseToMonth(month.substring(0,1))        
+            console.log("Update:------------")
+            console.log(month)
+            console.log("Corte 0, 2:")
+            console.log(month.substring(0,2))
+            rows[i].month = parseToMonth(month.substring(0,2))        
             rows[i].weight = (uWeight*100+"").substr(0, 5)+"%"
             rows[i].goal = (uGoal*100+"").substr(0, 5)+"%"
             rows[i].numerator = uNumerator
@@ -218,7 +224,7 @@ const ProcessIndicator = () => {
           let aux = rows.concat({
             id: res.data[0].id,
             date: date,
-            month: parseToMonth(date),          
+            month: parseToMonth(date.substring(5, 7)),          
             weight: cWeight,
             goal: cGoal,
             numerator: cNumerator,

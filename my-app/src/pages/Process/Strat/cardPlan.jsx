@@ -30,7 +30,10 @@ const CardPlan = ({ plan, access }) => {
                     variant="contained"
                     color='secondary'
                     onClick = {()=>{
-                        console.log('actualizar plan a estado a aprobado')
+                        axios.post("approve/action_plan?id="+plan.id).then((res)=>{
+                            console.log('actualizar plan a estado a aprobado', res.data) 
+                        })
+                        
                     }}
                     > Aceptar </Button>
                 <Button 
@@ -50,7 +53,7 @@ const CardPlan = ({ plan, access }) => {
                 <Button 
                     variant="contained"
                     color='secondary'
-                    onClick = {()=>{
+                    onClick = {()=>{                        
                         console.log('actualizar plan a estado a en espera')
                         let obj = {
                             id : plan.id, 

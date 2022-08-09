@@ -40,13 +40,13 @@ const Administration = () => {
             <CardAdmin Icon={AssignmentIcon} color={orange} title='PROCESOS' created={adminCount.processes} link_create="/app/crear/proceso" link_show="/app/procesos/inicio"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={AccountTreeIcon} color={teal} title='PROYECTOS' created='0' link_create="/app/crear/proyecto"/>
+            <CardAdmin Icon={AccountTreeIcon} color={teal} title='PROYECTOS' created={adminCount.proyects} link_create="/app/crear/proyecto"/>
           </Grid>          
           <Grid item xs={12} sm={4}>
             <CardAdmin Icon={FlagIcon} color={red} title='OBJETIVOS' created={adminCount.objetives} link_create="/app/crear/objetivo" link_show="/app/ver/objetivos"/>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CardAdmin Icon={BusinessCenterIcon} color={deepPurple} title='EMPRESAS' created='0' link_create="/app/crear/empresa"/>
+            <CardAdmin Icon={BusinessCenterIcon} color={deepPurple} title='EMPRESAS' created={adminCount.companies} link_create="/app/crear/empresa" link_show="/app/ver/empresa"/>
           </Grid>
           <Grid item xs={12} sm={4}>
             <CardAdmin Icon={PersonIcon} color={indigo} title='PLAN DE ACCIÓN' created={adminCount.action_plans} link_create="/app/crear/plan" link_show="/app/ver/plan"/>

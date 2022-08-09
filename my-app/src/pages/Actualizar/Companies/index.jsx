@@ -1,13 +1,16 @@
 
 import { Alert, Button, Grid, Snackbar } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import FormCompany from './FormCompany'
+import { AppContext } from '../../../context/AppContext'
 
 const Company = () => {
 
-  const [name,setName] = useState('')
-  const [NIT,setNIT] = useState('')
+  const { lastObject, setCompany } = useContext(AppContext)
+
+  const [name,setName] = useState(lastObject.name)
+  const [NIT,setNIT] = useState(lastObject.nit)
 
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
@@ -25,10 +28,10 @@ const Company = () => {
         NIT===''){
       setOpen(true)
       setSeverity("error")  
-      setValidationMsg('No pueden haber campos en blanco para actualizar un indicador.')
+      setValidationMsg('No pueden haber campos en blanco para actualizar una empresa.')
     }
     else{
-      const newCompany = { 
+      const newCompany = {   
         name : name,     
         nit : NIT,  
       }
@@ -37,7 +40,7 @@ const Company = () => {
           console.log(res);
           setOpen(true)
           setSeverity("success")
-          setValidationMsg(name +' ha sido creada exitosamente.')
+          setValidationMsg(name +' ha sido creado exitosamente.')
         })
       } catch (error) {
         setOpen(true)
@@ -57,8 +60,7 @@ const Company = () => {
           sx={{ width: "100%" }}>
               {validationMsg}
         </Alert>
-      </Snackbar>
-      <Grid item xs={12} sm={12}>  
+      </Snackbar><Grid item xs={12} sm={12}>
         <FormCompany name={name}
                       setName={setName}
                       NIT={NIT}
@@ -66,7 +68,7 @@ const Company = () => {
                                     />
       </Grid>  
       <Grid item justify="center" align="right" xs={12}>       
-        <Button variant="contained" color='secondary' type="submit">Crear Empresa</Button>
+        <Button variant="contained" color='secondary' type="submit">Actualizar Empresa</Button>
       </Grid>
     </Grid>
   )

@@ -232,12 +232,25 @@ api.post("/update/action_plan", async (req, res) => {
 });
 
 api.get("/get/action_plans", async (req, res) => {
-  var clauses = { where: {} };
+  var clauses = { where: {}, include: { id_plan_states: true } };
   const userId = req.query.userid;
   if (userId !== undefined) {
     clauses.where.userId = parseInt(userId);
   }
   const actionPlans = await prisma.action_plans.findMany(clauses);
+  res.json(actionPlans);
+});
+
+api.get("/get/action_plans/state", async (req, res) => {
+  const id = parseInt(req.query.id);
+  const actionPlans = await prisma.plan_states.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      plans: true,
+    },
+  });
   res.json(actionPlans);
 });
 

@@ -6,12 +6,10 @@ const axios = require('axios').default;
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   { field: 'name', headerName: 'Nombre', width: 150 },
-  { field: 'description', headerName: 'Descripción', width: 250 },
-  { field: 'user', headerName: 'Responsable', width: 100 },
-  { field: 'state', headerName: 'Estado', width: 100 },
+  { field: 'nit', headerName: 'NIT', width: 250 },
 ];
 
-const ActionPlan = () => {
+const Companies = () => {
 
   let navigate = useNavigate();
 
@@ -19,11 +17,11 @@ const ActionPlan = () => {
   const [loading,setloading] = useState(true)
 
   const update = () =>{
-    navigate("/app/actualizar/plan")
+    navigate("/app/actualizar/empresa")
   }
 
   useEffect(()=>{
-    axios.get("/get/action_plans")
+    axios.get("/get/companies")
     .then((res) => {
       let obj = []
       let aux = res.data
@@ -32,11 +30,7 @@ const ActionPlan = () => {
         obj.push({
           id: aux[i].id,
           name: aux[i].name,
-          description: aux[i].description,
-          delivery_date: aux[i].delivery_date,
-          initiativeId: aux[i].initiativeId,
-          user: aux[i].userId,
-          state: aux[i].stateId,            
+          nit: aux[i].nit,
         })        
       }
       setRows(obj)
@@ -59,4 +53,4 @@ const ActionPlan = () => {
   
 }
 
-export default ActionPlan
+export default Companies

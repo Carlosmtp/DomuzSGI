@@ -116,10 +116,10 @@ api.get("/get/objectives/indicator/:id", async (req, res) => {
 });
 
 api.delete("/delete/objective/indicator", async (req, res) => {
-  const data = req.body;
+  const id = parseInt(req.query.id);
   const indicator = await prisma.objetive_indicators.delete({
     where: {
-      id: data.id,
+      id: id,
     },
   });
   res.json(indicator);
@@ -138,6 +138,18 @@ api.post("/create/objective/initiatives", async (req, res) => {
 
 api.get("/get/objectives/initiatives", async (req, res) => {
   const initiatives = await prisma.initiatives.findMany({
+    include: {
+      plans: true,
+    },
+  });
+  res.json(initiatives);
+});
+
+api.get("/get/objective/initiative", async (req, res) => {
+  const initiatives = await prisma.initiatives.findUnique({
+    where: {
+      id: parseInt(req.query.id),
+    },
     include: {
       plans: true,
     },

@@ -12,7 +12,12 @@ const InfoProcess = ( {id, title, description, goal}) => {
   useEffect(()=>{
     axios.get('/get/last_report?process_id='+id).then((res)=>{
       let aux = res.data
-      setEfficiency(aux.efficiency >= 1 ? (aux.efficiency*100+"").substr(0, 3)+"%" : (aux.efficiency*100+"").substr(0, 2)+"%")
+      if(aux === null){
+        setEfficiency('0%')
+      }else{
+        setEfficiency(aux.efficiency >= 1 ? (aux.efficiency*100+"").substr(0, 3)+"%" : (aux.efficiency*100+"").substr(0, 2)+"%")
+      }
+      
     })
   },[])
 

@@ -37,18 +37,16 @@ const Process = () => {
           in_charge : inCharge,
           processId : lastObject.id,
           userId : user.id,
-        }    
-
+        }
         axios.post("/create/process/indicators", ind).then((res) => {
-          console.log('creado_ind',res)
+          console.log('creado_ind',res.data)
           let aux = indicators.concat({
             id:"",
+            indId:res.data.id,
             name:nameIndicator,
             objetive: objective,
-          } )
-          for (let i = 0; i < aux.length; i++) {
-            aux[i].id = i + 1;      
-          }
+          })
+          
           setIndicators(aux)
           setNameIndicator('')
           setObjective('')
@@ -61,10 +59,7 @@ const Process = () => {
           setOpen(true)
           setSeverity("success")
           setValidationMsg(nameIndicator + ' ha sido añadido correctamente.')
-        }          
-        )
-
-        
+        })
       } catch (error) {
         setOpen(true)
         setSeverity("error")
@@ -74,18 +69,15 @@ const Process = () => {
   }
 
   const delete_row = (ind) => {
-    let aux = {
-      indicator_id: ind.indId
-    }
     try {
-      axios.delete("/delete/process/indicator", aux).then((res) => {
-        console.log('res',res)})
-
+      axios.delete("/delete/process/indicator?id="+ind.indId).then((res) => {
+        console.log('res',res)                  
+      })  
         //ACTUALIZAR PROCESOS
         setProcesses([])
         setOpen(true)
         setSeverity("success")
-        setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
+        setValidationMsg(ind.name + ' ha sido eliminado correctamente.')
     } catch (error) {
         setOpen(true)
         setSeverity("error")
@@ -106,10 +98,10 @@ const Process = () => {
       axios.post("/update/proccess", aux).then((res) => {
         console.log('res',res)
         //ACTUALIZAR PROCESOS
-          setProcesses([])
-          setOpen(true)
-          setSeverity("success")
-          setValidationMsg(nameProcess+' ha sido actualizado exitosamente.')
+        setProcesses([])
+        setOpen(true)
+        setSeverity("success")
+        setValidationMsg(nameProcess+' ha sido actualizado exitosamente.')
         }
       )        
     } catch (error) {
@@ -121,9 +113,18 @@ const Process = () => {
   
   useEffect(()=>{
     //Start Rows
-    for (let i = 0; i < lastObject.indicators.length; i++) {
-      //console.log(lastObject.indicators[i] )
-      let aux = []
+    //console.log(lastObject.indicators[i] )
+    let aux = []
+    if(indicators.length !== 0){
+      for (let i = 0; i < indicators.length; i++) {
+        aux = aux.concat({
+          id:i+1,
+          indId: indicators[i].id,
+          name: indicators[i].name,
+          objetive: indicators[i].objetive,
+        })
+      }
+    }else{
       for (let i = 0; i < lastObject.indicators.length; i++) {
         aux = aux.concat({
           id:i+1,
@@ -132,10 +133,10 @@ const Process = () => {
           objetive: lastObject.indicators[i].objetive,
         })
       }
-      setIndicators(aux)
-    }
+    }    
+    setIndicators(aux)    
   }
-  ,[lastObject.indicators])
+  ,[lastObject.indicators, indicators])
 
 //Validación
   const [open, setOpen] = useState(false);

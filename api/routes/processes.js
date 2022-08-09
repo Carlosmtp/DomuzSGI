@@ -45,11 +45,10 @@ api.get("/get/processes", async (req, res) => {
 
 api.post("/create/process/indicators", async (req, res) => {
   const data = req.body;
-  const count = await prisma.process_indicators.createMany({
-    data: data,
-    skipDuplicates: true,
+  const indicator = await prisma.process_indicators.create({
+    data: data
   });
-  res.json(count);
+  res.json(indicator);
 });
 
 api.post("/update/process/indicator", async (req, res) => {
@@ -83,7 +82,7 @@ api.get("/get/periodicity", async (req, res) => {
   });
 
 api.delete("/delete/process/indicator", async (req, res) => {
-  const id = parseInt(req.body.indicator_id);
+  const id = parseInt(req.query.id);
   const del = await prisma.process_indicators.delete({
     where: {
       id: id,

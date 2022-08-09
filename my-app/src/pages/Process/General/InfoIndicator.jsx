@@ -142,15 +142,24 @@ const InfoIndicator = ( { indicator }) => {
     })
 
     axios.get("/get/last_record?indicator_id="+indicator.id).then((res)=>{
-      let aux = res.data      
-      let obj = [{
-        id:1,
-        weight : aux.weight >= 1 ? aux.weight*100+"%" : (aux.weight*100+"").substr(0, 2)+"%",        
-        goal : aux.goal >= 1 ? aux.goal*100+"%" : (aux.goal*100+"").substr(0, 2)+"%",
-        periodicity : ''
-      }]
-      setInfoRows(obj)
-      console.log(res.data)
+      let aux = res.data
+      if(aux===null){
+        let obj = [{
+          id:1,
+          weight : "No",
+          goal : "asignado",
+          periodicity : ''
+        }]
+        setInfoRows(obj)
+      }else{
+        let obj = [{
+          id:1,
+          weight : aux.weight >= 1 ? aux.weight*100+"%" : (aux.weight*100+"").substr(0, 2)+"%",        
+          goal : aux.goal >= 1 ? aux.goal*100+"%" : (aux.goal*100+"").substr(0, 2)+"%",
+          periodicity : ''
+        }]
+        setInfoRows(obj)
+      }
       //setUser(res.data)
     })
     
@@ -173,8 +182,7 @@ const InfoIndicator = ( { indicator }) => {
               <CustomTable rows={infoRows} columns={
                         [
                           { field: 'weight', headerName: 'Peso', width: 75 },
-                          { field: 'goal', headerName: 'Meta', width: 75 },
-                          { field: 'periodicity', headerName: 'Periodicidad', width: 110  }]}
+                          { field: 'goal', headerName: 'Meta', width: 120 }]}
                         pageSize={1}
                         rowsPerPageOptions={25}
                         hideFooter={true}

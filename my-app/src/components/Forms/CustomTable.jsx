@@ -93,7 +93,7 @@ const CustomTable = ({
                       setValidationMsg('Debe existir al menos un existir un item.')
                     }else{
                       setOpenDialog(true)
-                      console.log(rows[select[0]-1].name)
+                      //console.log(rows[select[0]-1].name)
                     }                    
                     }
                   }                  
@@ -103,8 +103,9 @@ const CustomTable = ({
                     setSeverity("error")
                     setValidationMsg('Por favor seleccione la fila que desea eliminar')
                   }else{
-                    const selectedIDs = new Set(select);
+                    const selectedIDs = new Set(select);                    
                     setRows((r) => r.filter((x) => !selectedIDs.has(x.id)));
+
                   }                  
                 }                
               }}

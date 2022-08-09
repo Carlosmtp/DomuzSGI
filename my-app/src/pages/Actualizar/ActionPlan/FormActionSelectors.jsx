@@ -29,11 +29,11 @@ const FormActionSelector = ({ user, setUser }) => {
         <FormContainer>
           <FormItem phone={12} computer={12}>
             <Box p={2} sx={{ border: 2, borderRadius: '16px', borderColor: 'secondary.main' }}>  
-              <CustomAutocomplete label="Usuario"
-                          hook={user}
-                          setHook={setUser}
-                          array_elements={loadedUsers}/>
-            </Box>
+                <CustomAutocomplete label="Usuario"
+                            hook={user}
+                            setHook={setUser}
+                            array_elements={loadedUsers}/>
+              </Box>
           </FormItem>     
         </FormContainer>
     )

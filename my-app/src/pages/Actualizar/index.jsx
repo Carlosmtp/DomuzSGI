@@ -5,6 +5,7 @@ import ProcessIndicator from './ProcessIndicator'
 import User from './User'
 import Process from './Process'
 import Objective from './Objective'
+import ActionPlan from './ActionPlan'
 
 let nombre = (id) => {
   switch (id) {
@@ -16,6 +17,8 @@ let nombre = (id) => {
       return "proceso"
     case "objetivo":
       return "objetivo"
+    case "plan":
+      return "plan de acción"
     default:
       break;
   }
@@ -31,6 +34,8 @@ const routes = (id) => {
       return <Process />
     case "objetivo":
       return <Objective />
+    case "plan":
+      return <ActionPlan />
     default:
       break;
   }

@@ -1,20 +1,22 @@
 
 import { Alert, Box, Button, Grid, Snackbar, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import FormActionPlan from './FormActionPlan'
 import FormActionInitiative from './FormActionInitiative'
 import FormActionSelector from './FormActionSelectors'
 import FormActionDate from './FormActionDate'
+import { AppContext } from '../../../context/AppContext'
 import axios from 'axios'
 
 const Action_Plan = () => {
 
-  const [nameInit,setNameInit] = useState('')
-  const [nameAP,setNameAP] = useState('')
-  const [descriptionAP ,setDescriptionAP] = useState('')
-  const [user,setUser] = useState('')
-  const actualDate = new Date().toISOString().substring(0, 10);
-  const [value,setValue] = useState(actualDate)
+  const { lastObject, setActionPlan } = useContext(AppContext)
+
+  const [nameInit,setNameInit] = useState(lastObject.initiativeId)
+  const [nameAP,setNameAP] = useState(lastObject.name)
+  const [descriptionAP ,setDescriptionAP] = useState(lastObject.description)
+  const [user,setUser] = useState(lastObject.user)
+  const [value,setValue] = useState(lastObject.delivery_date)
   
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
@@ -40,7 +42,8 @@ const Action_Plan = () => {
       setValidationMsg('No pueden haber campos en blanco para actualizar un indicador.')
     }
     else{
-      const newAP = {      
+      const newAP = {  
+        id : lastObject.id, 
         name : nameAP,     
         description : descriptionAP,   
         delivery_date : value,
@@ -48,8 +51,11 @@ const Action_Plan = () => {
         userId :  user.id,
         stateId : 3
       }
+      
+      console.log(lastObject)
+      console.log(newAP)
       try {
-        axios.post("create/action_plan", newAP).then((res) => {
+        axios.post("update/action_plan", newAP).then((res) => {
           console.log(res);
           setOpen(true)
           setSeverity("success")
@@ -103,7 +109,7 @@ const Action_Plan = () => {
                                     />
       </Grid>  
       <Grid item justify="center" align="right" xs={12}>       
-        <Button variant="contained" color='secondary' type="submit">Crear Plan de acción</Button>
+        <Button variant="contained" color='secondary' type="submit">Actualizar Plan de acción</Button>
       </Grid>
     </Grid>
   )

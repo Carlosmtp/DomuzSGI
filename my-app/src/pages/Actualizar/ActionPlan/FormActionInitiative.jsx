@@ -1,42 +1,39 @@
-import { Box } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import CustomAutocomplete from '../../../components/Forms/CustomAutocomplete'
 import FormContainer from '../../../components/Forms/FormContainer'
 import FormItem from '../../../components/Forms/FormItem'
 
+const FormActionInitiative = ({ initiative, setInitiative }) => {
 
-const FormActionSelector = ({ user, setUser }) => {
-
-    const [loadedUsers, setLoadedUsers] = useState([])
+    const [loadedInitiatives, setLoadedInitiatives] = useState([])
   
     useEffect(()=>{
-        axios.get("get/users")
+        axios.get("get/objectives/initiatives")
         .then((res) => {
           let obj = []
           let aux = res.data
           for(let i=0;i<aux.length;i++){        
             obj.push({
               id: aux[i].id,
-              label: aux[i].id_people.name + " " + aux[i].id_people.lastname,
+              label: aux[i].name
             })        
           }
-        setLoadedUsers(obj)
+          setLoadedInitiatives(obj)
         })        
       },[])
 
     return (
         <FormContainer>
           <FormItem phone={12} computer={12}>
-            <Box p={2} sx={{ border: 2, borderRadius: '16px', borderColor: 'secondary.main' }}>  
-              <CustomAutocomplete label="Usuario"
-                          hook={user}
-                          setHook={setUser}
-                          array_elements={loadedUsers}/>
-            </Box>
-          </FormItem>     
+            <CustomAutocomplete label="Iniciativa"
+                        hook={initiative}
+                        setHook={setInitiative}
+                        array_elements={loadedInitiatives}/>
+          </FormItem>            
         </FormContainer>
     )
 }
 
-export default FormActionSelector
+export default FormActionInitiative
+

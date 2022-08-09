@@ -5,6 +5,24 @@ import Objectives from './Objectives';
 import User from './User'
 import Process from './Process'
 import Reports from './Reports'
+import ActionPlan from './ActionPlan'
+
+let nombre = (id) => {
+  switch (id) {
+    case "indicador-de-proceso":
+      return "indicador de proceso"
+    case "usuario":
+      return "usuario"
+    case "proceso":
+      return "proceso"
+    case "objetivo":
+      return "objetivo"
+    case "plan":
+      return "plan de acción"
+    default:
+      break;
+  }
+}
 
 const routes = (id) => {
     switch (id) {
@@ -16,6 +34,8 @@ const routes = (id) => {
         return <Process />
       case "reportes":
         return <Reports /> 
+      case "plan":
+        return <ActionPlan /> 
       default:
         break;
     }
@@ -27,7 +47,7 @@ const Show = () => {
   return (
     <Box>
       <Typography variant="h4">
-        Ver {id}
+        Ver {nombre(id)}
       </ Typography>
       <Box pt={3} pl={3} pr={3}>
         {routes(id)}

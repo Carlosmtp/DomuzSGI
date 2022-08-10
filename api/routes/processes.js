@@ -48,8 +48,8 @@ api.get("/get/process", async (req, res) => {
       id: id,
     },
     include: {
-      indicators:true,
-    }
+      indicators: true,
+    },
   });
   res.json(processe);
 });
@@ -102,7 +102,9 @@ api.delete("/delete/process/indicator", async (req, res) => {
       id: id,
     },
   });
-  res.json("Indicador Eliminado");
+
+  const wtf = await autoUpdateReport(del.processId);
+  res.json({ action: "Delete Exitoso", updated: wtf });
 });
 
 ///////////////////////// Periodic Records ///////////////////////
@@ -300,4 +302,60 @@ api.get("/get/reports/", async (req, res) => {
   const reports = await prisma.process_reports.findMany(clauses);
   res.json(reports);
 });
+
+async function autoUpdateReport(id_p) {
+  const reportsToUpdate = await prisma.process_reports.findMany({
+    where: {
+      processId: id_p,
+    },
+  });
+
+  const indics = await prisma.process_indicators.findMany({
+    where: {
+      processId: id_p,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const toReturn = [];
+  for (let i = 0; i < reportsToUpdate.length; i++) {
+    const actualDate = reportsToUpdate[i].date.toJSON().split("-");
+    const dateToSearch = actualDate[0] + "-" + actualDate[1] + "-31";
+
+    let last = [];
+    for (let j = 0; j < indics.length; j++) {
+      last[j] = await prisma.periodic_records.findFirst({
+        where: {
+          indicatorId: indics[j].id,
+          record_date: {
+            lte: new Date(dateToSearch),
+          },
+        },
+        orderBy: [{ record_date: "desc" }],
+      });
+    }
+    let sum_1 = 0;
+    let sum_2 = 0;
+    last.forEach((e) => {
+      if (e != null) {
+        sum_1 += e.efficiency * e.weight;
+        sum_2 += e.goal * e.weight;
+      }
+    });
+    let processEfficency = sum_1 / sum_2;
+
+    toReturn[i] = await prisma.process_reports.update({
+      where: {
+        id: reportsToUpdate[i].id,
+      },
+      data: {
+        efficiency: processEfficency,
+      },
+    });
+  }
+
+  return toReturn;
+}
+
 module.exports = api;

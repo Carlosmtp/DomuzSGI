@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 
 const User = () => {
 
-  const { lastObject, setProcesses, login } = useContext(AppContext)
+  const { lastObject, setProcesses } = useContext(AppContext)
 
   //console.log('lastObject',lastObject)
   const [name, setName] = useState(lastObject.name);
@@ -20,7 +20,7 @@ const User = () => {
   const [phone, setPhone] = useState(lastObject.phone);
 
   const [idRole, setIdRole] = useState([]);
-  const [startRole, setStartRole] = useState(lastObject.id)
+  const [startRole, setStartRole] = useState(lastObject.rol)
 
   /*const [typeUser,setTypeUser] = useState(1)  */
 
@@ -108,7 +108,7 @@ const User = () => {
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormRole idRole={idRole} setIdRole={setIdRole} startRole={startRole} setStartRole={setStartRole}/>
+        <FormRole idRole={idRole} setIdRole={setIdRole} startRole={startRole} />
       </Grid>
       <Grid item justify="center" align="right" xs={12}>
         <Button variant="contained" color="secondary" type="submit">

@@ -300,7 +300,7 @@ api.get("/get/action_plan", async (req, res) => {
     },
   });
   res.json(actionPlans);
-})
+});
 
 api.get("/get/action_plan", async (req, res) => {
   const id = req.query.action_plan_id;
@@ -383,6 +383,15 @@ api.get("/get/action_plans/perpective/:id", async (req, res) => {
 });
 
 async function autoInsertReport(date) {
+  const aux = await prisma.periodic_records.findUnique({
+    where: {
+      indicatorId_record_date: {
+        indicatorId: 7,
+        record_date: new Date(date[0] + "-" + date[1] + "-01"),
+      },
+    },
+  });
+
   const peridic = await prisma.periodic_records.upsert({
     where: {
       indicatorId_record_date: {
@@ -394,6 +403,7 @@ async function autoInsertReport(date) {
       expected_value: {
         increment: 1,
       },
+      efficiency: aux.archieved_value / (aux.expected_value + 1),
     },
     create: {
       indicatorId: 7,

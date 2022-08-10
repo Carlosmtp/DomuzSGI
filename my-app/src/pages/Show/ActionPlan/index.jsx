@@ -22,12 +22,18 @@ const ActionPlan = () => {
     navigate("/app/actualizar/plan")
   }
 
+  const delete_row = (pln) => {
+    console.log(pln.id_plan)
+    axios.delete("/delete/action_plan?id="+pln.id_plan).then((res) => {
+      console.log('res',res)
+    }) 
+  }
+
   useEffect(()=>{
     axios.get("/get/action_plans")
     .then((res) => {
       let obj = []
       let aux = res.data
-      console.log(aux)
       for(let i=0;i<aux.length;i++){
         obj.push({
           id: i+1,
@@ -43,7 +49,7 @@ const ActionPlan = () => {
       setRows(obj)
       setloading(false)
     })        
-  },[])
+  },[rows])
 
   return (    
       <CustomTable
@@ -55,7 +61,10 @@ const ActionPlan = () => {
         loading={loading}
         editButton={true}
         editFunction={update}
-        checkboxSelection={true}/>
+        checkboxSelection={true}
+        deleteButton={true}
+        deleteFunction={delete_row}
+        />
   )
   
 }

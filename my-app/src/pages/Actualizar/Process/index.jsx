@@ -10,7 +10,6 @@ import { AppContext } from '../../../context/AppContext'
 const Process = () => {
   const { lastObject, setProcesses } = useContext(AppContext)
 
-  //console.log(lastObject)
   const [nameProcess,setNameProcess] = useState(lastObject.name)
   const [descriptionProcess,setDescriptionProcess] = useState(lastObject.description)
   const [goal,setGoal] = useState(lastObject.goal*100)
@@ -69,15 +68,15 @@ const Process = () => {
   }
 
   const delete_row = (ind) => {
-    try {
-      axios.delete("/delete/process/indicator?id="+ind.indId).then((res) => {
-        console.log('res',res)                  
-      })  
-        //ACTUALIZAR PROCESOS
+    try {      
+       axios.delete("/delete/process/indicator?id="+ind.indId).then((res) => {
+        console.log('res',res)       
         setProcesses([])
         setOpen(true)
         setSeverity("success")
-        setValidationMsg(ind.name + ' ha sido eliminado correctamente.')
+        setValidationMsg(ind.name + ' ha sido eliminado correctamente.')           
+      }) 
+        
     } catch (error) {
         setOpen(true)
         setSeverity("error")
@@ -119,7 +118,7 @@ const Process = () => {
       for (let i = 0; i < indicators.length; i++) {
         aux = aux.concat({
           id:i+1,
-          indId: indicators[i].id,
+          indId: indicators[i].indId,
           name: indicators[i].name,
           objetive: indicators[i].objetive,
         })

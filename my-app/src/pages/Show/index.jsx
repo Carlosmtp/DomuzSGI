@@ -12,12 +12,12 @@ let nombre = (id) => {
   switch (id) {
     case "indicador-de-proceso":
       return "indicador de proceso"
-    case "usuario":
-      return "usuario"
+    case "usuarios":
+      return "usuarios"
     case "proceso":
       return "proceso"
-    case "objetivo":
-      return "objetivo"
+    case "objetivos":
+      return "objetivos"
     case "plan":
       return "plan de acción"
     case "empresa":

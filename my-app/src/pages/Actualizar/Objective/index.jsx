@@ -15,7 +15,6 @@ const Objective = () => {
   const [name,setName] = useState(lastObject.name)
   const [description,setDescription] = useState(lastObject.description)
   const [perspective,setPerspective] = useState('')
-  //console.log(lastObject)
   //console.log(perspective)
   //console.log("..........")
 
@@ -26,8 +25,8 @@ const Objective = () => {
   const [goal,setGoal] = useState(0.5)
   const [periodicity,setPeriodicity]= useState('')
 
-  const [initiatives,setInitiatives] = useState(lastObject.initiatives)
-  const [indicators,setIndicators] = useState(lastObject.indicators)
+  const [initiatives,setInitiatives] = useState([])
+  const [indicators,setIndicators] = useState([])
 
   const addRowInit = (e) => {
     if(nameInit==='' || descriptionInit===''){
@@ -36,24 +35,19 @@ const Objective = () => {
       setValidationMsg('No pueden haber campos en blanco para añadir una iniciativa.')
     }else{
       try {
-        let ini = [
-          {
+        let ini = {
             objectiveId: lastObject.objective_id,
             name: nameInit,
             description: descriptionInit
-          }
-        ]
+          }        
 
-        axios.post("/create/objective/initiatives", ini).then((res)=>{
-          console.log(res.data)
+        axios.post("/create/objective/initiative", ini).then((res)=>{
           let aux = initiatives.concat({
             id:"",
+            id_ini:res.data.id,
             name:nameInit,
             description:descriptionInit
           } )
-          for (let i = 0; i < aux.length; i++) {
-            aux[i].id = i + 1;      
-          }
           setInitiatives(aux)
           setNameInit('')
           setDescriptionInit('')
@@ -77,19 +71,17 @@ const Objective = () => {
       setValidationMsg('No pueden haber campos en blanco para añadir un indicador.')
     }else{
       try {
-        let ind = [
-          {
+        let ind = {
           objectiveId: lastObject.objective_id,
           name: nameInd,
           goal: goal,
           periodicityId: periodicity
         }
-      ]
-        console.log(ind)
-        axios.post("/create/objective/indicators", ind).then((res)=>{
+        axios.post("/create/objective/indicator", ind).then((res)=>{
           console.log(res.data)
           let aux = indicators.concat({
             id:"",
+            id_ind: res.data.id,
             name:nameInd,
             goal:goal
           } )
@@ -112,8 +104,8 @@ const Objective = () => {
 
   const delete_ind = (ind) => {
     try {
+      console.log(ind)
         axios.delete("/delete/objective/indicator?id="+ind.id_ind).then((res) => {
-        console.log('res',res)
         setOpen(true)
         setSeverity("success")
         setValidationMsg(ind.name + 'ha sido eliminado correctamente.')
@@ -192,37 +184,58 @@ const Objective = () => {
       }  
     }    
   }
-  
+
   useEffect(()=>{
     axios.get('/get/objectives/perspective/'+lastObject.prespectiveId).then((res)=>{
-      //console.log(res.data)
       let aux = res.data
       setPerspective(aux.name)
     })
+
     let aux = []
-    console.log('indicators',indicators)
-    for (let i = 0; i < indicators.length; i++) {
-      aux.push({
-        id:i+1,
-        id_ind: indicators[i].id,
-        name: indicators[i].name,
-        goal:indicators[i].goal,
-      })
-    }
+    if(indicators.length !== 0){
+      for (let i = 0; i < indicators.length; i++) {
+        aux.push({
+          id:i+1,
+          id_ind: indicators[i].id_ind,
+          name: indicators[i].name,
+          goal:indicators[i].goal,
+        })
+      }
+    }else{
+      for (let i = 0; i < lastObject.indicators.length; i++) {
+        aux.push({
+          id:i+1,
+          id_ind: lastObject.indicators[i].id,
+          name: lastObject.indicators[i].name,
+          goal: lastObject.indicators[i].goal,
+        })
+      }
+    }    
     setIndicators(aux)
     
     let auxInit = []
-    for (let i = 0; i < initiatives.length; i++) {
-      auxInit.push({
-        id:i+1,
-        id_ini: initiatives[i].id,
-        name: initiatives[i].name,
-        description: initiatives[i].description
-      })      
-    }
+    if(initiatives.length !==0){
+      for (let i = 0; i < initiatives.length; i++) {
+        auxInit.push({
+          id:i+1,
+          id_ini: initiatives[i].id_ini,
+          name: initiatives[i].name,
+          description: initiatives[i].description
+        })      
+      }
+    }else{
+      for (let i = 0; i < lastObject.initiatives.length; i++) {
+        auxInit.push({
+          id:i+1,
+          id_ini: lastObject.initiatives[i].id,
+          name: lastObject.initiatives[i].name,
+          description: lastObject.initiatives[i].description
+        })      
+      }  
+    }    
     setInitiatives(auxInit)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[indicators, initiatives])
 
   //Validación
   const [open, setOpen] = useState(false);
@@ -273,7 +286,8 @@ const Objective = () => {
                   rowsPerPageOptions={25}
                   deleteButton={true}
                   checkboxSelection={true}
-                  deleteFunction={delete_ini}/>
+                  deleteFunction={delete_ini}
+                  hideFooter={true}/>
           </Grid>
           <Grid item pt={2}>
             <FormInitiative name={nameInit}
@@ -301,7 +315,8 @@ const Objective = () => {
                   rowsPerPageOptions={25}
                   deleteButton={true}
                   checkboxSelection={true}
-                  deleteFunction={delete_ind}/>
+                  deleteFunction={delete_ind}
+                  hideFooter={true}/>
           </Grid>
           <Grid item pt={2}>
             <FormObjIndicator name={nameInd}

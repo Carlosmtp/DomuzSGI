@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import { ArgumentAxis, ValueAxis, Chart, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 import axios from "axios";
 import { useState } from "react";
@@ -166,22 +166,31 @@ const Report = () => {
   ];
 
 return (
-      <Paper>
-        <CustomTable
-            columns={columns}
-            rows={rows}
-            setRows={setRows}
-            pageSize={processes.length}
-            rowsPerPageOptions={processes.length}
-            loading={loading}
-            hideFooter={true}/>
-        <Chart
-          data={data}>
-          <ArgumentAxis />
-          <ValueAxis />  
-          <BarSeries valueField="value" argumentField="argument" />
-        </Chart>
-      </Paper>
+      <Grid>
+        <Typography><br/></Typography>
+        <Typography variant="h6" pb={3} color='secondary'>Resultados del año</Typography>
+        <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 2 }}>  
+          <CustomTable
+              columns={columns}
+              rows={rows}
+              setRows={setRows}
+              pageSize={processes.length}
+              rowsPerPageOptions={processes.length}
+              loading={loading}
+              hideFooter={true}/>
+        </Box>        
+        <Typography><br/></Typography>
+        <Typography><br/></Typography>
+        <Typography variant="h6" pb={3} color='secondary'>Gráfica</Typography>
+        <Box p={2} sx={{ border: 1, borderRadius: '16px', backgroundColor: 'background.default', borderColor: 'transparent', boxShadow: 2 }}>  
+          <Chart
+            data={data}>
+            <ArgumentAxis />
+            <ValueAxis />  
+            <BarSeries valueField="value" argumentField="argument" />
+          </Chart>
+        </Box>
+      </Grid>
 );
 }
   

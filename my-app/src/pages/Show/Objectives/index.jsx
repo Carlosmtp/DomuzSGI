@@ -5,8 +5,8 @@ const axios = require('axios').default;
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
-  { field: 'name', headerName: 'Nombre', width: 260 },
-  { field: 'description', headerName: 'Descripción', width: 615 }
+  { field: 'name', headerName: 'Nombre', width: 250 },
+  { field: 'description', headerName: 'Descripción', width: 550 }
 ];
 
 const Objectives = () => {

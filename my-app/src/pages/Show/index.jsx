@@ -22,6 +22,8 @@ let nombre = (id) => {
       return "plan de acción"
     case "empresa":
         return "empresas"
+    case "reportes":
+        return"reportes" 
     default:
       break;
   }

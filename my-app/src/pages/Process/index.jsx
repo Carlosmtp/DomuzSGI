@@ -12,23 +12,26 @@ import { useState } from 'react';
 const Process = () => {
     const { id } = useParams();
     const { login, processes } = useContext(AppContext)
-    const [ show , setShow] = useState([])
+    const [ show , setShow] = useState([{id: '', name: "", description: "" }])
 
-    /*
     useEffect(()=>{
       let aux = []
-      for (let i = 0; i < processes.length; i++) {
-        for (let j = 0; j < processes[id].length; j++) {
-          if(processes[i][j].userId === login.userId){
-            aux.concat(processes[i])
-          }        
-        }      
+      if(login.rol === 1 || login.rol === 2){
+        setShow(processes)
+      }else{
+        for (let i = 0; i < processes.length; i++) {        
+          for (let j = 0; j < processes[i].indicators.length; j++) {
+            if(processes[i].indicators[j].userId === login.userId || processes[i].id === 3){
+              aux = aux.concat(processes[i])
+            }      
+          }    
+        }
+        setShow(aux)
       }
 
-      console.log(aux)
-    },[])
-    */
-    
+      
+
+    },[])   
 
     //console.log(login)
     switch (id) {
@@ -43,7 +46,7 @@ const Process = () => {
             </Typography>
             <Grid container spacing={3} p={{xs:0, sm:3}}>
             
-              {processes.map((e,i) =>
+              {show.map((e,i) =>
                 <Processes title={e.name} description={e.description} key={e.id}  id={i}/>)}
     
             </Grid> 

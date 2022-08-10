@@ -10,13 +10,14 @@ import { AppContext } from '../../../context/AppContext'
 
 const InfoIndicator = ( { indicator }) => {
   let navigate = useNavigate()
-  const { processes, setLastObject } = useContext(AppContext)
+  const { processes, setLastObject, login } = useContext(AppContext)
 
   const [user, setUser] = useState(indicator.userId)
 
   const [rows,setRows] = useState([])
   const [infoRows,setInfoRows] = useState([])
   const [loading,setloading] = useState(true)
+  const [editButton, setEditButton] = useState(<Box />)
 
   useEffect(()=>{
     axios.get("/get/periodic_records?year="+new Date().getFullYear()+"&indicator="+indicator.id)
@@ -141,6 +142,10 @@ const InfoIndicator = ( { indicator }) => {
       setUser(res.data)
     })
 
+    if(login.userId === indicator.userId || login.rol === 1 || login.rol === 2){
+      edit()
+    }
+
     axios.get("/get/last_record?indicator_id="+indicator.id).then((res)=>{
       let aux = res.data
       if(aux===null){
@@ -165,6 +170,18 @@ const InfoIndicator = ( { indicator }) => {
     
     //si algo se daña quita userId del array
   },[indicator.userId,indicator.id, processes])
+
+  const edit = ()=>{
+    setEditButton(
+      <Button onClick={()=>{
+                      setLastObject(indicator)
+                      navigate('/app/actualizar/indicador-de-proceso')
+                      }}
+                      variant="contained"
+                      color='secondary'
+                      > Editar Indicador </Button>
+    )
+  }
 
   return (
     <Box bgcolor='background.default' sx={{ borderRadius: '16px', boxShadow: 2, mb: 4, pl:3, pr:3 }}>
@@ -191,13 +208,7 @@ const InfoIndicator = ( { indicator }) => {
                       />
             </Grid> 
             <Grid item xs={12} sm={2} align='center'>
-              <Button onClick={()=>{
-                setLastObject(indicator)
-                navigate('/app/actualizar/indicador-de-proceso')
-                }}
-                variant="contained"
-                color='secondary'
-                > Editar Indicador </Button>
+              {editButton}
               </Grid>
             
             <Grid item xs={12} sm={12} >

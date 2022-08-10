@@ -1,71 +1,48 @@
 import { Box, Divider, Grid, LinearProgress, Pagination, Typography } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import CustomAvatar from '../../../components/CustomAvatar';
+import { AppContext } from '../../../context/AppContext';
 const axios = require('axios').default;
 
 const FormRole = ({
-          idRole, setIdRole, startRole, setStartRole
+          idRole, setIdRole, startRole
 }) => {
-
+    const { login } = useContext(AppContext)
+    const [show, setShow] = useState(<Box />)
+    
     const[name, setName] = useState()
     const[description, setDescription] = useState()
 
     const[page, setPage] = useState(1)
 
     const [roles,setRoles] = useState([])//Array de Objetos
-    const [loading,setloading] = useState(true)
-
-    /*
-    useEffect(()=>{
-      console.log(startRole)
-      if(startRole >= 0 && roles.length > 0){
-        axios.get("get/user?user_id="+startRole).then((res)=>{
-          let init = res.data.rol
-          for (let i = 0; i < roles.length; i++) {
-            
-            if(init === roles[i].id){
-              console.log(roles[i])
-              setName(roles[i].name)
-              setDescription(roles[i].description)
-              setIdRole(roles[i].id)
-              setPage(i+1)
-              setStartRole('')
-            }            
-          }
-        }) 
-      }
-    },[startRole, roles])
-
-    */
-    
-    useEffect(()=>{
-      if(startRole >= 0 && roles.length > 0){
-        axios.get("get/user?user_id="+startRole).then((res)=>{
-        let init = res.data.rol
-        for (let i = 0; i < roles.length; i++) {  
-          if(init === roles[i].id){
-            setName(roles[i].name)
-            setDescription(roles[i].description)
-            setIdRole(roles[i].id)
-            setPage(i+1)
-            setStartRole('')
-            }            
-          }
-        }) 
-      } 
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[roles])
+    const [loading,setloading] = useState(true)  
 
     useEffect(()=>{
         axios.get("get/roles")
         .then((res) => {
-          //console.log(res.data)        
+          let aux = res.data
           setloading(false)
-          setRoles(res.data)
-          setName(res.data[0].name)
-          setDescription(res.data[0].description)
-          setIdRole(res.data[0].id)          
+          setRoles(aux)
+          
+          if(startRole>=0){
+            for (let i = 0; i < aux.length; i++) {
+              if(aux[i].id === startRole){
+                setName(aux[i].name)
+                setDescription(aux[i].description)
+                setIdRole(aux[i].id)
+              }
+            }
+          }else{
+            setName(aux[0].name)
+            setDescription(aux[0].description)
+            setIdRole(aux[0].id)
+          }
         })
+
+        if(login.rol === 1 || login.rol === 2){
+          showRol()
+      }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
 
@@ -75,6 +52,12 @@ const FormRole = ({
         setName(roles[i-1].name)
         setDescription(roles[i-1].description)
   };
+
+  const showRol = () => {
+    setShow(
+      <Pagination page={page} count={roles.length} onChange={handleChange} color="secondary" />
+    )
+  }
 
   if(loading){
     return (
@@ -100,7 +83,7 @@ const FormRole = ({
                 
             </Grid>
             <Box pt={3}>
-              <Pagination page={page} count={roles.length} onChange={handleChange} color="secondary" />
+              {show}
             </Box>
             
         </Grid>

@@ -7,7 +7,7 @@ const columns = [
   { field: 'person_id', headerName: 'Identificación', width: 150 },
   { field: 'name', headerName: 'First name', width: 130 },
   { field: 'lastname', headerName: 'Last name', width: 130 },
-  { field: 'rol', headerName: 'Rol', width: 130 },
+  { field: 'rol_name', headerName: 'Rol', width: 130 },
   { field: 'mail', headerName: 'Mail', width: 180 },
   { field: 'phone', headerName: 'Phone', width: 130 },
 ];
@@ -25,17 +25,18 @@ const User = () => {
 
   useEffect(()=>{
     axios.get("get/users")
-    .then((res) => {
+    .then((res) => {      
       let obj = []
       let aux = res.data
       //console.log(aux[0])
       for(let i=0;i<aux.length;i++){
         obj.push({
-          id: aux[i].id,
+          id: i+1,
           person_id: aux[i].id_people.person_id,
           name: aux[i].id_people.name,
           lastname: aux[i].id_people.lastname,
-          rol: aux[i].id_roles.name,
+          rol_name: aux[i].id_roles.name,
+          rol: aux[i].id_roles.id,
           mail: aux[i].id_people.mail,
           phone: aux[i].id_people.phone
         })        

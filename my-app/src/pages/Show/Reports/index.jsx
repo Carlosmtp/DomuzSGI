@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
-import { Paper } from '@mui/material';
+import React, { useContext, useEffect } from "react";
+import { Grid, Paper, Typography } from '@mui/material';
 import { ArgumentAxis, ValueAxis, Chart, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 import axios from "axios";
 import { useState } from "react";
+import CustomTable from "../../../components/Forms/CustomTable";
+import { AppContext } from "../../../context/AppContext";
   
   
 const Report = () => {
 
+  const { processes } = useContext(AppContext)
+
   const [data,setData] = useState ([])
+  const [rows,setRows] = useState([])  
+  const [loading,setloading] = useState(true)
 
   useEffect(()=>{
     axios.get("get/reports?year=2022")
@@ -82,20 +88,100 @@ const Report = () => {
       }
       setData(months)
       console.log(obj)
-    })        
+    })                     
+
+    let mat = []
+    for (let i = 0; i < processes.length; i++) {
+      mat = mat.concat({id:processes[i].id, name:processes[i].name ,jan:'',feb:'',mar:'',apr:'',may:'',jun:'',jul:'',ago:'',sep:'',oct:'',nov:'',dec:''})    
+    }
+
+    axios.get("get/reports?year="+new Date().getFullYear())
+    .then((res) => {
+      let aux = res.data 
+      for (let i = 0; i < aux.length; i++) {
+        for (let j = 0; j < processes.length; j++) {
+          if (aux[i].processId === processes[j].id) {
+            switch (aux[i].date.substring(5, 7)) {
+              case '01':
+                mat[j].jan = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '02':
+                mat[j].feb = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '03':
+                mat[j].mar = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '04':
+                mat[j].apr = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '05':
+                mat[j].may = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '06':
+                mat[j].jun = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '07':
+                mat[j].jul = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '08':
+                mat[j].ago = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '09':
+                mat[j].sep = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '10':
+                mat[j].oct = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '11':
+                mat[j].nov = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              case '12':
+                mat[j].dec = Math.round(aux[i].efficiency*100)+"%"
+                break;
+              default:
+                break;
+            }
+          }          
+        }        
+      }    
+      setRows(mat)
+      setloading(false)
+    })
   },[])
 
+  const columns = [
+    { field: 'name', headerName: 'Proceso', width: 190 },
+    { field: 'jan', headerName: 'ENE', width: 70 },
+    { field: 'feb', headerName: 'FEB', width: 70 },
+    { field: 'mar', headerName: 'MAR', width: 70 },
+    { field: 'apr', headerName: 'ABR', width: 70 },
+    { field: 'may', headerName: 'MAY', width: 70 },
+    { field: 'jun', headerName: 'JUN', width: 70 },
+    { field: 'jul', headerName: 'JUL', width: 70 },
+    { field: 'ago', headerName: 'AGO', width: 70 },
+    { field: 'sep', headerName: 'SEP', width: 70 },
+    { field: 'oct', headerName: 'OCT', width: 70 },
+    { field: 'nov', headerName: 'NOV', width: 70 },
+    { field: 'dec', headerName: 'DIC', width: 70 },
+  ];
+
 return (
-    <Paper>
-    <Chart
-      data={data}
-    >
-      <ArgumentAxis />
-      <ValueAxis />
-  
-      <BarSeries valueField="value" argumentField="argument" />
-    </Chart>
-  </Paper>
+      <Paper>
+        <CustomTable
+            columns={columns}
+            rows={rows}
+            setRows={setRows}
+            pageSize={processes.length}
+            rowsPerPageOptions={processes.length}
+            loading={loading}
+            hideFooter={true}/>
+        <Chart
+          data={data}>
+          <ArgumentAxis />
+          <ValueAxis />  
+          <BarSeries valueField="value" argumentField="argument" />
+        </Chart>
+      </Paper>
 );
 }
   

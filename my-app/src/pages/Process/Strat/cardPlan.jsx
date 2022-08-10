@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
 import { AppContext } from '../../../context/AppContext'
 
-const CardPlan = ({ plan, access }) => {
+const CardPlan = ({ plan, setUpdate, access }) => {
     const { setLastObject, setProcesses } = useContext(AppContext)
 
     const [user, setUser] = useState('')
@@ -39,6 +39,7 @@ const CardPlan = ({ plan, access }) => {
                                 console.log(res.data)
                                 setProcesses([])
                                 setLastObject(res.data)
+                                setUpdate([])
                             })
                         })
                         
@@ -49,6 +50,19 @@ const CardPlan = ({ plan, access }) => {
                     color='info'
                     onClick = {()=>{
                         console.log('actualizar plan a estado a no aprobado')
+                        let obj = {
+                            id : plan.id, 
+                            name : plan.name,     
+                            description : plan.description,   
+                            delivery_date : plan.delivery_date,
+                            initiativeId : plan.initiativeId,
+                            userId :  plan.userId,
+                            stateId : 3
+                        }
+                        axios.post("update/action_plan", obj).then((res)=>{
+                            console.log(res.data)
+                            setUpdate([])
+                        })
                     }}
                     > Rechazar </Button>
             </Grid>
@@ -61,7 +75,7 @@ const CardPlan = ({ plan, access }) => {
                 <Button 
                     variant="contained"
                     color='secondary'
-                    onClick = {()=>{                        
+                    onClick = {()=>{                     
                         console.log('actualizar plan a estado a en espera')
                         let obj = {
                             id : plan.id, 
@@ -72,7 +86,10 @@ const CardPlan = ({ plan, access }) => {
                             userId :  plan.userId,
                             stateId : 1
                         }
-                        console.log(obj)
+                        axios.post("update/action_plan", obj).then((res)=>{
+                            console.log(res.data)
+                            setUpdate([])
+                        })                        
                     }}
                     > Enviar </Button>
             </Grid>

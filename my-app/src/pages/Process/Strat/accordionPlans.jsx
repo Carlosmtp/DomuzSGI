@@ -4,7 +4,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardPlan from './CardPlan'
 
-const AccordionPlans = ( {title, plans, access}) => {
+const AccordionPlans = ( {title, plans, setUpdate, access}) => {
   return (
     <Accordion>
                 <AccordionSummary
@@ -21,7 +21,7 @@ const AccordionPlans = ( {title, plans, access}) => {
                     sx={{
                         backgroundColor: "background.default"
                     }}>
-                    {plans.map((e,i) => <CardPlan plan={e} key={i} index={i} access={access}/>)}
+                    {plans.map((e,i) => <CardPlan plan={e} key={i} setUpdate={setUpdate} index={i} access={access}/>)}
                 </AccordionDetails>
             </Accordion>
   )

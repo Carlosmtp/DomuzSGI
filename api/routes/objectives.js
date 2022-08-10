@@ -293,7 +293,7 @@ api.get("/get/action_plans/mes", async (req, res) => {
   res.json(actionPlans);
 });
 
-api.get("/get/action_plan", async (req, res) => {
+api.get("/get/action_plans", async (req, res) => {
   const actionPlans = await prisma.action_plans.findMany({
     include: {
       id_plan_states: true,

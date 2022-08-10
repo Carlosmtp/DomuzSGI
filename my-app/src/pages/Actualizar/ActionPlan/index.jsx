@@ -29,7 +29,8 @@ const Action_Plan = () => {
   };
 
   useEffect(()=>{
-    axios.get('/get/user?user_id='+lastObject.user).then((res)=>{
+    console.log(lastObject)
+    axios.get('/get/user?user_id='+lastObject.userId).then((res)=>{
       let aux1 = res.data
       setUser(aux1.name + " " + aux1.lastname)
     })
@@ -53,8 +54,8 @@ const Action_Plan = () => {
       setValidationMsg('No pueden haber campos en blanco para actualizar un indicador.')
     }
     else{
-      const newAP = {  
-        id : lastObject.id, 
+      const newAP = {
+        id : lastObject.id_plan,
         name : nameAP,     
         description : descriptionAP,   
         delivery_date : value,

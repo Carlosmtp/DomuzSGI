@@ -10,7 +10,7 @@ import { AppContext } from '../../../context/AppContext'
 
 const InfoIndicator = ( { indicator }) => {
   let navigate = useNavigate()
-  const { setLastObject } = useContext(AppContext)
+  const { processes, setLastObject } = useContext(AppContext)
 
   const [user, setUser] = useState(indicator.userId)
 
@@ -164,7 +164,7 @@ const InfoIndicator = ( { indicator }) => {
     })
     
     //si algo se daña quita userId del array
-  },[indicator.userId,indicator.id])
+  },[indicator.userId,indicator.id, processes])
 
   return (
     <Box bgcolor='background.default' sx={{ borderRadius: '16px', boxShadow: 2, mb: 4, pl:3, pr:3 }}>

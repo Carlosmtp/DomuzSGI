@@ -13,10 +13,10 @@ const FormActionInitiative = ({ initiative, setInitiative }) => {
         .then((res) => {
           let obj = []
           let aux = res.data
-          for(let i=0;i<aux.length;i++){        
+          for(let i=0;i<aux.length;i++){            
             obj.push({
               id: aux[i].id,
-              label: aux[i].name
+              label: aux[i].id_objetives.name+' > '+aux[i].name
             })        
           }
           setLoadedInitiatives(obj)

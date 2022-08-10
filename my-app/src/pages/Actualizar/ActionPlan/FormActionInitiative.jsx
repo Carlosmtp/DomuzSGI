@@ -16,9 +16,10 @@ const FormActionInitiative = ({ initiative, setInitiative }) => {
           for(let i=0;i<aux.length;i++){        
             obj.push({
               id: aux[i].id,
-              label: aux[i].name
-            })        
+              label: aux[i].id_objetives.name+' > '+aux[i].name
+            })
           }
+          console.log(obj)
           setLoadedInitiatives(obj)
         })        
       },[])

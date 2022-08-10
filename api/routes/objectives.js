@@ -138,6 +138,7 @@ api.get("/get/objectives/initiatives", async (req, res) => {
   const initiatives = await prisma.initiatives.findMany({
     include: {
       plans: true,
+      id_objetives: true
     },
   });
   res.json(initiatives);
@@ -297,7 +298,7 @@ api.get("/get/action_plans/mes", async (req, res) => {
 api.get("/get/action_plans", async (req, res) => {
   const actionPlans = await prisma.action_plans.findMany({
     include: {
-      id_plan_states: true,
+      id_plan_states: true
     },
   });
   res.json(actionPlans);

@@ -7,7 +7,7 @@ const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
   { field: 'name', headerName: 'Nombre', width: 150 },
   { field: 'description', headerName: 'Descripción', width: 250 },
-  { field: 'user', headerName: 'Responsable', width: 100 },
+  { field: 'date', headerName: 'Fecha', width: 120 },
   { field: 'state', headerName: 'Estado', width: 100 },
 ];
 
@@ -42,8 +42,8 @@ const ActionPlan = () => {
           description: aux[i].description,
           delivery_date: aux[i].delivery_date,
           initiativeId: aux[i].initiativeId,
-          userId: aux[i].userId,
-          state: aux[i].stateId,            
+          date: aux[i].delivery_date.substring(0,10),
+          state: aux[i].id_plan_states.name,
         })        
       }
       setRows(obj)

@@ -36,7 +36,10 @@ const Action_Plan = () => {
     })
     axios.get('/get/objective/initiative?id='+lastObject.initiativeId).then((res)=>{
         let aux2 = res.data
-        setNameInit(aux2.name)})
+        console.log(aux2)
+        setNameInit(aux2.name)
+        //console.log({aux2.id, aux2.name})
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 

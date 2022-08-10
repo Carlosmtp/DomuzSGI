@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardPlan from './CardPlan'
 
 const AccordionPlans = ( {title, plans, setUpdate, access}) => {
+
   return (
     <Accordion>
                 <AccordionSummary
